@@ -1,3 +1,7 @@
+#ifndef Mundo_HEADER
+#define Mundo_HEADER
+
+
 #include <iostream>
 #include <vector>
 #include "Territorio.h"
@@ -13,3 +17,4 @@ public:
 	Mundo();
 };
 
+#endif

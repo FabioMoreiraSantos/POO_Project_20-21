@@ -1,3 +1,6 @@
+#ifndef Territorio_HEADER
+#define Territorio_HEADER
+
 #include <iostream>
 
 using namespace std;
@@ -18,5 +21,7 @@ public:
 
 	string getNome();
 };
+
+#endif
 
 
