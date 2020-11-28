@@ -4,9 +4,7 @@
 using namespace std;
 
 int main() {
-    Interface i(new Mundo());
-	// Territorio t1, t2, t3, t4;
-	// cout << t1.getNome() << endl;
+    Interface i(new Mundo(), cin, cout);
 
-    i.criarMundo(cin, cout);
+    i.criarMundo();
 }

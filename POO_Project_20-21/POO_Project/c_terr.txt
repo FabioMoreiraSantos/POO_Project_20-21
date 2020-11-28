@@ -1,0 +1,3 @@
+criar territorio 3
+criar territorio 1
+criar territorio 5
