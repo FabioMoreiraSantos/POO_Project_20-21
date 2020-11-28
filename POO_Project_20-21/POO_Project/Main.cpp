@@ -1,13 +1,12 @@
 #include <iostream>
-#include "Mundo.h"
+#include "Interface.h"
 
 using namespace std;
 
 int main() {
+    Interface i(new Mundo());
 	// Territorio t1, t2, t3, t4;
-    Mundo mundo;
+	// cout << t1.getNome() << endl;
 
-    mundo.configurarMundo();
-
-    cout << mundo.getAsString() << endl;
+    i.criarMundo(cin, cout);
 }

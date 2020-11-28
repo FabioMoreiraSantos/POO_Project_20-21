@@ -14,9 +14,7 @@ class Mundo
 	vector<Territorio*> territorios;
 
 public:
-	//Contrutor por omissao
-	// Mundo();
-	
+	Mundo() = default;
 	/*
 		readMethod => CIN_READ, FILE_READ
 	*/

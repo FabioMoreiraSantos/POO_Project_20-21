@@ -4,11 +4,17 @@ using namespace std;
 
 class Imperio
 {
-	int armazemProdutos = 0;
-	int armazemOuro = 0;
-	int maxUnidades = 3;
-	int forcaMilitar = 0;
-	int maxMilitar = 3;
+	// int armazemProdutos = 0;
+	// int armazemOuro = 0;
+	// int maxUnidades = 3;
+	// int forcaMilitar = 0;
+	// int maxMilitar = 3;
+
+	int armazemProdutos;
+	int armazemOuro;
+	int maxUnidades;
+	int forcaMilitar;
+	int maxMilitar;
 
 public:
 	Imperio();
