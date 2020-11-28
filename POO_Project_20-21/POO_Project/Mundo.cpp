@@ -3,15 +3,14 @@
 #include <fstream>
 #include "Mundo.h"
 
-void Mundo::criaTerritorio(string type, int quant) {
-    for(int i = 0; i < quant; i++) {
-        territorios.push_back(new Territorio(type));
-    }
-}
-
-void Mundo::configurarMundo() {
-    criaTerritorio("Territorio", 10);
-    criaTerritorio("Territorio", 5);
+bool Mundo::criaTerritorios(string type, int quant) {
+    if(type == "territorio" || type == "Territorio") {
+        for(int i = 0; i < quant; i++)
+            territorios.push_back(new Territorio());
+    } else 
+        return false;
+    
+    return true;
 }
 
 string Mundo::getAsString() const {
@@ -21,7 +20,4 @@ string Mundo::getAsString() const {
         os << (*it)->getNome() << " ";
 
     return os.str();
-}
-
-void Mundo::parseComando() {
 }

@@ -15,13 +15,17 @@ class Mundo
 
 public:
 	Mundo() = default;
+
+	~Mundo() {
+		// Free allocated territorios' memory
+		for(auto it = territorios.begin(); it < territorios.end(); it++)
+			delete (*it);
+	}
+
 	/*
 		readMethod => CIN_READ, FILE_READ
 	*/
-	void criaTerritorio(string type, int quant);
-	void configurarMundo();
-
-	void parseComando();
+	bool criaTerritorios(string type, int quant);
 
 	string getAsString() const;
 };
