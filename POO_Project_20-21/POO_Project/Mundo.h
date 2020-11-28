@@ -10,6 +10,6 @@ class Mundo
 
 public:
 	//Contrutor por omissao
-	Mundo();
+	Mundo() = default;
 };
 
