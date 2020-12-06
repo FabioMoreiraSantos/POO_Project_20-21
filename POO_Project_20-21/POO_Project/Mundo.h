@@ -1,31 +1,30 @@
 #include <iostream>
 #include <vector>
 #include "Territorio.h"
+#include "Imperio.h"
 
 using namespace std;
 
-#define CIN_READ 1
-#define FILE_READ 2
-
-class Mundo
-{
-	// const int CIN_READ = 1;
-	// const int FILE_READ =
+class Mundo {
 	vector<Territorio*> territorios;
+	Imperio* imperio;
 
 public:
-	Mundo() = default;
+	Mundo() {
+		imperio = new Imperio();
+	};
 
 	~Mundo() {
 		// Free allocated territorios' memory
 		for(auto it = territorios.begin(); it < territorios.end(); it++)
 			delete (*it);
+		
+		delete imperio;
 	}
 
-	/*
-		readMethod => CIN_READ, FILE_READ
-	*/
 	bool criaTerritorios(string type, int quant);
+	string lista() const;
+	string lista(const string nomeTerritorio) const;
 
 	string getAsString() const;
 };

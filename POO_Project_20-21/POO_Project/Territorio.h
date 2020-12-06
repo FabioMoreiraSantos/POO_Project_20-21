@@ -11,6 +11,7 @@ class Territorio
 	int criacaoProdutos = 1;
 	int criacaoOuro = 1;
 	int pVitoria = 0;
+	bool isConquistado = false;
 
 public:
 	Territorio() {
@@ -18,7 +19,14 @@ public:
 		nTerritorios++;
 	}
 
-	string getNome();
+	string getNome() const { return nome; };
+	int getResistencia() const { return resistencia; };
+	int getCriacaoOuro() const { return criacaoOuro; };
+	int getCriacaoProdutos() const { return criacaoProdutos; };
+	int getPVitoria() const { return pVitoria; };
+	string getStatusConquitado() const { return isConquistado ? "Conquistado" : "Livre"; }
+
+	string listaInfo() const;
 };
 
 

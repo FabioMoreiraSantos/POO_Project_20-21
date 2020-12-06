@@ -1,19 +1,36 @@
 #include "Interface.h"
 
-void Interface::criarMundo() {
+void Interface::run() {
     string command;
-    
-    do {
-        o_stream << "Commando: ";
+
+    while(true) {
+        o_stream << "[" << getFaseName() << "] Commando: ";
         getline(i_stream, command);
+
         if(command.size() == 0)
             continue;
-        else if(command == "sair")
-            break;
-        else if(!parseCommand(command))
+        else if(command == "avanca") {
+            nextFase();
+            continue;
+        } else if(!parseCommand(command))
             o_stream << "[ERRO] Commando invalido!" << endl;
 
-    } while(true);
+        // switch(fase) {
+        //     case F_CONFIG:
+        //         // If true, then received command 'avanca'
+        //         if(criarMundo())
+        //             nextFase();
+        //         break;
+        //     case F_CONQUISTA:
+        //         break;
+        //     case F_RECOLHA:
+        //         break;
+        //     case F_COMPRA:
+        //         break;
+        //     case F_EVENTOS:
+        //         break;
+        // }
+    }
 }
 
 bool Interface::parseCommand(string command) {
@@ -23,17 +40,22 @@ bool Interface::parseCommand(string command) {
     commandVector = splitString(command);
     commandType = commandVector[0];
 
-    if(commandType == "cria") {
+    if(commandType == "cria" && fase == F_CONFIG){
         if(mundo->criaTerritorios(commandVector[1], stoi(commandVector[2])))
             o_stream << "Territorio criado com sucesso!" << endl;
-    } else if(commandType == "carrega") {
+    } else if(commandType == "carrega" && fase == F_CONFIG) {
         if(!readFromFile(commandVector[1]))
             o_stream << "[ERRO] Ficheiro invalido!" << endl;
         else
             o_stream << "Ficheiro lido com sucesso!" << endl;
+    } else if (commandType == "lista") {
+        if(commandVector.size() == 1)
+            o_stream << mundo->lista() << endl;
+        else
+            o_stream << mundo->lista(commandVector[1]) << endl;
+            
     } else
         return false;
-
     // o_stream << mundo->getAsString() << endl;
 
     return true;
@@ -68,4 +90,19 @@ vector<string> Interface::splitString(string str) const {
     }
 
     return words;
+}
+
+void Interface::nextFase() {
+    if(fase == 4)
+        fase = 1;
+    else fase++;
+}
+
+string Interface::getFaseName() {
+    if(fase == F_CONFIG) return "CONFIGURA";
+    else if (fase == F_CONQUISTA) return "CONQUISTA/PASSA";
+    else if (fase == F_COMPRA) return "COMPRA";
+    else if (fase == F_RECOLHA) return "RECOLHA";
+    else if (fase == F_EVENTOS) return "EVENTOS";
+    else return "";
 }

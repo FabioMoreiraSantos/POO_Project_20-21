@@ -6,5 +6,5 @@ using namespace std;
 int main() {
     Interface i(new Mundo(), cin, cout);
 
-    i.criarMundo();
+    i.run();
 }
