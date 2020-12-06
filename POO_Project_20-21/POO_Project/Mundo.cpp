@@ -22,6 +22,7 @@ string Mundo::getAsString() const {
     return os.str();
 }
 
+// Lista info do imperio
 string Mundo::lista() const {
     ostringstream os;
 
@@ -30,12 +31,16 @@ string Mundo::lista() const {
     return os.str();
 }
 
+// Lista info dos terrtorios
 string Mundo::lista(const string nomeTerritorio) const {
     ostringstream os;
 
     for(auto it = territorios.begin(); it < territorios.end(); it++) {
+        // Mostra lista de territorios
         if(nomeTerritorio == "territorios")
             os << (*it)->getNome() << " ";
+        
+        // Mostra info de um territorio
         else if((*it)->getNome() == nomeTerritorio)
             os << (*it)->listaInfo();
     }

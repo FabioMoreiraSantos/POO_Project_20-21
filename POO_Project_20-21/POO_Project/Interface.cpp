@@ -25,23 +25,27 @@ bool Interface::parseCommand(string command) {
     commandVector = splitString(command);
     commandType = commandVector[0];
 
-    if(commandType == "cria" && fase == F_CONFIG){
+    
+    if(commandType == "cria" && fase == F_CONFIG){ // Cria territorios
         if(mundo->criaTerritorios(commandVector[1], stoi(commandVector[2])))
             o_stream << "Territorio criado com sucesso!" << endl;
-    } else if(commandType == "carrega" && fase == F_CONFIG) {
+    } else if(commandType == "carrega" && fase == F_CONFIG) { // Carrega ficheiro de comandos
         if(!readFromFile(commandVector[1]))
             o_stream << "[ERRO] Ficheiro invalido!" << endl;
         else
             o_stream << "Ficheiro lido com sucesso!" << endl;
-    } else if (commandType == "lista") {
+    } else if (commandType == "lista") { // Lista info
+        // lista -> Lista info do imperio
         if(commandVector.size() == 1)
             o_stream << mundo->lista() << endl;
+
+        // lista <tipo_de_territorio> -> Lista os territorios do tipo dado
+        // lista <nome_do_territorio> -> Lista info do dado territorio
         else
             o_stream << mundo->lista(commandVector[1]) << endl;
             
     } else
         return false;
-    // o_stream << mundo->getAsString() << endl;
 
     return true;
 }
@@ -53,7 +57,8 @@ bool Interface::readFromFile(string filename) {
 	myfile.open(filename);
 
     if(!myfile.fail())
-        while(getline(myfile, command)) {
+        // Le e processa comando do ficheiro
+        while(getline(myfile, command)) { 
             o_stream << command << endl;
             parseCommand(command);
         }
@@ -65,6 +70,7 @@ bool Interface::readFromFile(string filename) {
     return true;
 }
 
+// Separa uma frase num vetor de palavras
 vector<string> Interface::splitString(string str) const {
     string tmp; 
     stringstream ss(str);
