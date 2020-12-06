@@ -13,13 +13,26 @@ class Territorio
 	int resistencia;
 	int criacaoProdutos;
 	int criacaoOuro;
-	int pVitoria;
+	int pVitoria;		
 
 public:
 	//Construtor por omissao
 	Territorio();
 
 	string getNome();
+
+	//Getters
+	int getResistencia();
+	int getCriacaoProduto();
+	int getCriacaoOuro();
+	int getPVitoria();
+
+	//Setters
+	void setResistencia(int valor);
+	void setCriacaoProduto(int valor);
+	void setCriacaoOuro(int valor);
+	void setPVitoria(int valor);
+
 };
 
 #endif

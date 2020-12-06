@@ -14,9 +14,52 @@ Territorio::Territorio()
 	nTerritorios++;
 }
 
+//Getters
 string Territorio::getNome()
 {
 	return nome;
+}
+
+int Territorio::getResistencia()
+{
+	return resistencia;
+}
+
+int Territorio::getCriacaoProduto()
+{
+	return criacaoProdutos;
+}
+
+int Territorio::getCriacaoOuro()
+{
+	return criacaoOuro;
+}
+
+int Territorio::getPVitoria()
+{
+	return pVitoria;
+}
+
+
+//Setters
+void Territorio::setResistencia(int valor)
+{
+	resistencia = valor;
+}
+
+void Territorio::setCriacaoProduto(int valor)
+{
+	criacaoProdutos = valor;
+}
+
+void Territorio::setCriacaoOuro(int valor)
+{
+	criacaoOuro = valor;
+}
+
+void Territorio::setPVitoria(int valor)
+{
+	pVitoria = valor;
 }
 
 

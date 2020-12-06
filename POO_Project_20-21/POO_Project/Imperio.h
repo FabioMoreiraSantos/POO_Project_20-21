@@ -15,7 +15,7 @@ class Imperio
 	int maxUnidades = 3;
 	int forcaMilitar = 0;
 	int maxMilitar = 3;
-	vector<Territorio> imperio;				//vetor de territorios
+	vector<Territorio*> reinado;				//vetor de territorios
 
 public:
 	Imperio();
@@ -30,8 +30,9 @@ public:
 	void setMaxMilitar(int max);
 	
 	//Methods
-	void addTerritorio(Territorio territorio);
-	void removeTerritorio(Territorio territorio);
+	void addTerritorio(Territorio * territorio);
+	void removeTerritorio(Territorio * territorio);
+	void conquistar(Territorio * territorio);
 };
 
 #endif
