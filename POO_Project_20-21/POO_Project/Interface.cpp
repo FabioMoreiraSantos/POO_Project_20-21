@@ -15,21 +15,6 @@ void Interface::run() {
         } else if(!parseCommand(command))
             o_stream << "[ERRO] Commando invalido!" << endl;
 
-        // switch(fase) {
-        //     case F_CONFIG:
-        //         // If true, then received command 'avanca'
-        //         if(criarMundo())
-        //             nextFase();
-        //         break;
-        //     case F_CONQUISTA:
-        //         break;
-        //     case F_RECOLHA:
-        //         break;
-        //     case F_COMPRA:
-        //         break;
-        //     case F_EVENTOS:
-        //         break;
-        // }
     }
 }
 
