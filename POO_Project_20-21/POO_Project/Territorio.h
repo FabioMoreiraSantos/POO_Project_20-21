@@ -1,9 +1,11 @@
+#ifndef Territorio_HEADER
+#define Territorio_HEADER
+
 #include <iostream>
 
 using namespace std;
 
-class Territorio
-{
+class Territorio {
 	static int nTerritorios;
 	
 	string	nome;
@@ -19,14 +21,21 @@ public:
 		nTerritorios++;
 	}
 
-	string getNome() const { return nome; };
-	int getResistencia() const { return resistencia; };
-	int getCriacaoOuro() const { return criacaoOuro; };
-	int getCriacaoProdutos() const { return criacaoProdutos; };
-	int getPVitoria() const { return pVitoria; };
+	//Getters
+	int getResistencia();
+	int getCriacaoProduto();
+	int getCriacaoOuro();
+	int getPVitoria();
+	string getNome();
 	string getStatusConquitado() const { return isConquistado ? "Conquistado" : "Livre"; }
+
+	//Setters
+	void setResistencia(int valor);
+	void setCriacaoProduto(int valor);
+	void setCriacaoOuro(int valor);
+	void setPVitoria(int valor);
 
 	string listaInfo() const;
 };
 
-
+#endif

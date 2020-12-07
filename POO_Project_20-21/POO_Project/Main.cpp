@@ -1,10 +1,33 @@
 #include <iostream>
+#include "Territorio.h"
+#include "Imperio.h"
+#include <time.h>
 #include "Interface.h"
 
 using namespace std;
 
-int main() {
-    Interface i(new Mundo(), cin, cout);
+void initRandom() {
+	srand(time(NULL));		//previne repeticoes entre runs
+}
 
+int main() {
+	initRandom();
+  /*
+	Territorio t1, t2;
+	Imperio i1;
+
+	t1.setResistencia(3);
+	t2.setResistencia(3);
+
+	cout << t1.getNome() << endl;
+	cout << i1.getVectorImperio() << endl;
+
+	i1.conquistar(&t1);
+	i1.conquistar(&t2);
+
+	cout << i1.getVectorImperio() << endl;
+  */
+
+    Interface i(new Mundo(), cin, cout);
     i.run();
 }
