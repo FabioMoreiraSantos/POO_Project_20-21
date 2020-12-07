@@ -1,10 +1,10 @@
 #include <iostream>
-#include "Territorio.h"
+#include "Interface.h"
 
 using namespace std;
 
 int main() {
-	Territorio t1, t2, t3, t4;
+    Interface i(new Mundo(), cin, cout);
 
-	cout << t1.getNome() << endl;
+    i.run();
 }

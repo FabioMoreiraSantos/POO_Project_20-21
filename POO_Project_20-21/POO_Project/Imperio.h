@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
@@ -11,7 +12,7 @@ class Imperio
 	int maxMilitar = 3;
 
 public:
-	Imperio();
+	Imperio() = default;
 
 	//Getters
 	int getMaxUnidades();
@@ -20,5 +21,7 @@ public:
 	//Setters
 	void setMaxUnidades(int maximo);
 	void setMaxMilitar(int max);
+
+	string listaInfo() const;
 };
 
