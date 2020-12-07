@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include "Territorio.h"
+#include <sstream>
 
 using namespace std;
 
@@ -18,7 +19,7 @@ class Imperio
 	vector<Territorio*> reinado;				//vetor de territorios
 
 public:
-	Imperio();
+	Imperio() = default;
 
 	//Getters
 	int getMaxUnidades();
@@ -33,6 +34,7 @@ public:
 	void addTerritorio(Territorio * territorio);
 	void removeTerritorio(Territorio * territorio);
 	void conquistar(Territorio * territorio);
+	string listaInfo() const;
 };
 
 #endif

@@ -5,27 +5,29 @@
 
 using namespace std;
 
-class Territorio
-{
+class Territorio {
 	static int nTerritorios;
 	
 	string	nome;
-	int resistencia;
-	int criacaoProdutos;
-	int criacaoOuro;
-	int pVitoria;		
+	int resistencia = 9;
+	int criacaoProdutos = 1;
+	int criacaoOuro = 1;
+	int pVitoria = 0;
+	bool isConquistado = false;
 
 public:
-	//Construtor por omissao
-	Territorio();
-
-	string getNome();
+	Territorio() {
+		nome = "Territorio" + to_string(nTerritorios);
+		nTerritorios++;
+	}
 
 	//Getters
 	int getResistencia();
 	int getCriacaoProduto();
 	int getCriacaoOuro();
 	int getPVitoria();
+	string getNome();
+	string getStatusConquitado() const { return isConquistado ? "Conquistado" : "Livre"; }
 
 	//Setters
 	void setResistencia(int valor);
@@ -33,8 +35,7 @@ public:
 	void setCriacaoOuro(int valor);
 	void setPVitoria(int valor);
 
+	string listaInfo() const;
 };
 
 #endif
-
-

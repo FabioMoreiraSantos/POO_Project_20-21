@@ -2,6 +2,7 @@
 #include "Territorio.h"
 #include "Imperio.h"
 #include <time.h>
+#include "Interface.h"
 
 using namespace std;
 
@@ -10,9 +11,8 @@ void initRandom() {
 }
 
 int main() {
-
 	initRandom();
-
+  /*
 	Territorio t1, t2;
 	Imperio i1;
 
@@ -26,10 +26,8 @@ int main() {
 	i1.conquistar(&t2);
 
 	cout << i1.getVectorImperio() << endl;
+  */
 
-
-
-
-
-
+    Interface i(new Mundo(), cin, cout);
+    i.run();
 }

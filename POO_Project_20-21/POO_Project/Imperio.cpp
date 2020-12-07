@@ -6,20 +6,10 @@
 #define MAX 6
 #define MIN 1
 
-Imperio::Imperio() {}
+int Imperio::getMaxUnidades() { return maxUnidades; }
+int Imperio::getMaxMilitar() { return maxMilitar; }
 
-int Imperio::getMaxUnidades()
-{
-	return maxUnidades;
-}
-
-int Imperio::getMaxMilitar()
-{
-	return maxMilitar;
-}
-
-string Imperio::getVectorImperio()
-{
+string Imperio::getVectorImperio() {
 	ostringstream oss;
 	oss << "Imperio: ";
 
@@ -28,27 +18,13 @@ string Imperio::getVectorImperio()
 	}
 
 	return oss.str();
-	
-
 }
 
-void Imperio::setMaxUnidades(int maximo)
-{
-	maxUnidades = maximo;
-}
+void Imperio::setMaxUnidades(int maximo) { maxUnidades = maximo; }
+void Imperio::setMaxMilitar(int max) { maxMilitar = max; }
+void Imperio::addTerritorio(Territorio * territorio) { reinado.push_back(territorio); }
 
-void Imperio::setMaxMilitar(int max)
-{
-	maxMilitar = max;
-}
-
-void Imperio::addTerritorio(Territorio * territorio)
-{
-	reinado.push_back(territorio);
-}
-
-void Imperio::removeTerritorio(Territorio * territorio)
-{
+void Imperio::removeTerritorio(Territorio * territorio) {
 	vector<Territorio *>::iterator it;			//Iterador do vetor do imperio
 	it = reinado.begin();
 
@@ -57,7 +33,7 @@ void Imperio::removeTerritorio(Territorio * territorio)
 			it = reinado.erase(it);
 			break;
 		}
-			
+		
 		it++;
 	}
 }
@@ -66,9 +42,7 @@ int randomNumEntre(int max, int min) {
 	return (rand() % (MAX - MIN + 1) + MIN);
 }
 
-
-void Imperio::conquistar(Territorio * territorio)
-{
+void Imperio::conquistar(Territorio * territorio) {
 	int fatorSorte = randomNumEntre(MAX,MIN);
 	int soma = fatorSorte + forcaMilitar;
 	cout << soma << endl;
@@ -84,7 +58,12 @@ void Imperio::conquistar(Territorio * territorio)
 	}
 }
 
+string Imperio::listaInfo() const {
+	ostringstream os;
+	os << "Armazem Produtos: " << armazemProdutos << "/" << maxUnidades << endl
+		<< "Armazem Ouro: " << armazemOuro << "/" << maxUnidades << endl
+		<< "Forca Militar: " << forcaMilitar << "/" << maxMilitar << endl
+		<< "Territorios conquistados: " << 12 << endl;
 
-
-
-
+	return os.str();
+}
