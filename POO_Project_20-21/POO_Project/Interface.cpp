@@ -21,6 +21,7 @@ void Interface::run() {
 bool Interface::parseCommand(string command) {
     vector<string> commandVector;
     string commandType;
+    Territorio* territorioAConquistar;
 
     commandVector = splitString(command);
     commandType = commandVector[0];
@@ -43,7 +44,12 @@ bool Interface::parseCommand(string command) {
         // lista <nome_do_territorio> -> Lista info do dado territorio
         else
             o_stream << mundo->lista(commandVector[1]) << endl;
-            
+    } else if (commandType == "conquista" && fase == F_CONQUISTA) {
+        territorioAConquistar = mundo->getTerritorioByName(commandVector[1]);
+        if(mundo->getImperio()->conquistar(territorioAConquistar))
+            o_stream << "Territorio [" << territorioAConquistar->getNome() << "] conquistado!!" << endl;
+        else
+            o_stream << "Conquista Falhada!!" << endl;
     } else
         return false;
 

@@ -14,7 +14,7 @@ class Imperio
 	int armazemProdutos = 0;
 	int armazemOuro = 0;
 	int maxUnidades = 3;
-	int forcaMilitar = 0;
+	int forcaMilitar = 4;
 	int maxMilitar = 3;
 	vector<Territorio*> reinado;				//vetor de territorios
 
@@ -33,8 +33,9 @@ public:
 	//Methods
 	void addTerritorio(Territorio * territorio);
 	void removeTerritorio(Territorio * territorio);
-	void conquistar(Territorio * territorio);
+	bool conquistar(Territorio * territorio);
 	string listaInfo() const;
+	string listaConquistados() const;
 };
 
 #endif

@@ -29,6 +29,9 @@ public:
 	bool criaTerritorios(string type, int quant);
 	string lista() const;
 	string lista(const string nomeTerritorio) const;
+	Imperio* getImperio() { return imperio; }
+
+	Territorio* getTerritorioByName(string territorioName);
 
 	string getAsString() const;
 };

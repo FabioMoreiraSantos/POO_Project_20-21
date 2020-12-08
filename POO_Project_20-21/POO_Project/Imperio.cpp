@@ -42,19 +42,21 @@ int randomNumEntre(int max, int min) {
 	return (rand() % (MAX - MIN + 1) + MIN);
 }
 
-void Imperio::conquistar(Territorio * territorio) {
+bool Imperio::conquistar(Territorio * territorio) {
 	int fatorSorte = randomNumEntre(MAX,MIN);
 	int soma = fatorSorte + forcaMilitar;
 	cout << soma << endl;
 
 	if (soma >= territorio->getResistencia()) {
 		this->addTerritorio(territorio);
-		cout << "Territorio [" << territorio->getNome() << "] conquistado!!" << endl;
+		territorio->setIsConquistado(true);
+		return true;
 	}
 	else {
-		cout << "Conquista Falhada!!" << endl;
+		territorio->setIsConquistado(true);
 		if(forcaMilitar != 0)
 			forcaMilitar--;
+		return false;
 	}
 }
 
@@ -63,7 +65,21 @@ string Imperio::listaInfo() const {
 	os << "Armazem Produtos: " << armazemProdutos << "/" << maxUnidades << endl
 		<< "Armazem Ouro: " << armazemOuro << "/" << maxUnidades << endl
 		<< "Forca Militar: " << forcaMilitar << "/" << maxMilitar << endl
-		<< "Territorios conquistados: " << 12 << endl;
+		<< "Territorios conquistados: " << reinado.size() << endl;
 
 	return os.str();
 }
+
+string Imperio::listaConquistados() const {
+	ostringstream os;
+
+	if(reinado.size() > 0)
+		for(auto it = reinado.begin(); it < reinado.end(); it++) {
+			os << (*it)->getNome() << " ";
+		}
+	else
+		os << "Ainda nao foi conquistado nenhum territorio" << endl;
+
+	return os.str();
+}
+

@@ -35,15 +35,26 @@ string Mundo::lista() const {
 string Mundo::lista(const string nomeTerritorio) const {
     ostringstream os;
 
-    for(auto it = territorios.begin(); it < territorios.end(); it++) {
-        // Mostra lista de territorios
-        if(nomeTerritorio == "territorios")
-            os << (*it)->getNome() << " ";
-        
-        // Mostra info de um territorio
-        else if((*it)->getNome() == nomeTerritorio)
-            os << (*it)->listaInfo();
-    }
+    if (nomeTerritorio == "conquistados")
+        os << imperio->listaConquistados();
+    else
+        for(auto it = territorios.begin(); it < territorios.end(); it++) {
+            // Mostra lista de territorios
+            if(nomeTerritorio == "territorios")
+                os << (*it)->getNome() << " ";
+            
+            // Mostra info de um territorio
+            else if((*it)->getNome() == nomeTerritorio)
+                os << (*it)->listaInfo();
+        }
 
     return os.str();
+}
+
+Territorio* Mundo::getTerritorioByName(string territorioName) {
+    for(auto it = territorios.begin(); it < territorios.end(); it++)
+        if((*it)->getNome() == territorioName)
+            return (*it);
+
+    return NULL;
 }

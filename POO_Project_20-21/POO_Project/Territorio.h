@@ -34,6 +34,7 @@ public:
 	void setCriacaoProduto(int valor);
 	void setCriacaoOuro(int valor);
 	void setPVitoria(int valor);
+	void setIsConquistado(bool val);
 
 	string listaInfo() const;
 };

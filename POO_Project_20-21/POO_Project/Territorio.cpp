@@ -15,6 +15,7 @@ void Territorio::setResistencia(int valor) { resistencia = valor; }
 void Territorio::setCriacaoProduto(int valor) { criacaoProdutos = valor; }
 void Territorio::setCriacaoOuro(int valor) { criacaoOuro = valor; }
 void Territorio::setPVitoria(int valor) { pVitoria = valor; }
+void Territorio::setIsConquistado(bool val) { isConquistado = val; }
   
 string Territorio::listaInfo() const {
 	ostringstream os;
