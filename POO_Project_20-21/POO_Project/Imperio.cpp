@@ -45,7 +45,6 @@ int randomNumEntre(int max, int min) {
 bool Imperio::conquistar(Territorio * territorio) {
 	int fatorSorte = randomNumEntre(MAX,MIN);
 	int soma = fatorSorte + forcaMilitar;
-	cout << soma << endl;
 
 	if (soma >= territorio->getResistencia()) {
 		this->addTerritorio(territorio);
