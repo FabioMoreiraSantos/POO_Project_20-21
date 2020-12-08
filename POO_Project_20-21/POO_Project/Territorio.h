@@ -8,7 +8,7 @@ using namespace std;
 class Territorio {
 	static int nTerritorios;
 	
-	string	nome;
+	string nome;
 	int resistencia = 9;
 	int criacaoProdutos = 1;
 	int criacaoOuro = 1;
@@ -20,6 +20,30 @@ public:
 		nome = "Territorio" + to_string(nTerritorios);
 		nTerritorios++;
 	}
+
+	Territorio(const Territorio& ref) {
+		nTerritorios = ref.nTerritorios;
+		nome = ref.nome;
+		resistencia = ref.resistencia;
+		criacaoProdutos = ref.criacaoProdutos;
+		criacaoOuro = ref.criacaoOuro;
+		pVitoria = ref.pVitoria;
+		isConquistado = ref.isConquistado;
+	}
+
+    Territorio& operator=(const Territorio& c) {
+        if(this == &c) { return *this; }
+
+		nTerritorios = c.nTerritorios;
+		nome = c.nome;
+		resistencia = c.resistencia;
+		criacaoProdutos = c.criacaoProdutos;
+		criacaoOuro = c.criacaoOuro;
+		pVitoria = c.pVitoria;
+		isConquistado = c.isConquistado;
+
+        return *this;
+    }
 
 	//Getters
 	int getResistencia();

@@ -30,11 +30,13 @@ bool Interface::parseCommand(string command) {
     if(commandType == "cria" && fase == F_CONFIG){ // Cria territorios
         if(mundo->criaTerritorios(commandVector[1], stoi(commandVector[2])))
             o_stream << "Territorio criado com sucesso!" << endl;
+
     } else if(commandType == "carrega" && fase == F_CONFIG) { // Carrega ficheiro de comandos
         if(!readFromFile(commandVector[1]))
             o_stream << "[ERRO] Ficheiro invalido!" << endl;
         else
             o_stream << "Ficheiro lido com sucesso!" << endl;
+
     } else if (commandType == "lista") { // Lista info
         // lista -> Lista info do imperio
         if(commandVector.size() == 1)
@@ -44,12 +46,14 @@ bool Interface::parseCommand(string command) {
         // lista <nome_do_territorio> -> Lista info do dado territorio
         else
             o_stream << mundo->lista(commandVector[1]) << endl;
+
     } else if (commandType == "conquista" && fase == F_CONQUISTA) {
         territorioAConquistar = mundo->getTerritorioByName(commandVector[1]);
         if(mundo->getImperio()->conquistar(territorioAConquistar))
             o_stream << "Territorio [" << territorioAConquistar->getNome() << "] conquistado!!" << endl;
         else
             o_stream << "Conquista Falhada!!" << endl;
+            
     } else
         return false;
 

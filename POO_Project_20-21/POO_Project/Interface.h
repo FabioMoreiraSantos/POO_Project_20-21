@@ -23,6 +23,10 @@ public:
     Interface(Mundo* m, istream& _cin, ostream& _cout)
     : mundo(m), i_stream(_cin), o_stream(_cout) {};
 
+    ~Interface() {
+        delete mundo;
+    }
+
     void run();
 
     bool readFromFile(string filename);
