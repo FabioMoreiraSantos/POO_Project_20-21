@@ -16,34 +16,9 @@ class Territorio {
 	bool isConquistado = false;
 
 public:
-	Territorio() {
-		nome = "Territorio" + to_string(nTerritorios);
-		nTerritorios++;
-	}
-
-	Territorio(const Territorio& ref) {
-		nTerritorios = ref.nTerritorios;
-		nome = ref.nome;
-		resistencia = ref.resistencia;
-		criacaoProdutos = ref.criacaoProdutos;
-		criacaoOuro = ref.criacaoOuro;
-		pVitoria = ref.pVitoria;
-		isConquistado = ref.isConquistado;
-	}
-
-    Territorio& operator=(const Territorio& c) {
-        if(this == &c) { return *this; }
-
-		nTerritorios = c.nTerritorios;
-		nome = c.nome;
-		resistencia = c.resistencia;
-		criacaoProdutos = c.criacaoProdutos;
-		criacaoOuro = c.criacaoOuro;
-		pVitoria = c.pVitoria;
-		isConquistado = c.isConquistado;
-
-        return *this;
-    }
+	Territorio();
+	Territorio(const Territorio& ref);
+    Territorio& operator=(const Territorio& c);
 
 	//Getters
 	int getResistencia();
@@ -51,7 +26,8 @@ public:
 	int getCriacaoOuro();
 	int getPVitoria();
 	string getNome();
-	string getStatusConquitado() const { return isConquistado ? "Conquistado" : "Livre"; }
+	string getStatusConquitado() const;
+	bool getIsConquistado() const;
 
 	//Setters
 	void setResistencia(int valor);

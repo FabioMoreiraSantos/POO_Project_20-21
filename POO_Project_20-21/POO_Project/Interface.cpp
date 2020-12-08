@@ -9,16 +9,12 @@ void Interface::run() {
 
         if(command.size() == 0)
             continue;
-        else if(command == "avanca") {
-            nextFase();
-            continue;
-        } else if(!parseCommand(command))
-            o_stream << "[ERRO] Commando invalido!" << endl;
 
+        parseCommand(command);
     }
 }
 
-bool Interface::parseCommand(string command) {
+void Interface::parseCommand(string command) {
     vector<string> commandVector;
     string commandType;
     Territorio* territorioAConquistar;
@@ -26,8 +22,9 @@ bool Interface::parseCommand(string command) {
     commandVector = splitString(command);
     commandType = commandVector[0];
 
-    
-    if(commandType == "cria" && fase == F_CONFIG){ // Cria territorios
+    if(commandType == "avanca") {
+        nextFase();
+    } else if(commandType == "cria" && fase == F_CONFIG){ // Cria territorios
         if(mundo->criaTerritorios(commandVector[1], stoi(commandVector[2])))
             o_stream << "Territorio criado com sucesso!" << endl;
 
@@ -42,8 +39,9 @@ bool Interface::parseCommand(string command) {
         if(commandVector.size() == 1)
             o_stream << mundo->lista() << endl;
 
-        // lista <tipo_de_territorio> -> Lista os territorios do tipo dado
+        // lista conquistados -> Lista os territorios conquistados pelo imperio
         // lista <nome_do_territorio> -> Lista info do dado territorio
+        // lista <tipo_de_territorio> -> Lista os territorios do tipo dado
         else
             o_stream << mundo->lista(commandVector[1]) << endl;
 
@@ -55,9 +53,7 @@ bool Interface::parseCommand(string command) {
             o_stream << "Conquista Falhada!!" << endl;
             
     } else
-        return false;
-
-    return true;
+        o_stream << "[ERRO] Commando invalido!" << endl;
 }
 
 bool Interface::readFromFile(string filename) {
@@ -69,7 +65,7 @@ bool Interface::readFromFile(string filename) {
     if(!myfile.fail())
         // Le e processa comando do ficheiro
         while(getline(myfile, command)) { 
-            o_stream << command << endl;
+            o_stream << endl << "[ Comando lido ]: " << command << endl;
             parseCommand(command);
         }
     else

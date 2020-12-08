@@ -1,3 +1,10 @@
 cria territorio 3
 cria territorio 1
 cria territorio 5
+avanca
+conquista Territorio1
+conquista Territorio2
+conquista Territorio2
+lista conquistados
+lista Territorio1
+lista Territorio2

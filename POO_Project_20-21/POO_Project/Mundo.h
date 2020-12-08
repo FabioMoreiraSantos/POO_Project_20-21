@@ -14,43 +14,11 @@ class Mundo {
 	Imperio* imperio;
 
 public:
-	Mundo() {
-		imperio = new Imperio();
-	};
+	Mundo();
+	Mundo(const Mundo& ref);
+	~Mundo();
 
-	Mundo(const Mundo& ref) {
-		for(auto it = ref.territorios.begin(); it < ref.territorios.end(); it++)
-			territorios.push_back(new Territorio(*(*it)));
-
-		imperio = new Imperio(*(ref.imperio));
-		
-	}
-
-	~Mundo() {
-		// Free allocated territorios' memory
-		for(auto it = territorios.begin(); it < territorios.end(); it++)
-			delete (*it);
-		
-		delete imperio;
-	}
-
-    Mundo& operator=(const Mundo& c) {
-        if(this == &c) { return *this; }
-
-		for(auto it = territorios.begin(); it < territorios.end(); it++)
-			delete (*it);
-
-		delete imperio;
-
-        territorios.clear();
-
-		for(auto it = c.territorios.begin(); it < c.territorios.end(); it++)
-			territorios.push_back(new Territorio(*(*it)));
-
-		imperio = new Imperio(*(c.imperio));
-
-        return *this;
-    }
+    Mundo& operator=(const Mundo& c);
 
 	bool criaTerritorios(string type, int quant);
 	string lista() const;

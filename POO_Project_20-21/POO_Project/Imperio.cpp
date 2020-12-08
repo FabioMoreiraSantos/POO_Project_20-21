@@ -6,6 +6,39 @@
 #define MAX 6
 #define MIN 1
 
+Imperio::Imperio(Territorio* territorioInicial) {
+	addTerritorio(territorioInicial);
+	territorioInicial->setIsConquistado(true);
+}
+
+Imperio::Imperio(const Imperio& ref) {
+	for(auto it = ref.reinado.begin(); it < ref.reinado.end(); it++)
+		reinado.push_back((*it));
+	
+	armazemProdutos = ref.armazemProdutos;
+	armazemOuro = ref.armazemOuro;
+	maxUnidades = ref.maxUnidades;
+	forcaMilitar = ref.forcaMilitar;
+	maxMilitar = ref.maxMilitar;
+}
+
+Imperio& Imperio::operator=(const Imperio& c) {
+	if(this == &c) { return *this; }
+
+	reinado.clear();
+
+	for(auto it = c.reinado.begin(); it < c.reinado.end(); it++)
+		reinado.push_back((*it));
+
+	armazemProdutos = c.armazemProdutos;
+	armazemOuro = c.armazemOuro;
+	maxUnidades = c.maxUnidades;
+	forcaMilitar = c.forcaMilitar;
+	maxMilitar = c.maxMilitar;
+
+	return *this;
+}
+
 int Imperio::getMaxUnidades() { return maxUnidades; }
 int Imperio::getMaxMilitar() { return maxMilitar; }
 
@@ -43,9 +76,12 @@ int randomNumEntre(int max, int min) {
 }
 
 bool Imperio::conquistar(Territorio * territorio) {
+	if(territorio->getIsConquistado()) return false;
+
 	int fatorSorte = randomNumEntre(MAX,MIN);
 	int soma = fatorSorte + forcaMilitar;
 
+	
 	if (soma >= territorio->getResistencia()) {
 		this->addTerritorio(territorio);
 		territorio->setIsConquistado(true);

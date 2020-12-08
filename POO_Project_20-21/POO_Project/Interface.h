@@ -23,14 +23,12 @@ public:
     Interface(Mundo* m, istream& _cin, ostream& _cout)
     : mundo(m), i_stream(_cin), o_stream(_cout) {};
 
-    ~Interface() {
-        delete mundo;
-    }
+    ~Interface() { delete mundo; }
 
     void run();
 
     bool readFromFile(string filename);
-    bool parseCommand(string command);
+    void parseCommand(string command);
     vector<string> splitString(string str) const;
     void setFase(int newFase) { fase = newFase; }
 
