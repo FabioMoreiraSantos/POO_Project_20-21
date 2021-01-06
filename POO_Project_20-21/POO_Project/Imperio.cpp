@@ -53,6 +53,11 @@ string Imperio::getVectorImperio() {
 	return oss.str();
 }
 
+int Imperio::getReinadoSize()
+{
+	return reinado.size();
+}
+
 void Imperio::setMaxUnidades(int maximo) { maxUnidades = maximo; }
 void Imperio::setMaxMilitar(int max) { maxMilitar = max; }
 void Imperio::addTerritorio(Territorio * territorio) { reinado.push_back(territorio); }

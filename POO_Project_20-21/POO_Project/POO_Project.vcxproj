@@ -140,13 +140,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Continente.cpp" />
+    <ClCompile Include="Ilha.cpp" />
     <ClCompile Include="Imperio.cpp" />
+    <ClCompile Include="Interface.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mundo.cpp" />
     <ClCompile Include="Territorio.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Continente.h" />
+    <ClInclude Include="Ilha.h" />
     <ClInclude Include="Imperio.h" />
+    <ClInclude Include="Interface.h" />
     <ClInclude Include="Mundo.h" />
     <ClInclude Include="Territorio.h" />
   </ItemGroup>

@@ -27,6 +27,7 @@ public:
 	int getMaxUnidades();
 	int getMaxMilitar();
 	string getVectorImperio();
+	int getReinadoSize();
 
 	//Setters
 	void setMaxUnidades(int maximo);

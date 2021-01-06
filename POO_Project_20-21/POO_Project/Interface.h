@@ -36,7 +36,7 @@ public:
     void nextFase();
 
     string getFaseName();
-    int getTurnos();
+    static int getTurnos();         //Static para que nao seja necessário instanciar um objeto
 
     istream& getIstream() const { return i_stream; }
 };

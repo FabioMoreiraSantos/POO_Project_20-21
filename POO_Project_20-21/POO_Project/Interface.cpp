@@ -1,6 +1,6 @@
 #include "Interface.h"
 
-int Interface::turno = 0;
+int Interface::turno = 7;
 
 void Interface::run() {
     string command;

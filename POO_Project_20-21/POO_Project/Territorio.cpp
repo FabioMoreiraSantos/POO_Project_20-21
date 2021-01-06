@@ -11,8 +11,11 @@ int Territorio::getCriacaoOuro() { return criacaoOuro; }
 int Territorio::getPVitoria() { return pVitoria; }
 string Territorio::getStatusConquitado() const { return isConquistado ? "Conquistado" : "Livre"; }
 bool Territorio::getIsConquistado() const { return isConquistado; }
+int Territorio::getnTerritorios(){ return nTerritorios; }
+
 
 //Setters
+void Territorio::setNome(string name) { nome = name; }
 void Territorio::setResistencia(int valor) { resistencia = valor; }
 void Territorio::setCriacaoProduto(int valor) { criacaoProdutos = valor; }
 void Territorio::setCriacaoOuro(int valor) { criacaoOuro = valor; }
