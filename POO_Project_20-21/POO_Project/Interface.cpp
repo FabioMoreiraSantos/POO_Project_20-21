@@ -1,5 +1,7 @@
 #include "Interface.h"
 
+int Interface::turno = 0;
+
 void Interface::run() {
     string command;
 
@@ -90,8 +92,10 @@ vector<string> Interface::splitString(string str) const {
 }
 
 void Interface::nextFase() {
-    if(fase == 4)
+    if (fase == 4) {
         fase = 1;
+        turno++;
+    }
     else fase++;
 }
 
@@ -102,4 +106,9 @@ string Interface::getFaseName() {
     else if (fase == F_RECOLHA) return "RECOLHA";
     else if (fase == F_EVENTOS) return "EVENTOS";
     else return "";
+}
+
+int Interface::getTurnos()
+{
+    return turno;
 }
