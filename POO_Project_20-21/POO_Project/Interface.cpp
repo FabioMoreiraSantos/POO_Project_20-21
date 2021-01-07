@@ -17,6 +17,7 @@ void Interface::run() {
 }
 
 void Interface::parseCommand(string command) {
+    
     vector<string> commandVector;
     string commandType;
     Territorio* territorioAConquistar;

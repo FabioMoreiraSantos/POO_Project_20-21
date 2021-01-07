@@ -93,7 +93,6 @@ bool Imperio::conquistar(Territorio * territorio) {
 		return true;
 	}
 	else {
-		territorio->setIsConquistado(true);
 		if(forcaMilitar != 0)
 			forcaMilitar--;
 		return false;
