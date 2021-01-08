@@ -85,15 +85,19 @@ bool Imperio::conquistar(Territorio * territorio) {
 
 	int fatorSorte = randomNumEntre(MAX,MIN);
 	int soma = fatorSorte + forcaMilitar;
+	cout << "Fator Sorte: " << fatorSorte << endl;
+	cout << "Forca militar: " << forcaMilitar << endl;
+	cout << "Total: " << soma << endl;
+	cout << "Resistencia de " << territorio->getNome() 
+		<< " " << territorio->getResistencia() << endl;
 
-	
 	if (soma >= territorio->getResistencia()) {
 		this->addTerritorio(territorio);
 		territorio->setIsConquistado(true);
 		return true;
 	}
 	else {
-		if(forcaMilitar != 0)
+		if (forcaMilitar != 0)
 			forcaMilitar--;
 		return false;
 	}

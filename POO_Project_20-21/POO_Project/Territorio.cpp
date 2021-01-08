@@ -24,7 +24,7 @@ void Territorio::setIsConquistado(bool val) { isConquistado = val; }
 
 
 Territorio::Territorio() {
-	nome = "Territorio" + to_string(nTerritorios);
+	nome = "territorio" + to_string(nTerritorios);
 	nTerritorios++;
 }
 

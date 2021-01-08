@@ -24,7 +24,7 @@ Continente::Continente()
 Planicie::Planicie()
 {
 	nPlanicies++;
-	string name = "Planicie" + to_string(nPlanicies);
+	string name = "planicie" + to_string(nPlanicies);
 	Planicie::setNome(name);
 	Planicie::setResistencia(5);
 	if (Interface::getTurnos() < 6) {
@@ -40,7 +40,7 @@ Planicie::Planicie()
 Montanha::Montanha()
 {
 	nMontanhas++;
-	string name = "Montanha" + to_string(nMontanhas);
+	string name = "montanha" + to_string(nMontanhas);
 	Montanha::setNome(name);
 	Montanha::setResistencia(6);
 	if (turnosConquistado < 3) {		//2 primeiros turnos nao produz nada
@@ -56,7 +56,7 @@ Montanha::Montanha()
 Fortaleza::Fortaleza()
 {
 	nFortalezas++;
-	string name = "Fortaleza" + to_string(nFortalezas);
+	string name = "fortaleza" + to_string(nFortalezas);
 	Fortaleza::setNome(name);
 	Fortaleza::setResistencia(8);
 	Fortaleza::setCriacaoOuro(0);
@@ -66,7 +66,7 @@ Fortaleza::Fortaleza()
 Mina::Mina()
 {
 	nMinas++;
-	string name = "Mina" + to_string(nMinas);
+	string name = "mina" + to_string(nMinas);
 	Mina::setNome(name);
 	Mina::setResistencia(5);
 	if (Interface::getTurnos() < 3 || (Interface::getTurnos() > 5 && Interface::getTurnos() < 9)) {
@@ -80,7 +80,7 @@ Mina::Mina()
 Duna::Duna()
 {
 	nDunas++;
-	string name = "Duna" + to_string(nDunas);
+	string name = "duna" + to_string(nDunas);
 	Duna::setNome(name);
 	Duna::setResistencia(4);
 	Duna::setCriacaoProduto(1);
@@ -90,7 +90,7 @@ Duna::Duna()
 Castelo::Castelo()
 {
 	nCastelos++;
-	string name = "Castelo" + to_string(nCastelos);
+	string name = "castelo" + to_string(nCastelos);
 	Castelo::setNome(name);
 	Castelo::setResistencia(7);
 	Castelo::setCriacaoOuro(1);

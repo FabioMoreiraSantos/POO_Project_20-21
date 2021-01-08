@@ -12,15 +12,12 @@ class Continente: public Territorio
 public:
 	Continente();
 };
-
-
 class Planicie: public Continente 
 {
 	static int nPlanicies;
 public:
 	Planicie();
 };
-
 class Montanha : public Continente
 {
 	static int nMontanhas;
@@ -28,28 +25,24 @@ class Montanha : public Continente
 public:
 	Montanha();
 };
-
 class Fortaleza : public Continente 
 {
 	static int nFortalezas;
 public:
 	Fortaleza();
 };
-
 class Mina : public Continente
 {
 	static int nMinas;
 public:
 	Mina();
 };
-
 class Duna : public Continente
 {
 	static int nDunas;
 public:
 	Duna();
 };
-
 class Castelo : public Continente
 {
 	static int nCastelos;

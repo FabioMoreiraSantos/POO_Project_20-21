@@ -5,7 +5,7 @@
 
 Mundo::Mundo() {
     // Territorio inicial
-    criaTerritorios("Territorio", 1);
+    criaTerritorios("territorio", 1);
     imperio = new Imperio(territorios[0]);
 }
 
@@ -43,11 +43,47 @@ Mundo& Mundo::operator=(const Mundo& c) {
 }
 
 bool Mundo::criaTerritorios(string type, int quant) {
-    if(type == "territorio" || type == "Territorio") {
+    if(type == "territorio") {
         for(int i = 0; i < quant; i++)
             territorios.push_back(new Territorio());
-    } else 
+    }
+    else if(type == "planicie") {
+        for (int i = 0; i < quant; i++)
+            territorios.push_back(new Planicie());
+    }
+    else if (type == "montanha") {
+        for (int i = 0; i < quant; i++)
+            territorios.push_back(new Montanha());
+    }
+    else if (type == "fortaleza") {
+        for (int i = 0; i < quant; i++)
+            territorios.push_back(new Fortaleza());
+    }
+    else if (type == "mina") {
+        for (int i = 0; i < quant; i++)
+            territorios.push_back(new Mina());
+    }
+    else if (type == "duna") {
+        for (int i = 0; i < quant; i++)
+            territorios.push_back(new Duna());
+    }
+    else if (type == "castelo") {
+        for (int i = 0; i < quant; i++)
+            territorios.push_back(new Castelo());
+    }
+    else if (type == "refugio_de_piratas") {
+        for (int i = 0; i < quant; i++)
+            territorios.push_back(new RefugioPiratas());
+    }
+    else if (type == "pescaria") {
+        for (int i = 0; i < quant; i++)
+            territorios.push_back(new Pescaria());
+    }
+    else {
         return false;
+    }
+
+    
     
     return true;
 }
