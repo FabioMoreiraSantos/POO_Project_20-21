@@ -24,7 +24,7 @@ public:
 class Montanha : public Continente
 {
 	static int nMontanhas;
-	int turnosConquistado = 3;
+	int turnosConquistado = 0;
 public:
 	Montanha();
 };

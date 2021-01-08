@@ -16,8 +16,6 @@ int Castelo::nCastelos = 0;
 Continente::Continente()
 {
 	nContinentes++;
-	string name = "Continente" + to_string(nContinentes);
-	Continente::setNome(name);
 	Continente::setPVitoria(1);
 	Continente::setCriacaoOuro(0);
 	Continente::setCriacaoProduto(0);
