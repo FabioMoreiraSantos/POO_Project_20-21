@@ -1,10 +1,17 @@
 #include "Imperio.h"
+#include "Tecnologia.h"
 #include <iterator>
 #include <sstream>
 #include <time.h>
 
 #define MAX 6
 #define MIN 1
+
+// class BolsaValores;
+// class MisseisTeleguiados;
+// class DefesasTerritoriais;
+// class DroneMilitar;
+// class BancoCentral;
 
 Imperio::Imperio(Territorio* territorioInicial) {
 	addTerritorio(territorioInicial);
@@ -55,6 +62,13 @@ string Imperio::getVectorImperio() {
 
 void Imperio::setMaxUnidades(int maximo) { maxUnidades = maximo; }
 void Imperio::setMaxMilitar(int max) { maxMilitar = max; }
+void Imperio::setCanConquistarIlhas(bool val) { canConquistarIlhas = val; }
+void Imperio::setCanExchangeProdutosOuro(bool val) { canExchangeProdutosOuro = val; }
+
+void Imperio::incrementNDefesasTerritoriais() {
+	nDefesasTerritoriais++;
+}
+
 void Imperio::addTerritorio(Territorio * territorio) { reinado.push_back(territorio); }
 
 void Imperio::removeTerritorio(Territorio * territorio) {
@@ -118,3 +132,40 @@ string Imperio::listaConquistados() const {
 	return os.str();
 }
 
+bool Imperio::adquirirTecnologia(string nomeTecnologia) {
+	Tecnologia *newTecnologia;
+
+	if(nomeTecnologia == "drone_militar" && DroneMilitar::custo <= armazemOuro) {
+		newTecnologia = new DroneMilitar();
+		setMaxMilitar(5);
+		armazemOuro -= DroneMilitar::custo;
+	} else if(nomeTecnologia == "bolsa_de_valores" && BolsaValores::custo <= armazemOuro) {
+		newTecnologia = new BolsaValores();
+		setCanExchangeProdutosOuro(true);
+		armazemOuro -= BolsaValores::custo;
+	} else if(nomeTecnologia == "misseis_teleguiados" && MisseisTeleguiados::custo <= armazemOuro) {
+		newTecnologia = new MisseisTeleguiados();
+		setCanConquistarIlhas(true);
+		armazemOuro -= MisseisTeleguiados::custo;
+	} else if(nomeTecnologia == "defesas_territoriais" && DefesasTerritoriais::custo <= armazemOuro) {
+		newTecnologia = new DefesasTerritoriais();
+		incrementNDefesasTerritoriais();
+		armazemOuro -= DefesasTerritoriais::custo;
+	} else if(nomeTecnologia == "banco_central" && BancoCentral::custo <= armazemOuro) {
+		newTecnologia = new BancoCentral();
+		setMaxUnidades(5);
+		armazemOuro -= BancoCentral::custo;
+	} else {
+		return false;
+	}
+	
+	tecnologias.push_back(newTecnologia);
+
+	for(auto it = tecnologias.begin(); it < tecnologias.end(); it++) {
+		cout << " " << (*it)->getNome();
+		// (*it)->print();
+	};
+	cout << endl;
+
+	return true;
+}

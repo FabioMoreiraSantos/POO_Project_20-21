@@ -5,6 +5,8 @@
         "sstream": "cpp",
         "ostream": "cpp",
         "fstream": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "iterator": "cpp",
+        "new": "cpp"
     }
 }
