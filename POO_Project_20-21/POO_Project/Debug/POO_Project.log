@@ -1,2 +1,9 @@
-﻿  Imperio.cpp
+﻿  Continente.cpp
+  Ilha.cpp
+  Interface.cpp
+D:\Faculdade\3_AnoCurricular\1_Semestre\POO - Programaçao Orientada a Objetos\Trabalho Pratico\POO_Project_20-21\POO_Project_20-21\POO_Project\Interface.cpp(24,23): warning C4018: '<': signed/unsigned mismatch
+  Main.cpp
+D:\Faculdade\3_AnoCurricular\1_Semestre\POO - Programaçao Orientada a Objetos\Trabalho Pratico\POO_Project_20-21\POO_Project_20-21\POO_Project\Main.cpp(11,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Mundo.cpp
+  Generating Code...
   POO_Project.vcxproj -> D:\Faculdade\3_AnoCurricular\1_Semestre\POO - Programaçao Orientada a Objetos\Trabalho Pratico\POO_Project_20-21\POO_Project_20-21\Debug\POO_Project_20-21.exe

@@ -60,6 +60,14 @@ int Imperio::getReinadoSize()
 
 void Imperio::setMaxUnidades(int maximo) { maxUnidades = maximo; }
 void Imperio::setMaxMilitar(int max) { maxMilitar = max; }
+void Imperio::setArmazemProdutos(int produtos)
+{
+	armazemProdutos += produtos;
+}
+void Imperio::setArmazemOuro(int ouro)
+{
+	armazemOuro += ouro;
+}
 void Imperio::addTerritorio(Territorio * territorio) { reinado.push_back(territorio); }
 
 void Imperio::removeTerritorio(Territorio * territorio) {
@@ -73,6 +81,17 @@ void Imperio::removeTerritorio(Territorio * territorio) {
 		}
 		
 		it++;
+	}
+}
+
+void Imperio::recolheMaterias()
+{
+	//Percorre o vetor de territorios conquistados e incrementa os 
+	//valores de ouro e produtos ao seu armazem
+	for (auto it = reinado.begin(); it < reinado.end(); it++) {
+		// Incrementa as materias primas
+		setArmazemOuro((*it)->getCriacaoOuro());
+		setArmazemProdutos((*it)->getCriacaoProduto());
 	}
 }
 

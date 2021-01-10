@@ -1,6 +1,6 @@
 #include "Interface.h"
 
-int Interface::turno = 7;
+int Interface::turno = 0;
 void toLowerCase(string& word);
 
 void Interface::run() {
@@ -112,6 +112,8 @@ void Interface::nextFase() {
         turno++;
     }
     else fase++;
+    if(fase == 2)
+        mundo->getImperio()->recolheMaterias();
 }
 
 string Interface::getFaseName() {
