@@ -14,9 +14,8 @@ using namespace std;
 
 class Imperio
 {
-
 	int armazemProdutos = 0;
-	int armazemOuro = 10;
+	int armazemOuro = 1;
 	int forcaMilitar = 6;
 	int maxUnidades = 3;
 	int maxMilitar = 3;
@@ -55,6 +54,9 @@ public:
 	int adquirirTecnologia(string tecnologia);
 	void incrementNDefesasTerritoriais();
 	bool hasTecnologiaByName(string nameTecnologia) const;
+
+	// Comandos Debug
+	int modifica(string type, int quant);
 	
 };
 

@@ -20,8 +20,8 @@ void initRandom() {
 int main() {
 	initRandom();
 	
-    // Interface i(new Mundo(), cin, cout);
-    // i.run();
+    Interface i(new Mundo(), cin, cout);
+    i.run();
 
     // Imperio i1(new Territorio);
 
@@ -33,12 +33,12 @@ int main() {
     // i1.adquirirTecnologia("misseis_teleguiados");
     // i1.adquirirTecnologia("bolsa_de_valores");
 
-    vector<Tecnologia*> tec;
+    // vector<Tecnologia*> tec;
 
-    tec.push_back(new DroneMilitar());
-    tec.push_back(new BancoCentral());
+    // tec.push_back(new DroneMilitar());
+    // tec.push_back(new BancoCentral());
 
-    cout << instanceof<DroneMilitar>(tec[0]) << endl;
+    // cout << instanceof<DroneMilitar>(tec[0]) << endl;
 
 
 

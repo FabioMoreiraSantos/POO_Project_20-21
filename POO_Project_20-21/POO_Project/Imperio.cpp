@@ -158,7 +158,7 @@ int Imperio::adquirirTecnologia(string nomeTecnologia) {
 			setMaxMilitar(5);
 			armazemOuro -= DroneMilitar::custo;
 		} else return -2;
-	else if(nomeTecnologia == "bolsa_de_valores")
+	else if(nomeTecnologia == "bolsa_de_valores") {
 		if(hasTecnologiaByName("BolsaValores"))
 			return -3;
 		if(BolsaValores::custo <= armazemOuro) {
@@ -166,7 +166,7 @@ int Imperio::adquirirTecnologia(string nomeTecnologia) {
 			setCanExchangeProdutosOuro(true);
 			armazemOuro -= BolsaValores::custo;
 		} else return -2;
-	else if(nomeTecnologia == "misseis_teleguiados")
+	} else if(nomeTecnologia == "misseis_teleguiados")
 		if(MisseisTeleguiados::custo <= armazemOuro) {
 			newTecnologia = new MisseisTeleguiados();
 			setCanConquistarIlhas(true);
@@ -201,4 +201,18 @@ bool Imperio::hasTecnologiaByName(string nameTecnologia) const {
 			return true;
 	
 	return false;
+}
+
+int Imperio::modifica(string type, int quant) {
+	if(maxUnidades >= quant)
+		if(type == "ouro")
+			armazemOuro = quant;
+		else if(type == "prod")
+			armazemProdutos = quant;
+		else
+			return -1;
+	else
+		return -2;
+
+	return 0;
 }

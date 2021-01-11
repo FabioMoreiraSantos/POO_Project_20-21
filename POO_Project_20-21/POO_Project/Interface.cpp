@@ -52,17 +52,27 @@ void Interface::parseCommand(string command) {
             o_stream << "Territorio [" << territorioAConquistar->getNome() << "] conquistado!!" << endl;
         else
             o_stream << "Conquista Falhada!!" << endl;
-    } else if (commandType == "adquire" && fase == F_COMPRA) {
+    } else if (commandType == "adquire" && commandVector.size() == 2 && fase == F_COMPRA) {
         commandResult = mundo->imperioAdquireTecnologia(commandVector[1]);
 
         if(commandResult == 0)
             o_stream << "[SUCCESS] Tecnologia adquirida com sucesso!" << endl;
         else if(commandResult == -1)
-		    o_stream << "[Erro] A tecnologia que pretende adquirir nao existe" << endl;
+		    o_stream << "[ERRO] A tecnologia que pretende adquirir nao existe" << endl;
         else if(commandResult == -2)
-            o_stream << "[Erro] Nao tem dinheiro suficiente para comprar esta tecnologia" << endl;
+            o_stream << "[ERRO] Nao tem dinheiro suficiente para comprar esta tecnologia" << endl;
         else if(commandResult == -3)
-            o_stream << "[Erro] Tecnologia ja foi adquirida" << endl;
+            o_stream << "[ERRO] Tecnologia ja foi adquirida" << endl;
+    } else if(commandType == "modifica" && commandVector.size() == 3) {
+        commandResult = mundo->getImperio()->modifica(commandVector[1], stoi(commandVector[2]));
+
+        if(commandResult == 0)
+            o_stream << "[SUCCESS] Novo valor de " << commandVector[1] << " e " << commandVector[2] << "unidades." << endl;
+        else if(commandResult == -1)
+            o_stream << "[ERRO] Tipo de recurso invalido. Este deve ser 'ouro' ou 'prod'." << endl;
+        else if(commandResult == -2)
+            o_stream << "[ERRO] A quantidade que inseriu e superior a capacidade do imperio: " << mundo->getImperio()->getMaxUnidades() << " unidades" << endl;
+
     } else
         o_stream << "[ERRO] Commando invalido!" << endl;
 }
