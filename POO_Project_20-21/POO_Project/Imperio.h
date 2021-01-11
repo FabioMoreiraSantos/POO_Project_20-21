@@ -39,16 +39,20 @@ public:
 	int getArmazemOuro() { return armazemOuro; };
 	int getArmazemProds() { return armazemProdutos; };
 	int getForcaMilitar() { return forcaMilitar; };
+	int getReinadoSize();
 
 	//Setters
 	void setMaxUnidades(int maximo);
 	void setMaxMilitar(int max);
 	void setCanConquistarIlhas(bool val);
 	void setCanExchangeProdutosOuro(bool val);
+	void setArmazemProdutos(int produtos);
+	void setArmazemOuro(int ouro);
 	
 	//Methods
 	void addTerritorio(Territorio * territorio);
 	void removeTerritorio(Territorio * territorio);
+	void recolheMaterias();
 	bool conquistar(Territorio * territorio);
 	string listaInfo() const;
 	string listaConquistados() const;

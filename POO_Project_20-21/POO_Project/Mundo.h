@@ -5,6 +5,8 @@
 #include <iostream>
 #include <vector>
 #include "Territorio.h"
+#include "Continente.h"
+#include "Ilha.h"
 #include "Imperio.h"
 
 using namespace std;

@@ -1,5 +1,8 @@
 #include "Interface.h"
 
+int Interface::turno = 0;
+void toLowerCase(string& word);
+
 void Interface::run() {
     string command;
 
@@ -7,14 +10,23 @@ void Interface::run() {
         o_stream << "[" << getFaseName() << "] Commando: ";
         getline(i_stream, command);
 
+
         if(command.size() == 0)
             continue;
+
+        toLowerCase(command);
 
         parseCommand(command);
     }
 }
 
+void toLowerCase(string &word) {
+    for (int i = 0; i < word.size(); i++)
+        word[i] = tolower(word[i]);
+}
+
 void Interface::parseCommand(string command) {
+    
     vector<string> commandVector;
     string commandType;
     Territorio* territorioAConquistar;
@@ -28,7 +40,7 @@ void Interface::parseCommand(string command) {
         nextFase();
     } else if(commandType == "cria" && fase == F_CONFIG){ // Cria territorios
         if(mundo->criaTerritorios(commandVector[1], stoi(commandVector[2])))
-            o_stream << "Territorio criado com sucesso!" << endl;
+            o_stream << commandVector[1] << " criado com sucesso!" << endl;
 
     } else if(commandType == "carrega" && fase == F_CONFIG) { // Carrega ficheiro de comandos
         if(!readFromFile(commandVector[1]))
@@ -49,8 +61,11 @@ void Interface::parseCommand(string command) {
 
     } else if (commandType == "conquista" && fase == F_CONQUISTA) {
         territorioAConquistar = mundo->getTerritorioByName(commandVector[1]);
-        if(imperio->conquistar(territorioAConquistar))
+        
+        if(territorioAConquistar != NULL && imperio->conquistar(territorioAConquistar))
             o_stream << "Territorio [" << territorioAConquistar->getNome() << "] conquistado!!" << endl;
+        else if(territorioAConquistar == NULL)
+            o_stream << "Introduza uma territorio valido!!" << endl;
         else
             o_stream << "Conquista Falhada!!" << endl;
     } else if (commandType == "adquire" && commandVector.size() == 2 && fase == F_COMPRA) {
@@ -106,8 +121,11 @@ void Interface::parseCommand(string command) {
             o_stream << "[ERRO] Impossivel efetuar troca. Ainda nao adquiriu a tecnologia Bolsa de valores." << endl;
         else if(commandResult == -3)
             o_stream << "[ERRO] Falha ao efetuar troca. Ja atingiu o valor de forca militar maximo." << endl;
-    } else
-        o_stream << "[ERRO] Commando invalido!" << endl;
+    } else if (commandType == "passa" && fase == F_CONQUISTA) {
+        nextFase();
+    }
+    else
+        o_stream << "[ERRO] Comando invalido!" << endl;
 }
 
 bool Interface::readFromFile(string filename) {
@@ -144,9 +162,13 @@ vector<string> Interface::splitString(string str) const {
 }
 
 void Interface::nextFase() {
-    if(fase == 4)
+    if (fase == 4) {
         fase = 1;
+        turno++;
+    }
     else fase++;
+    if(fase == 2)
+        mundo->getImperio()->recolheMaterias();
 }
 
 string Interface::getFaseName() {
@@ -156,4 +178,9 @@ string Interface::getFaseName() {
     else if (fase == F_RECOLHA) return "RECOLHA";
     else if (fase == F_EVENTOS) return "EVENTOS";
     else return "";
+}
+
+int Interface::getTurnos()
+{
+    return turno;
 }

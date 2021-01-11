@@ -60,6 +60,11 @@ string Imperio::getVectorImperio() {
 	return oss.str();
 }
 
+int Imperio::getReinadoSize()
+{
+	return reinado.size();
+}
+
 void Imperio::setMaxUnidades(int maximo) { maxUnidades = maximo; }
 void Imperio::setMaxMilitar(int max) { maxMilitar = max; }
 void Imperio::setCanConquistarIlhas(bool val) { canConquistarIlhas = val; }
@@ -69,6 +74,14 @@ void Imperio::incrementNDefesasTerritoriais() {
 	nDefesasTerritoriais++;
 }
 
+void Imperio::setArmazemProdutos(int produtos)
+{
+	armazemProdutos += produtos;
+}
+void Imperio::setArmazemOuro(int ouro)
+{
+	armazemOuro += ouro;
+}
 void Imperio::addTerritorio(Territorio * territorio) { reinado.push_back(territorio); }
 
 void Imperio::removeTerritorio(Territorio * territorio) {
@@ -85,6 +98,17 @@ void Imperio::removeTerritorio(Territorio * territorio) {
 	}
 }
 
+void Imperio::recolheMaterias()
+{
+	//Percorre o vetor de territorios conquistados e incrementa os 
+	//valores de ouro e produtos ao seu armazem
+	for (auto it = reinado.begin(); it < reinado.end(); it++) {
+		// Incrementa as materias primas
+		setArmazemOuro((*it)->getCriacaoOuro());
+		setArmazemProdutos((*it)->getCriacaoProduto());
+	}
+}
+
 int randomNumEntre(int max, int min) {
 	return (rand() % (MAX - MIN + 1) + MIN);
 }
@@ -94,16 +118,19 @@ bool Imperio::conquistar(Territorio * territorio) {
 
 	int fatorSorte = randomNumEntre(MAX,MIN);
 	int soma = fatorSorte + forcaMilitar;
+	cout << "Fator Sorte: " << fatorSorte << endl;
+	cout << "Forca militar: " << forcaMilitar << endl;
+	cout << "Total: " << soma << endl;
+	cout << "Resistencia de " << territorio->getNome() 
+		<< " " << territorio->getResistencia() << endl;
 
-	
 	if (soma >= territorio->getResistencia()) {
 		this->addTerritorio(territorio);
 		territorio->setIsConquistado(true);
 		return true;
 	}
 	else {
-		territorio->setIsConquistado(true);
-		if(forcaMilitar != 0)
+		if (forcaMilitar != 0)
 			forcaMilitar--;
 		return false;
 	}
