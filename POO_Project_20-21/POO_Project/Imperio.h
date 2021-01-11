@@ -51,8 +51,10 @@ public:
 	bool conquistar(Territorio * territorio);
 	string listaInfo() const;
 	string listaConquistados() const;
-	bool adquirirTecnologia(string tecnologia);
+	string getListaTecnologias() const;
+	int adquirirTecnologia(string tecnologia);
 	void incrementNDefesasTerritoriais();
+	
 };
 
 #endif

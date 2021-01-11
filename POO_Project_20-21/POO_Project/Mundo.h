@@ -28,6 +28,8 @@ public:
 	Territorio* getTerritorioByName(string territorioName);
 
 	string getAsString() const;
+
+	int imperioAdquireTecnologia(string nomeTecnologia);
 };
 
 #endif

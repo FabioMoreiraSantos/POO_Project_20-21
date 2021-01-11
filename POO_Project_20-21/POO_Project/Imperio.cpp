@@ -114,7 +114,23 @@ string Imperio::listaInfo() const {
 	os << "Armazem Produtos: " << armazemProdutos << "/" << maxUnidades << endl
 		<< "Armazem Ouro: " << armazemOuro << "/" << maxUnidades << endl
 		<< "Forca Militar: " << forcaMilitar << "/" << maxMilitar << endl
-		<< "Territorios conquistados: " << reinado.size() << endl;
+		<< "Territorios conquistados: " << reinado.size() << endl
+		<< getListaTecnologias() << endl;
+
+	return os.str();
+}
+
+string Imperio::getListaTecnologias() const {
+	ostringstream os;
+
+	os << "Tecnologias adquiridas: ";
+
+	if(tecnologias.size() > 0)
+		for(auto it = tecnologias.begin(); it < tecnologias.end(); it++) {
+			os << (*it)->getNome() << " ";
+		}
+	else
+		os << "Ainda nao foi adquirida nenhuma tecnologia" << endl;
 
 	return os.str();
 }
@@ -132,40 +148,51 @@ string Imperio::listaConquistados() const {
 	return os.str();
 }
 
-bool Imperio::adquirirTecnologia(string nomeTecnologia) {
+int Imperio::adquirirTecnologia(string nomeTecnologia) {
 	Tecnologia *newTecnologia;
+	ostringstream os;
 
-	if(nomeTecnologia == "drone_militar" && DroneMilitar::custo <= armazemOuro) {
-		newTecnologia = new DroneMilitar();
-		setMaxMilitar(5);
-		armazemOuro -= DroneMilitar::custo;
-	} else if(nomeTecnologia == "bolsa_de_valores" && BolsaValores::custo <= armazemOuro) {
-		newTecnologia = new BolsaValores();
-		setCanExchangeProdutosOuro(true);
-		armazemOuro -= BolsaValores::custo;
-	} else if(nomeTecnologia == "misseis_teleguiados" && MisseisTeleguiados::custo <= armazemOuro) {
-		newTecnologia = new MisseisTeleguiados();
-		setCanConquistarIlhas(true);
-		armazemOuro -= MisseisTeleguiados::custo;
-	} else if(nomeTecnologia == "defesas_territoriais" && DefesasTerritoriais::custo <= armazemOuro) {
-		newTecnologia = new DefesasTerritoriais();
-		incrementNDefesasTerritoriais();
-		armazemOuro -= DefesasTerritoriais::custo;
-	} else if(nomeTecnologia == "banco_central" && BancoCentral::custo <= armazemOuro) {
-		newTecnologia = new BancoCentral();
-		setMaxUnidades(5);
-		armazemOuro -= BancoCentral::custo;
-	} else {
-		return false;
+	if(nomeTecnologia == "drone_militar")
+		if(DroneMilitar::custo <= armazemOuro) {
+			newTecnologia = new DroneMilitar();
+			setMaxMilitar(5);
+			armazemOuro -= DroneMilitar::custo;
+		} else return -2;
+	else if(nomeTecnologia == "bolsa_de_valores")
+		if(BolsaValores::custo <= armazemOuro) {
+			newTecnologia = new BolsaValores();
+			setCanExchangeProdutosOuro(true);
+			armazemOuro -= BolsaValores::custo;
+		} else return -2;
+	else if(nomeTecnologia == "misseis_teleguiados")
+		if(MisseisTeleguiados::custo <= armazemOuro) {
+			newTecnologia = new MisseisTeleguiados();
+			setCanConquistarIlhas(true);
+			armazemOuro -= MisseisTeleguiados::custo;
+		} else return -2;
+	else if(nomeTecnologia == "defesas_territoriais")
+		if(DefesasTerritoriais::custo <= armazemOuro) {
+			newTecnologia = new DefesasTerritoriais();
+			incrementNDefesasTerritoriais();
+			armazemOuro -= DefesasTerritoriais::custo;
+		} else return -2;
+	else if(nomeTecnologia == "banco_central")
+		if(BancoCentral::custo <= armazemOuro) {
+			newTecnologia = new BancoCentral();
+			setMaxUnidades(5);
+			armazemOuro -= BancoCentral::custo;
+		} else return -2;
+	else {
+		return -1;
 	}
 	
 	tecnologias.push_back(newTecnologia);
 
-	for(auto it = tecnologias.begin(); it < tecnologias.end(); it++) {
-		cout << " " << (*it)->getNome();
-		// (*it)->print();
-	};
-	cout << endl;
+	// for(auto it = tecnologias.begin(); it < tecnologias.end(); it++) {
+	// 	cout << " " << (*it)->getNome();
+	// 	// (*it)->print();
+	// };
+	// cout << endl;
 
-	return true;
+	return 0;
 }

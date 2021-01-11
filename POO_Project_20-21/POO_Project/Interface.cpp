@@ -18,6 +18,7 @@ void Interface::parseCommand(string command) {
     vector<string> commandVector;
     string commandType;
     Territorio* territorioAConquistar;
+    int commandResult;
 
     commandVector = splitString(command);
     commandType = commandVector[0];
@@ -51,7 +52,15 @@ void Interface::parseCommand(string command) {
             o_stream << "Territorio [" << territorioAConquistar->getNome() << "] conquistado!!" << endl;
         else
             o_stream << "Conquista Falhada!!" << endl;
-            
+    } else if (commandType == "adquire" && fase == F_COMPRA) {
+        commandResult = mundo->imperioAdquireTecnologia(commandVector[1]);
+
+        if(commandResult == 0)
+            o_stream << "[SUCCESS] Tecnologia adquirida com sucesso!" << endl;
+        else if(commandResult == -1)
+		    o_stream << "[Erro] A tecnologia que pretende adquirir nao existe" << endl;
+        else if(commandResult == -2)
+            o_stream << "[Erro] Nao tem dinheiro suficiente para comprar esta tecnologia" << endl;
     } else
         o_stream << "[ERRO] Commando invalido!" << endl;
 }
