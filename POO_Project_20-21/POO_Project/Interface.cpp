@@ -121,6 +121,28 @@ void Interface::parseCommand(string command) {
             o_stream << "[ERRO] Impossivel efetuar troca. Ainda nao adquiriu a tecnologia Bolsa de valores." << endl;
         else if(commandResult == -3)
             o_stream << "[ERRO] Falha ao efetuar troca. Ja atingiu o valor de forca militar maximo." << endl;
+    } else if (commandType == "toma" && commandVector.size() == 3) {
+        commandResult = mundo->tomaCommand(commandVector[1], commandVector[2]);
+
+        if(commandVector[1] == "terr") {
+            if(commandResult == 0)
+                o_stream << "[SUCCESS] Territorio tomado com sucesso!" << endl;
+            else if(commandResult == -1)
+                o_stream << "[ERRO] O territorio que pretende tomar ja foi conquistado" << endl;
+            else if(commandResult == -2)
+                o_stream << "[ERRO] O territorio que pretende tomar nao existe" << endl;
+
+        }  else if(commandVector[1] == "tec") {
+            if(commandResult == 0)
+                o_stream << "[SUCCESS] Tecnologia tomada com sucesso!" << endl;
+            else if(commandResult == -1)
+                o_stream << "[ERRO] A tecnologia que pretende tomar nao existe" << endl;
+            else if(commandResult == -2)
+                o_stream << "[ERRO] Tecnologia ja foi adquirida" << endl;
+        } else if(commandResult == -4) {
+            o_stream << "[ERRO] Tipo a tomar invalido" << endl;
+        }
+
     } else if (commandType == "passa" && fase == F_CONQUISTA) {
         nextFase();
     }

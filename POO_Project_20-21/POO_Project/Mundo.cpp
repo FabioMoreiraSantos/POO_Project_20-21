@@ -138,3 +138,17 @@ Territorio* Mundo::getTerritorioByName(string territorioName) {
 int Mundo::imperioAdquireTecnologia(string nomeTecnologia) {
     return imperio->adquirirTecnologia(nomeTecnologia);
 }
+
+int Mundo::tomaCommand(string type, string name) {
+    Territorio* territorioAConquistar;
+    if(type == "terr") {
+        territorioAConquistar = getTerritorioByName(name);
+        if (territorioAConquistar != NULL)
+            return imperio->takeTerritorio(territorioAConquistar);
+        else
+            return -2;
+    } else if(type == "tec") {
+        return imperio->takeTecnologia(name);
+    } else
+        return -4;
+}

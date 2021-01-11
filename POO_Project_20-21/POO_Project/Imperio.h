@@ -61,6 +61,9 @@ public:
 	void incrementNDefesasTerritoriais();
 	bool hasTecnologiaByName(string nameTecnologia) const;
 
+	int takeTerritorio(Territorio * territorio);
+	int takeTecnologia(string nameTecnologia);
+
 	int maisOuro();
 	int maisProd();
 	int maisMilitar();

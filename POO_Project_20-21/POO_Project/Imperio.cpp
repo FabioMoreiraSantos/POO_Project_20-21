@@ -130,7 +130,7 @@ bool Imperio::conquistar(Territorio * territorio) {
 		return true;
 	}
 	else {
-		if (forcaMilitar != 0)
+		if (forcaMilitar > 0)
 			forcaMilitar--;
 		return false;
 	}
@@ -292,3 +292,44 @@ int Imperio::maisMilitar() {
 
 	return 0;
 }
+
+int Imperio::takeTerritorio(Territorio* territorio) {
+	if(territorio->getIsConquistado()) return -1;
+
+	this->addTerritorio(territorio);
+	territorio->setIsConquistado(true);
+
+	return 0;
+}
+
+int Imperio::takeTecnologia(string nameTecnologia) {
+	Tecnologia *newTecnologia;
+	ostringstream os;
+
+	if(nameTecnologia == "drone_militar") {
+		newTecnologia = new DroneMilitar();
+		setMaxMilitar(5);
+	} else if(nameTecnologia == "bolsa_de_valores") {
+		if(hasTecnologiaByName("BolsaValores"))
+			return -2;
+		newTecnologia = new BolsaValores();
+		setCanExchangeProdutosOuro(true);
+	} else if(nameTecnologia == "misseis_teleguiados") {
+		newTecnologia = new MisseisTeleguiados();
+		setCanConquistarIlhas(true);
+	} else if(nameTecnologia == "defesas_territoriais") {
+		newTecnologia = new DefesasTerritoriais();
+		incrementNDefesasTerritoriais();
+	} else if(nameTecnologia == "banco_central") {
+		if(hasTecnologiaByName("BancoCentral"))
+			return -2;
+		newTecnologia = new BancoCentral();
+		setMaxUnidades(5);
+	} else
+		return -1;
+	
+	tecnologias.push_back(newTecnologia);
+
+	return 0;
+}
+
