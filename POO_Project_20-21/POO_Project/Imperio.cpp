@@ -90,8 +90,10 @@ void Imperio::recolheMaterias()
 	//valores de ouro e produtos ao seu armazem
 	for (auto it = reinado.begin(); it < reinado.end(); it++) {
 		// Incrementa as materias primas
-		setArmazemOuro((*it)->getCriacaoOuro());
-		setArmazemProdutos((*it)->getCriacaoProduto());
+		if(getArmazemOuro() < maxUnidades)
+			setArmazemOuro((*it)->getCriacaoOuro());
+		if(getArmazemProds() < maxUnidades)
+			setArmazemProdutos((*it)->getCriacaoProduto());
 	}
 }
 

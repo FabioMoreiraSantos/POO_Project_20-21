@@ -13,6 +13,10 @@ class Imperio
 {
 	int armazemProdutos = 0;
 	int armazemOuro = 0;
+<<<<<<< Updated upstream
+=======
+	int forcaMilitar = 2;
+>>>>>>> Stashed changes
 	int maxUnidades = 3;
 	int forcaMilitar = 3;
 	int maxMilitar = 3;

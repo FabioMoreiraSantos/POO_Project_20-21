@@ -27,7 +27,7 @@ Planicie::Planicie()
 	string name = "planicie" + to_string(nPlanicies);
 	Planicie::setNome(name);
 	Planicie::setResistencia(5);
-	if (Interface::getTurnos() < 6) {
+	if (Interface::getTurnos() < 7) {
 		Planicie::setCriacaoProduto(1);
 		Planicie::setCriacaoOuro(1);
 	}
@@ -69,7 +69,7 @@ Mina::Mina()
 	string name = "mina" + to_string(nMinas);
 	Mina::setNome(name);
 	Mina::setResistencia(5);
-	if (Interface::getTurnos() < 3 || (Interface::getTurnos() > 5 && Interface::getTurnos() < 9)) {
+	if (Interface::getTurnos() < 4 || (Interface::getTurnos() > 6 && Interface::getTurnos() < 10)) {
 		Mina::setCriacaoOuro(1);
 	}
 	else {
@@ -94,7 +94,7 @@ Castelo::Castelo()
 	Castelo::setNome(name);
 	Castelo::setResistencia(7);
 	Castelo::setCriacaoOuro(1);
-	if (Interface::getTurnos() < 2 || (Interface::getTurnos() > 5 && Interface::getTurnos() < 8)) {
+	if (Interface::getTurnos() < 3 || (Interface::getTurnos() > 6 && Interface::getTurnos() < 9)) {
 		Castelo::setCriacaoProduto(3);
 	}
 	else {

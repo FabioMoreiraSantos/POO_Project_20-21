@@ -1,6 +1,6 @@
 #include "Interface.h"
 
-int Interface::turno = 0;
+int Interface::turno = 1;
 void toLowerCase(string& word);
 
 void Interface::run() {
@@ -110,11 +110,20 @@ void Interface::nextFase() {
     if (fase == 4) {
         fase = 1;
         turno++;
+        if (turno == 6) {
+            o_stream << "\n[Ano 1]" << endl;
+            o_stream << "[Turno " << turno << "]" << endl;
+        }
+        if (turno == 12) {
+            o_stream << "\n[Ano 2]" << endl;
+            o_stream << "[Turno " << turno << "]" << endl;
+        }
     }
     else fase++;
     if(fase == 2)
         mundo->getImperio()->recolheMaterias();
 }
+
 
 string Interface::getFaseName() {
     if(fase == F_CONFIG) return "CONFIGURA";
