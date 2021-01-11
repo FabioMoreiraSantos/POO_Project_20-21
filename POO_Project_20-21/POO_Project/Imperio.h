@@ -14,9 +14,9 @@ using namespace std;
 
 class Imperio
 {
-	int armazemProdutos = 0;
-	int armazemOuro = 1;
-	int forcaMilitar = 6;
+	int armazemProdutos = 3;
+	int armazemOuro = 3;
+	int forcaMilitar = 2;
 	int maxUnidades = 3;
 	int maxMilitar = 3;
 
@@ -37,6 +37,8 @@ public:
 	int getMaxMilitar();
 	string getVectorImperio();
 	int getArmazemOuro() { return armazemOuro; };
+	int getArmazemProds() { return armazemProdutos; };
+	int getForcaMilitar() { return forcaMilitar; };
 
 	//Setters
 	void setMaxUnidades(int maximo);

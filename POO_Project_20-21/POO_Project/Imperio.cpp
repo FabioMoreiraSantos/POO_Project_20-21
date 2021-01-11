@@ -232,3 +232,36 @@ int Imperio::maisOuro() {
 
 	return 0;
 }
+
+int Imperio::maisProd() {
+	if(canExchangeProdutosOuro) {
+		if(armazemOuro >= 2)
+			if(armazemProdutos < maxUnidades) {
+				armazemProdutos++;
+				armazemOuro -= 2;
+			} else
+				return -3; // Exceeded maxUnidades
+		else
+			return -1; // Not enough ouro
+	} else
+		return -2; // Needs to buy bolsa de valores
+
+	return 0;
+}
+
+int Imperio::maisMilitar() {
+	if(canExchangeProdutosOuro) {
+		if(armazemOuro >= 1 && armazemProdutos >= 1)
+			if(forcaMilitar < maxMilitar) {
+				forcaMilitar++;
+				armazemOuro--;
+				armazemProdutos--;
+			} else
+				return -3; // Exceeded maxMilitar
+		else
+			return -1; // Not enough products and ouro
+	} else
+		return -2; // Needs to buy bolsa de valores
+
+	return 0;
+}

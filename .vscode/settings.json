@@ -7,6 +7,14 @@
         "fstream": "cpp",
         "string": "cpp",
         "iterator": "cpp",
-        "new": "cpp"
+        "new": "cpp",
+        "array": "cpp",
+        "*.tcc": "cpp",
+        "memory": "cpp",
+        "istream": "cpp",
+        "ranges": "cpp",
+        "functional": "cpp",
+        "tuple": "cpp",
+        "utility": "cpp"
     }
 }

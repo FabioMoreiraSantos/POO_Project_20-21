@@ -83,7 +83,29 @@ void Interface::parseCommand(string command) {
         else if(commandResult == -2)
             o_stream << "[ERRO] Impossivel efetuar troca. Ainda nao adquiriu a tecnologia Bolsa de valores." << endl;
         else if(commandResult == -3)
-            o_stream << "[ERRO] Falha ao efetuar troca. Nao tem mais espaco no armazem." << endl;
+            o_stream << "[ERRO] Falha ao efetuar troca. Nao tem mais espaco no armazem de ouro." << endl;
+    } else if(commandType == "maisprod" && fase == F_RECOLHA) {
+        commandResult = imperio->maisProd();
+
+        if(commandResult == 0)
+            o_stream << "[SUCCESS] Troca efetuada com sucesso! Total de produtos: " << imperio->getArmazemProds() << " unidades." << endl;
+        else if(commandResult == -1)
+            o_stream << "[ERRO] Falha ao efetuar troca. Nao tem ouro suficiente para trocar." << endl;
+        else if(commandResult == -2)
+            o_stream << "[ERRO] Impossivel efetuar troca. Ainda nao adquiriu a tecnologia Bolsa de valores." << endl;
+        else if(commandResult == -3)
+            o_stream << "[ERRO] Falha ao efetuar troca. Nao tem mais espaco no armazem de produtos." << endl;
+    } else if(commandType == "maismilitar" && fase == F_RECOLHA) {
+        commandResult = imperio->maisMilitar();
+
+        if(commandResult == 0)
+            o_stream << "[SUCCESS] Troca efetuada com sucesso! Forca militar atual: " << imperio->getForcaMilitar() << " unidades." << endl;
+        else if(commandResult == -1)
+            o_stream << "[ERRO] Falha ao efetuar troca. Nao tem ouro e/ou produtos suficiente para trocar." << endl;
+        else if(commandResult == -2)
+            o_stream << "[ERRO] Impossivel efetuar troca. Ainda nao adquiriu a tecnologia Bolsa de valores." << endl;
+        else if(commandResult == -3)
+            o_stream << "[ERRO] Falha ao efetuar troca. Ja atingiu o valor de forca militar maximo." << endl;
     } else
         o_stream << "[ERRO] Commando invalido!" << endl;
 }
