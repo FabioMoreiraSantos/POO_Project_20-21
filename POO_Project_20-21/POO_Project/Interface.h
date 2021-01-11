@@ -8,6 +8,7 @@
 using namespace std;
 
 class Interface {
+    static int turno;
     static const int F_CONFIG = 0;
     static const int F_CONQUISTA = 1;
     static const int F_RECOLHA = 2;
@@ -35,6 +36,7 @@ public:
     void nextFase();
 
     string getFaseName();
+    static int getTurnos();         //Static para que nao seja necessário instanciar um objeto
 
     istream& getIstream() const { return i_stream; }
 };

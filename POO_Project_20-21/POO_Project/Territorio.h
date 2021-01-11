@@ -28,8 +28,10 @@ public:
 	string getNome();
 	string getStatusConquitado() const;
 	bool getIsConquistado() const;
+	int getnTerritorios();
 
 	//Setters
+	void setNome(string name);
 	void setResistencia(int valor);
 	void setCriacaoProduto(int valor);
 	void setCriacaoOuro(int valor);
