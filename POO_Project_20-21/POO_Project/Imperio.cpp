@@ -216,3 +216,19 @@ int Imperio::modifica(string type, int quant) {
 
 	return 0;
 }
+
+int Imperio::maisOuro() {
+	if(canExchangeProdutosOuro) {
+		if(armazemProdutos >= 2)
+			if(armazemOuro < maxUnidades) {
+				armazemOuro++;
+				armazemProdutos -= 2;
+			} else
+				return -3; // Exceeded maxUnidades
+		else
+			return -1; // Not enough products
+	} else
+		return -2; // Needs to buy bolsa de valores
+
+	return 0;
+}

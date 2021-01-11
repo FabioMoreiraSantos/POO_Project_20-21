@@ -19,6 +19,7 @@ void Interface::parseCommand(string command) {
     string commandType;
     Territorio* territorioAConquistar;
     int commandResult;
+    Imperio* imperio = mundo->getImperio();
 
     commandVector = splitString(command);
     commandType = commandVector[0];
@@ -48,7 +49,7 @@ void Interface::parseCommand(string command) {
 
     } else if (commandType == "conquista" && fase == F_CONQUISTA) {
         territorioAConquistar = mundo->getTerritorioByName(commandVector[1]);
-        if(mundo->getImperio()->conquistar(territorioAConquistar))
+        if(imperio->conquistar(territorioAConquistar))
             o_stream << "Territorio [" << territorioAConquistar->getNome() << "] conquistado!!" << endl;
         else
             o_stream << "Conquista Falhada!!" << endl;
@@ -64,15 +65,25 @@ void Interface::parseCommand(string command) {
         else if(commandResult == -3)
             o_stream << "[ERRO] Tecnologia ja foi adquirida" << endl;
     } else if(commandType == "modifica" && commandVector.size() == 3) {
-        commandResult = mundo->getImperio()->modifica(commandVector[1], stoi(commandVector[2]));
+        commandResult = imperio->modifica(commandVector[1], stoi(commandVector[2]));
 
         if(commandResult == 0)
-            o_stream << "[SUCCESS] Novo valor de " << commandVector[1] << " e " << commandVector[2] << "unidades." << endl;
+            o_stream << "[SUCCESS] Novo valor de " << commandVector[1] << " e " << commandVector[2] << " unidades." << endl;
         else if(commandResult == -1)
             o_stream << "[ERRO] Tipo de recurso invalido. Este deve ser 'ouro' ou 'prod'." << endl;
         else if(commandResult == -2)
-            o_stream << "[ERRO] A quantidade que inseriu e superior a capacidade do imperio: " << mundo->getImperio()->getMaxUnidades() << " unidades" << endl;
+            o_stream << "[ERRO] A quantidade que inseriu e superior a capacidade do imperio: " << imperio->getMaxUnidades() << " unidades." << endl;
+    } else if(commandType == "maisouro" && fase == F_RECOLHA) {
+        commandResult = imperio->maisOuro();
 
+        if(commandResult == 0)
+            o_stream << "[SUCCESS] Troca efetuada com sucesso! Total de ouro: " << imperio->getArmazemOuro() << " unidades." << endl;
+        else if(commandResult == -1)
+            o_stream << "[ERRO] Falha ao efetuar troca. Nao tem produtos suficientes para trocar." << endl;
+        else if(commandResult == -2)
+            o_stream << "[ERRO] Impossivel efetuar troca. Ainda nao adquiriu a tecnologia Bolsa de valores." << endl;
+        else if(commandResult == -3)
+            o_stream << "[ERRO] Falha ao efetuar troca. Nao tem mais espaco no armazem." << endl;
     } else
         o_stream << "[ERRO] Commando invalido!" << endl;
 }

@@ -55,6 +55,10 @@ public:
 	void incrementNDefesasTerritoriais();
 	bool hasTecnologiaByName(string nameTecnologia) const;
 
+	int maisOuro();
+	int maisProd();
+	int maisMilitar();
+
 	// Comandos Debug
 	int modifica(string type, int quant);
 	
