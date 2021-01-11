@@ -159,6 +159,8 @@ int Imperio::adquirirTecnologia(string nomeTecnologia) {
 			armazemOuro -= DroneMilitar::custo;
 		} else return -2;
 	else if(nomeTecnologia == "bolsa_de_valores")
+		if(hasTecnologiaByName("BolsaValores"))
+			return -3;
 		if(BolsaValores::custo <= armazemOuro) {
 			newTecnologia = new BolsaValores();
 			setCanExchangeProdutosOuro(true);
@@ -176,23 +178,27 @@ int Imperio::adquirirTecnologia(string nomeTecnologia) {
 			incrementNDefesasTerritoriais();
 			armazemOuro -= DefesasTerritoriais::custo;
 		} else return -2;
-	else if(nomeTecnologia == "banco_central")
+	else if(nomeTecnologia == "banco_central") {
+		if(hasTecnologiaByName("BancoCentral"))
+			return -3;
+
 		if(BancoCentral::custo <= armazemOuro) {
 			newTecnologia = new BancoCentral();
 			setMaxUnidades(5);
 			armazemOuro -= BancoCentral::custo;
 		} else return -2;
-	else {
+	} else
 		return -1;
-	}
 	
 	tecnologias.push_back(newTecnologia);
 
-	// for(auto it = tecnologias.begin(); it < tecnologias.end(); it++) {
-	// 	cout << " " << (*it)->getNome();
-	// 	// (*it)->print();
-	// };
-	// cout << endl;
-
 	return 0;
+}
+
+bool Imperio::hasTecnologiaByName(string nameTecnologia) const {
+	for(auto it = tecnologias.begin(); it < tecnologias.end(); it++)
+		if((*it)->getNome() == nameTecnologia)
+			return true;
+	
+	return false;
 }

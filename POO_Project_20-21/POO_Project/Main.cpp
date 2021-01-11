@@ -5,6 +5,12 @@
 #include "Interface.h"
 #include "Tecnologia.h"
 
+
+template<typename Base, typename T>
+inline bool instanceof(const T*) {
+   return is_base_of<Base, T>::value;
+}
+
 using namespace std;
 
 void initRandom() {
@@ -14,8 +20,8 @@ void initRandom() {
 int main() {
 	initRandom();
 	
-    Interface i(new Mundo(), cin, cout);
-    i.run();
+    // Interface i(new Mundo(), cin, cout);
+    // i.run();
 
     // Imperio i1(new Territorio);
 
@@ -26,6 +32,13 @@ int main() {
     // i1.adquirirTecnologia("drone_militar");
     // i1.adquirirTecnologia("misseis_teleguiados");
     // i1.adquirirTecnologia("bolsa_de_valores");
+
+    vector<Tecnologia*> tec;
+
+    tec.push_back(new DroneMilitar());
+    tec.push_back(new BancoCentral());
+
+    cout << instanceof<DroneMilitar>(tec[0]) << endl;
 
 
 

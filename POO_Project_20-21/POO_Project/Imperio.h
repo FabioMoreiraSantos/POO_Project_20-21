@@ -26,7 +26,7 @@ class Imperio
 	int nDefesasTerritoriais = 0;
 	
 	vector<Territorio*> reinado;				//vetor de territorios
-	vector<Tecnologia*> tecnologias; 
+	vector<Tecnologia*> tecnologias;
 
 public:
 	Imperio(Territorio* territorioInicial);
@@ -54,6 +54,7 @@ public:
 	string getListaTecnologias() const;
 	int adquirirTecnologia(string tecnologia);
 	void incrementNDefesasTerritoriais();
+	bool hasTecnologiaByName(string nameTecnologia) const;
 	
 };
 

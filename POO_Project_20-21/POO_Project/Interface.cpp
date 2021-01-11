@@ -61,6 +61,8 @@ void Interface::parseCommand(string command) {
 		    o_stream << "[Erro] A tecnologia que pretende adquirir nao existe" << endl;
         else if(commandResult == -2)
             o_stream << "[Erro] Nao tem dinheiro suficiente para comprar esta tecnologia" << endl;
+        else if(commandResult == -3)
+            o_stream << "[Erro] Tecnologia ja foi adquirida" << endl;
     } else
         o_stream << "[ERRO] Commando invalido!" << endl;
 }
