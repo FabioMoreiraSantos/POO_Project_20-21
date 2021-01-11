@@ -1,10 +1,20 @@
 cria territorio 3
 cria territorio 1
 cria territorio 5
+lista territorios
 avanca
-conquista Territorio1
-conquista Territorio2
-conquista Territorio2
-lista conquistados
-lista Territorio1
-lista Territorio2
+avanca
+avanca
+modifica ouro 2
+adquire bolsa_de_valores
+avanca
+avanca
+avanca
+modifica prod 2
+maisouro
+lista
+modifica ouro 3
+maisprod
+lista
+maismilitar
+lista

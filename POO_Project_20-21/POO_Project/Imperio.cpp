@@ -1,10 +1,17 @@
 #include "Imperio.h"
+#include "Tecnologia.h"
 #include <iterator>
 #include <sstream>
 #include <time.h>
 
 #define MAX 6
 #define MIN 1
+
+// class BolsaValores;
+// class MisseisTeleguiados;
+// class DefesasTerritoriais;
+// class DroneMilitar;
+// class BancoCentral;
 
 Imperio::Imperio(Territorio* territorioInicial) {
 	addTerritorio(territorioInicial);
@@ -60,6 +67,13 @@ int Imperio::getReinadoSize()
 
 void Imperio::setMaxUnidades(int maximo) { maxUnidades = maximo; }
 void Imperio::setMaxMilitar(int max) { maxMilitar = max; }
+void Imperio::setCanConquistarIlhas(bool val) { canConquistarIlhas = val; }
+void Imperio::setCanExchangeProdutosOuro(bool val) { canExchangeProdutosOuro = val; }
+
+void Imperio::incrementNDefesasTerritoriais() {
+	nDefesasTerritoriais++;
+}
+
 void Imperio::setArmazemProdutos(int produtos)
 {
 	armazemProdutos += produtos;
@@ -127,7 +141,23 @@ string Imperio::listaInfo() const {
 	os << "Armazem Produtos: " << armazemProdutos << "/" << maxUnidades << endl
 		<< "Armazem Ouro: " << armazemOuro << "/" << maxUnidades << endl
 		<< "Forca Militar: " << forcaMilitar << "/" << maxMilitar << endl
-		<< "Territorios conquistados: " << reinado.size() << endl;
+		<< "Territorios conquistados: " << reinado.size() << endl
+		<< getListaTecnologias() << endl;
+
+	return os.str();
+}
+
+string Imperio::getListaTecnologias() const {
+	ostringstream os;
+
+	os << "Tecnologias adquiridas: ";
+
+	if(tecnologias.size() > 0)
+		for(auto it = tecnologias.begin(); it < tecnologias.end(); it++) {
+			os << (*it)->getNome() << " ";
+		}
+	else
+		os << "Ainda nao foi adquirida nenhuma tecnologia" << endl;
 
 	return os.str();
 }
@@ -145,3 +175,120 @@ string Imperio::listaConquistados() const {
 	return os.str();
 }
 
+int Imperio::adquirirTecnologia(string nomeTecnologia) {
+	Tecnologia *newTecnologia;
+	ostringstream os;
+
+	if(nomeTecnologia == "drone_militar")
+		if(DroneMilitar::custo <= armazemOuro) {
+			newTecnologia = new DroneMilitar();
+			setMaxMilitar(5);
+			armazemOuro -= DroneMilitar::custo;
+		} else return -2;
+	else if(nomeTecnologia == "bolsa_de_valores") {
+		if(hasTecnologiaByName("BolsaValores"))
+			return -3;
+		if(BolsaValores::custo <= armazemOuro) {
+			newTecnologia = new BolsaValores();
+			setCanExchangeProdutosOuro(true);
+			armazemOuro -= BolsaValores::custo;
+		} else return -2;
+	} else if(nomeTecnologia == "misseis_teleguiados")
+		if(MisseisTeleguiados::custo <= armazemOuro) {
+			newTecnologia = new MisseisTeleguiados();
+			setCanConquistarIlhas(true);
+			armazemOuro -= MisseisTeleguiados::custo;
+		} else return -2;
+	else if(nomeTecnologia == "defesas_territoriais")
+		if(DefesasTerritoriais::custo <= armazemOuro) {
+			newTecnologia = new DefesasTerritoriais();
+			incrementNDefesasTerritoriais();
+			armazemOuro -= DefesasTerritoriais::custo;
+		} else return -2;
+	else if(nomeTecnologia == "banco_central") {
+		if(hasTecnologiaByName("BancoCentral"))
+			return -3;
+
+		if(BancoCentral::custo <= armazemOuro) {
+			newTecnologia = new BancoCentral();
+			setMaxUnidades(5);
+			armazemOuro -= BancoCentral::custo;
+		} else return -2;
+	} else
+		return -1;
+	
+	tecnologias.push_back(newTecnologia);
+
+	return 0;
+}
+
+bool Imperio::hasTecnologiaByName(string nameTecnologia) const {
+	for(auto it = tecnologias.begin(); it < tecnologias.end(); it++)
+		if((*it)->getNome() == nameTecnologia)
+			return true;
+	
+	return false;
+}
+
+int Imperio::modifica(string type, int quant) {
+	if(maxUnidades >= quant)
+		if(type == "ouro")
+			armazemOuro = quant;
+		else if(type == "prod")
+			armazemProdutos = quant;
+		else
+			return -1;
+	else
+		return -2;
+
+	return 0;
+}
+
+int Imperio::maisOuro() {
+	if(canExchangeProdutosOuro) {
+		if(armazemProdutos >= 2)
+			if(armazemOuro < maxUnidades) {
+				armazemOuro++;
+				armazemProdutos -= 2;
+			} else
+				return -3; // Exceeded maxUnidades
+		else
+			return -1; // Not enough products
+	} else
+		return -2; // Needs to buy bolsa de valores
+
+	return 0;
+}
+
+int Imperio::maisProd() {
+	if(canExchangeProdutosOuro) {
+		if(armazemOuro >= 2)
+			if(armazemProdutos < maxUnidades) {
+				armazemProdutos++;
+				armazemOuro -= 2;
+			} else
+				return -3; // Exceeded maxUnidades
+		else
+			return -1; // Not enough ouro
+	} else
+		return -2; // Needs to buy bolsa de valores
+
+	return 0;
+}
+
+int Imperio::maisMilitar() {
+	if(canExchangeProdutosOuro) {
+		if(armazemOuro >= 1 && armazemProdutos >= 1)
+			if(forcaMilitar < maxMilitar) {
+				forcaMilitar++;
+				armazemOuro--;
+				armazemProdutos--;
+			} else
+				return -3; // Exceeded maxMilitar
+		else
+			return -1; // Not enough products and ouro
+	} else
+		return -2; // Needs to buy bolsa de valores
+
+	return 0;
+}

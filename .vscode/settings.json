@@ -5,6 +5,16 @@
         "sstream": "cpp",
         "ostream": "cpp",
         "fstream": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "iterator": "cpp",
+        "new": "cpp",
+        "array": "cpp",
+        "*.tcc": "cpp",
+        "memory": "cpp",
+        "istream": "cpp",
+        "ranges": "cpp",
+        "functional": "cpp",
+        "tuple": "cpp",
+        "utility": "cpp"
     }
 }
