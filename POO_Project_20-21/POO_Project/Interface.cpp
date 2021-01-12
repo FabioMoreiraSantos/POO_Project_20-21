@@ -145,12 +145,28 @@ void Interface::parseCommand(string command) {
 
     } else if (commandType == "grava" && commandVector.size() == 2) {
         savedSnapshots.push_back(new MundoSnapshot(commandVector[1], mundo->clone()));
-
+        o_stream << "Nova snapshot com o nome '" << commandVector[1] << "' foi guardada com sucesso" << endl;
+    } else if (commandType == "ativa" && commandVector.size() == 2) {
         for(auto it = savedSnapshots.begin(); it < savedSnapshots.end(); it++) {
-            o_stream << (*it)->getName() << endl;
-            o_stream << (*it)->getSavedMundo()->getAsString() << endl << endl;
+            if((*it)->getName() == commandVector[1]) {
+                delete mundo;
+                mundo = (*it)->getSavedMundo()->clone();
+                o_stream << "Snapshot com o nome '" << commandVector[1] << "' foi recuperada com sucesso" << endl;
+                return;
+            }
         }
-        o_stream << endl;
+        o_stream << "Nao existe nenhuma snapshot com o nome '" << commandVector[1] << "'." << endl;
+    } else if (commandType == "apaga" && commandVector.size() == 2) {
+        for(auto it = savedSnapshots.begin(); it < savedSnapshots.end(); it++) {
+            if((*it)->getName() == commandVector[1]) {
+                delete (*it)->getSavedMundo();
+                
+                savedSnapshots.erase(it);
+                o_stream << "Snapshot com o nome '" << commandVector[1] << "' foi apagada com sucesso" << endl;
+                return;
+            }
+        }
+        o_stream << "Nao existe nenhuma snapshot com o nome '" << commandVector[1] << "'." << endl;
     } else if (commandType == "passa" && fase == F_CONQUISTA) {
         nextFase();
     }
