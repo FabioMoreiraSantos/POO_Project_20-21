@@ -42,4 +42,19 @@ public:
     static int getTurnos(); //Static para que nao seja necessario instanciar um objeto
 
     istream& getIstream() const { return i_stream; }
+
+    // Command methods
+    void commandCria(vector<string> commandVector);
+    void commandCarrega(vector<string> commandVector);
+    void commandLista(vector<string> commandVector);
+    void commandConquista(vector<string> commandVector);
+    void commandAdquire(vector<string> commandVector);
+    void commandModifica(vector<string> commandVector);
+    void commandMaisOuro(vector<string> commandVector);
+    void commandMaisProd(vector<string> commandVector);
+    void commandMaisMilitar(vector<string> commandVector);
+    void commandToma(vector<string> commandVector);
+    void commandGrava(vector<string> commandVector);
+    void commandAtiva(vector<string> commandVector);
+    void commandApaga(vector<string> commandVector);
 };
