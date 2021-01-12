@@ -22,6 +22,9 @@ Imperio::Imperio(const Imperio& ref) {
 	for(auto it = ref.reinado.begin(); it < ref.reinado.end(); it++)
 		reinado.push_back((*it));
 	
+	for(auto it = ref.tecnologias.begin(); it < ref.tecnologias.end(); it++)
+		tecnologias.push_back((*it));
+
 	armazemProdutos = ref.armazemProdutos;
 	armazemOuro = ref.armazemOuro;
 	maxUnidades = ref.maxUnidades;

@@ -143,6 +143,14 @@ void Interface::parseCommand(string command) {
             o_stream << "[ERRO] Tipo a tomar invalido" << endl;
         }
 
+    } else if (commandType == "grava" && commandVector.size() == 2) {
+        savedSnapshots.push_back(new MundoSnapshot(commandVector[1], mundo->clone()));
+
+        for(auto it = savedSnapshots.begin(); it < savedSnapshots.end(); it++) {
+            o_stream << (*it)->getName() << endl;
+            o_stream << (*it)->getSavedMundo()->getAsString() << endl << endl;
+        }
+        o_stream << endl;
     } else if (commandType == "passa" && fase == F_CONQUISTA) {
         nextFase();
     }

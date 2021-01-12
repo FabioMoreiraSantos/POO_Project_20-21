@@ -12,8 +12,7 @@ class Tecnologia;
 
 using namespace std;
 
-class Imperio
-{
+class Imperio {
 	int armazemProdutos = 3;
 	int armazemOuro = 3;
 	int forcaMilitar = 2;

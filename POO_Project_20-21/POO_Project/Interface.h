@@ -4,6 +4,7 @@
 #include <vector>
 #include <fstream>
 #include "Mundo.h"
+#include "MundoSnapshot.h"
 
 using namespace std;
 
@@ -19,6 +20,8 @@ class Interface {
     istream& i_stream;
     ostream& o_stream;
     int fase = F_CONFIG;
+    vector<MundoSnapshot*> savedSnapshots;
+    
 
 public:
     Interface(Mundo* m, istream& _cin, ostream& _cout)
@@ -36,7 +39,7 @@ public:
     void nextFase();
 
     string getFaseName();
-    static int getTurnos();         //Static para que nao seja necessário instanciar um objeto
+    static int getTurnos(); //Static para que nao seja necessario instanciar um objeto
 
     istream& getIstream() const { return i_stream; }
 };

@@ -31,6 +31,10 @@ public:
 	int imperioAdquireTecnologia(string nomeTecnologia);
 	int tomaCommand(string type, string name);
 
+	Mundo* clone() const {
+		return new Mundo(*this);
+	}
+
 };
 
 #endif

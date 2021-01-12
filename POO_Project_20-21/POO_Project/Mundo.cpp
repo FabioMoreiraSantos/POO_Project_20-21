@@ -91,6 +91,10 @@ bool Mundo::criaTerritorios(string type, int quant) {
 string Mundo::getAsString() const {
     ostringstream os;
 
+    os << imperio->listaInfo() << endl;
+    os << imperio->listaConquistados() << endl;
+    os << imperio->getListaTecnologias() << endl;
+
     for(auto it = territorios.begin(); it < territorios.end(); it++)
         os << (*it)->getNome() << " ";
 
