@@ -83,8 +83,6 @@ bool Mundo::criaTerritorios(string type, int quant) {
         return false;
     }
 
-    
-    
     return true;
 }
 

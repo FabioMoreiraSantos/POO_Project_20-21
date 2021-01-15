@@ -1,6 +1,6 @@
-cria territorio 3
-cria territorio 1
-cria territorio 5
+cria montanha 3
+cria planicie 1
+cria refugio_de_piratas 5
 lista territorios
 avanca
 avanca

@@ -1,7 +1,17 @@
 #include "Interface.h"
 
 int Interface::turno = 0;
+int Interface::ano = 1;
 void toLowerCase(string& word);
+
+int randNum(int min, int max){
+    random_device rd; // obtain a random number from hardware
+    mt19937 gen(rd()); // seed the generator
+    uniform_int_distribution<> distr(min, max); // define the range
+
+    return distr(gen);
+}
+
 
 void Interface::run() {
     string command;
@@ -103,27 +113,46 @@ vector<string> Interface::splitString(string str) const {
     return words;
 }
 
-void Interface::nextFase() {
-    if (fase == 4) {
-        fase = 1;
+void Interface::incrementTurno() {
+    if(turno < 6)
         turno++;
+    else {
+        // turno = 0; // TODO: Check this
+        ano ++;
     }
-    else fase++;
-    if(fase == 2)
-        mundo->getImperio()->recolheMaterias();
+}
+
+void Interface::nextFase() {
+    if(fase == F_EVENTOS) {
+        fase = F_CONQUISTA;
+        incrementTurno();
+    } else fase++;
+
+    switch (fase) {
+        case F_RECOLHA:
+            mundo->getImperio()->recolheMaterias();
+            break;
+
+        case F_EVENTOS:
+            triggerEvent();
+            break;
+        
+        default:
+            break;
+    }
+        
 }
 
 string Interface::getFaseName() {
     if(fase == F_CONFIG) return "CONFIGURA";
-    else if (fase == F_CONQUISTA) return "CONQUISTA/PASSA";
-    else if (fase == F_COMPRA) return "COMPRA";
-    else if (fase == F_RECOLHA) return "RECOLHA";
-    else if (fase == F_EVENTOS) return "EVENTOS";
+    else if(fase == F_CONQUISTA) return "CONQUISTA/PASSA";
+    else if(fase == F_COMPRA) return "COMPRA";
+    else if(fase == F_RECOLHA) return "RECOLHA";
+    else if(fase == F_EVENTOS) return "EVENTOS";
     else return "";
 }
 
-int Interface::getTurnos()
-{
+int Interface::getTurnos() {
     return turno;
 }
 
@@ -289,3 +318,40 @@ void Interface::commandApaga(vector<string> commandVector) {
     o_stream << "Nao existe nenhuma snapshot com o nome '" << commandVector[1] << "'." << endl;
 
 }
+
+void Interface::triggerEvent() {
+    int eventBeingTriggered = randNum(0, 3);
+
+    switch (eventBeingTriggered) {
+        case 0:
+            eventRecursoAbandonado();
+            break;
+        case 1:
+            eventInvasao();
+            break;
+        case 2:
+            eventAliancaDiplomatica();
+            break;
+        case 3: // No event triggered
+        default:
+            break;
+    }
+}
+
+void Interface::eventRecursoAbandonado() {
+    Imperio* imperio = mundo->getImperio();
+
+    if(ano == 1)
+        imperio->incrementProd();
+    else
+        imperio->incrementOuro();
+}
+
+void Interface::eventInvasao() {
+}
+
+void Interface::eventAliancaDiplomatica() {
+    mundo->getImperio()->incrementForcaMilitar();
+}
+
+

@@ -3,6 +3,7 @@
 #include <iterator>
 #include <sstream>
 #include <time.h>
+#include <random>
 
 #define MAX 6
 #define MIN 1
@@ -113,7 +114,11 @@ void Imperio::recolheMaterias()
 }
 
 int randomNumEntre(int max, int min) {
-	return (rand() % (MAX - MIN + 1) + MIN);
+    random_device rd; // obtain a random number from hardware
+    mt19937 gen(rd()); // seed the generator
+    uniform_int_distribution<> distr(min, max); // define the range
+
+    return distr(gen);
 }
 
 bool Imperio::conquistar(Territorio * territorio) {
@@ -251,7 +256,7 @@ int Imperio::maisOuro() {
 	if(canExchangeProdutosOuro) {
 		if(armazemProdutos >= 2)
 			if(armazemOuro < maxUnidades) {
-				armazemOuro++;
+				incrementOuro();
 				armazemProdutos -= 2;
 			} else
 				return -3; // Exceeded maxUnidades
@@ -267,7 +272,7 @@ int Imperio::maisProd() {
 	if(canExchangeProdutosOuro) {
 		if(armazemOuro >= 2)
 			if(armazemProdutos < maxUnidades) {
-				armazemProdutos++;
+				incrementProd();
 				armazemOuro -= 2;
 			} else
 				return -3; // Exceeded maxUnidades
@@ -310,6 +315,8 @@ int Imperio::takeTecnologia(string nameTecnologia) {
 	ostringstream os;
 
 	if(nameTecnologia == "drone_militar") {
+		if(hasTecnologiaByName("DroneMilitar"))
+			return -2;
 		newTecnologia = new DroneMilitar();
 		setMaxMilitar(5);
 	} else if(nameTecnologia == "bolsa_de_valores") {
@@ -318,9 +325,13 @@ int Imperio::takeTecnologia(string nameTecnologia) {
 		newTecnologia = new BolsaValores();
 		setCanExchangeProdutosOuro(true);
 	} else if(nameTecnologia == "misseis_teleguiados") {
+		if(hasTecnologiaByName("MisseisTeleguiados"))
+			return -2;
 		newTecnologia = new MisseisTeleguiados();
 		setCanConquistarIlhas(true);
 	} else if(nameTecnologia == "defesas_territoriais") {
+		if(hasTecnologiaByName("DefesasTerritoriais"))
+			return -2;
 		newTecnologia = new DefesasTerritoriais();
 		incrementNDefesasTerritoriais();
 	} else if(nameTecnologia == "banco_central") {
@@ -336,3 +347,36 @@ int Imperio::takeTecnologia(string nameTecnologia) {
 	return 0;
 }
 
+void Imperio::incrementOuro(){
+	if(armazemOuro < maxUnidades)	
+		armazemOuro++;
+}
+
+void Imperio::incrementProd(){
+	if(armazemProdutos < maxUnidades)	
+		armazemProdutos++;
+}
+
+void Imperio::incrementForcaMilitar(){
+	if(forcaMilitar < maxMilitar)	
+		forcaMilitar++;
+}
+
+void Imperio::sufferInvasion(int ano) {
+	int fatorSorte = randomNumEntre(1, 6);
+	int forcaInvasao = fatorSorte + ano + 1;
+	Territorio* territorioBeingInvaded = getLastConqueredTerritorio();
+	bool isInvasionSuccessful = territorioBeingInvaded->getResistencia() + nDefesasTerritoriais < fatorSorte;
+
+	if(isInvasionSuccessful) {
+		reinado.pop_back();
+
+		if(reinado.size() == 0) {
+			return; // Lose game
+		}
+	}
+}
+
+Territorio* Imperio::getLastConqueredTerritorio() {
+	return reinado[reinado.size() - 1];
+}

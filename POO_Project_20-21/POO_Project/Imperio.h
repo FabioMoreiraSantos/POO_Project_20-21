@@ -39,6 +39,7 @@ public:
 	int getArmazemProds() { return armazemProdutos; };
 	int getForcaMilitar() { return forcaMilitar; };
 	int getReinadoSize();
+	Territorio* getLastConqueredTerritorio();
 
 	//Setters
 	void setMaxUnidades(int maximo);
@@ -47,6 +48,9 @@ public:
 	void setCanExchangeProdutosOuro(bool val);
 	void setArmazemProdutos(int produtos);
 	void setArmazemOuro(int ouro);
+	void incrementOuro();
+	void incrementProd();
+	void incrementForcaMilitar();
 	
 	//Methods
 	void addTerritorio(Territorio * territorio);
@@ -66,6 +70,8 @@ public:
 	int maisOuro();
 	int maisProd();
 	int maisMilitar();
+
+	void sufferInvasion(int ano);
 
 	// Comandos Debug
 	int modifica(string type, int quant);

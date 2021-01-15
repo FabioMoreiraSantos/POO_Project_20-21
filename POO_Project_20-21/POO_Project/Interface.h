@@ -5,11 +5,12 @@
 #include <fstream>
 #include "Mundo.h"
 #include "MundoSnapshot.h"
+#include <random>
 
 using namespace std;
-
 class Interface {
     static int turno;
+    static int ano;
     static const int F_CONFIG = 0;
     static const int F_CONQUISTA = 1;
     static const int F_RECOLHA = 2;
@@ -40,6 +41,8 @@ public:
 
     string getFaseName();
     static int getTurnos(); //Static para que nao seja necessario instanciar um objeto
+    void incrementTurno();
+
 
     istream& getIstream() const { return i_stream; }
 
@@ -57,4 +60,10 @@ public:
     void commandGrava(vector<string> commandVector);
     void commandAtiva(vector<string> commandVector);
     void commandApaga(vector<string> commandVector);
+
+    // Eventos
+    void triggerEvent();
+    void eventRecursoAbandonado();
+    void eventInvasao();
+    void eventAliancaDiplomatica();
 };

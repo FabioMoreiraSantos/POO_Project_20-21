@@ -5,7 +5,7 @@
 #include <time.h>
 #include "Interface.h"
 #include "Tecnologia.h"
-
+#include <random>
 
 // template<typename Base, typename T>
 // inline bool instanceof(const T*) {
@@ -14,12 +14,14 @@
 
 using namespace std;
 
-void initRandom() {
-	srand(time(NULL));		//previne repeticoes entre runs
-}
+// void initRandom() {
+// 	srand(time(NULL));		//previne repeticoes entre runs
+// }
+
+
 
 int main() {
-	initRandom();
+	// initRandom();
 	
     Interface i(new Mundo(), cin, cout);
     i.run();
