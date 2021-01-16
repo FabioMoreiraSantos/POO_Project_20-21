@@ -27,8 +27,7 @@ class Interface {
 public:
     Interface(Mundo* m, istream& _cin, ostream& _cout)
     : mundo(m), i_stream(_cin), o_stream(_cout) {};
-
-    ~Interface() { delete mundo; }
+    ~Interface();
 
     void run();
 

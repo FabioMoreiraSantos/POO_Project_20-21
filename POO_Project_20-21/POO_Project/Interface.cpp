@@ -4,6 +4,14 @@ int Interface::turno = 0;
 int Interface::ano = 1;
 void toLowerCase(string& word);
 
+Interface::~Interface() {
+    delete mundo;
+
+    for(auto it = savedSnapshots.begin(); it < savedSnapshots.end(); it++)
+        delete *it;
+}
+
+
 int randNum(int min, int max){
     random_device rd; // obtain a random number from hardware
     mt19937 gen(rd()); // seed the generator
@@ -302,7 +310,6 @@ void Interface::commandAtiva(vector<string> commandVector) {
         }
     }
     o_stream << "Nao existe nenhuma snapshot com o nome '" << commandVector[1] << "'." << endl;
-
 }
 
 void Interface::commandApaga(vector<string> commandVector) {

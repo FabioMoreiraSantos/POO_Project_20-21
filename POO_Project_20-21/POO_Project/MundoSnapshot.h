@@ -18,10 +18,12 @@ public:
     MundoSnapshot();
     MundoSnapshot(string _name, Mundo* _savedMundo)
     : name(_name), savedMundo(_savedMundo) {};
+    MundoSnapshot(const MundoSnapshot& ref);
+    MundoSnapshot& operator=(const MundoSnapshot& c);
+    ~MundoSnapshot();
 
-    string getName() const { return name; };
-    Mundo* getSavedMundo() const { return savedMundo; };
-
+    string getName() const;
+    Mundo* getSavedMundo() const;
 };
 
 #endif

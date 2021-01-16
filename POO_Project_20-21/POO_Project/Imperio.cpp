@@ -8,12 +8,6 @@
 #define MAX 6
 #define MIN 1
 
-// class BolsaValores;
-// class MisseisTeleguiados;
-// class DefesasTerritoriais;
-// class DroneMilitar;
-// class BancoCentral;
-
 Imperio::Imperio(Territorio* territorioInicial) {
 	addTerritorio(territorioInicial);
 	territorioInicial->setIsConquistado(true);
@@ -40,6 +34,9 @@ Imperio& Imperio::operator=(const Imperio& c) {
 
 	for(auto it = c.reinado.begin(); it < c.reinado.end(); it++)
 		reinado.push_back((*it));
+	
+	for(auto it = c.tecnologias.begin(); it < c.tecnologias.end(); it++)
+		tecnologias.push_back((*it));
 
 	armazemProdutos = c.armazemProdutos;
 	armazemOuro = c.armazemOuro;
@@ -48,6 +45,11 @@ Imperio& Imperio::operator=(const Imperio& c) {
 	maxMilitar = c.maxMilitar;
 
 	return *this;
+}
+
+Imperio::~Imperio() {
+	for(auto it = tecnologias.begin(); it < tecnologias.end(); it++)
+		delete (*it);
 }
 
 int Imperio::getMaxUnidades() { return maxUnidades; }

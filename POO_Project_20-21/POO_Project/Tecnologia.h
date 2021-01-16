@@ -20,38 +20,33 @@ public:
 };
 
 class DroneMilitar: public Tecnologia {
-    string name = "DroneMilitar";
 public:
+    DroneMilitar(): Tecnologia("DroneMilitar") {};
     static int custo;
-    virtual string getNome() { return name; }
 };
  
 class MisseisTeleguiados: public Tecnologia {
-    string name = "MisseisTeleguiados";
 public:
+    MisseisTeleguiados(): Tecnologia("MisseisTeleguiados") {};
     static int custo;
-    virtual string getNome() { return name; }
 };
 
 class DefesasTerritoriais: public Tecnologia {
-    string name = "DefesasTerritoriais";
 public:
+    DefesasTerritoriais(): Tecnologia("DefesasTerritoriais") {};
     static int custo;
-    virtual string getNome() { return name; }
 };
 
 class BolsaValores: public Tecnologia {
-    string name = "BolsaValores";
 public:
+    BolsaValores(): Tecnologia("BolsaValores") {};
     static int custo;
-    virtual string getNome() { return name; }
 };
 
 class BancoCentral: public Tecnologia {
-    string name = "BancoCentral";
 public:
+    BancoCentral(): Tecnologia("BancoCentral") {};
     static int custo;
-    virtual string getNome() { return name; }
 };
 
 #endif

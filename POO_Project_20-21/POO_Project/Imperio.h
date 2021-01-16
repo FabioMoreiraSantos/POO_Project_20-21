@@ -30,6 +30,7 @@ public:
 	Imperio(Territorio* territorioInicial);
 	Imperio(const Imperio& ref);
     Imperio& operator=(const Imperio& c);
+	~Imperio();
 
 	//Getters
 	int getMaxUnidades();
@@ -53,7 +54,6 @@ public:
 	void incrementForcaMilitar();
 	void addOuro(int quant);
 	void addProds(int quant);
-
 	
 	//Methods
 	void addTerritorio(Territorio * territorio);
