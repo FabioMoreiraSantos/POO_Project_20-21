@@ -1,4 +1,5 @@
 #include "Interface.h"
+#include "Tecnologia.h"
 
 int Interface::turno = 0;
 int Interface::ano = 1;
@@ -64,7 +65,7 @@ void Interface::parseCommand(string command) {
         commandLista(commandVector);
     else if (commandType == "conquista" && fase == F_CONQUISTA)
         commandConquista(commandVector);
-    else if (commandType == "adquire" && commandVector.size() == 2 && fase == F_COMPRA)
+    else if (commandType == "adquire" && fase == F_COMPRA)
         commandAdquire(commandVector);
     else if(commandType == "modifica" && commandVector.size() == 3)
         commandModifica(commandVector);
@@ -203,16 +204,26 @@ void Interface::commandConquista(vector<string> commandVector) {
 }
 
 void Interface::commandAdquire(vector<string> commandVector) {
-    int commandResult = mundo->imperioAdquireTecnologia(commandVector[1]);
+    int commandResult;
 
-    if(commandResult == 0)
-        o_stream << "[SUCCESS] Tecnologia adquirida com sucesso!" << endl;
-    else if(commandResult == -1)
-        o_stream << "[ERRO] A tecnologia que pretende adquirir nao existe" << endl;
-    else if(commandResult == -2)
-        o_stream << "[ERRO] Nao tem dinheiro suficiente para comprar esta tecnologia" << endl;
-    else if(commandResult == -3)
-        o_stream << "[ERRO] Tecnologia ja foi adquirida" << endl;
+    if(commandVector.size() == 2 ) {
+        commandResult = mundo->imperioAdquireTecnologia(commandVector[1]);
+
+        if(commandResult == 0)
+            o_stream << "[SUCCESS] Tecnologia adquirida com sucesso!" << endl;
+        else if(commandResult == -1)
+            o_stream << "[ERRO] A tecnologia que pretende adquirir nao existe" << endl;
+        else if(commandResult == -2)
+            o_stream << "[ERRO] Nao tem dinheiro suficiente para comprar esta tecnologia" << endl;
+        else if(commandResult == -3)
+            o_stream << "[ERRO] Tecnologia ja foi adquirida" << endl;
+    } else
+        o_stream << "[ LOJA ]" << endl
+            << "drone_militar: " << DroneMilitar::custo << " ouro" << endl
+            << "misseis_teleguiados: " << MisseisTeleguiados::custo << " ouro" << endl
+            << "defesas_territoriais: " << DefesasTerritoriais::custo << " ouro" << endl
+            << "bolsa_de_valores: " << BolsaValores::custo << " ouro" << endl
+            << "banco_central: " << BancoCentral::custo << " ouro" << endl;
 }
 
 void Interface::commandModifica(vector<string> commandVector) {

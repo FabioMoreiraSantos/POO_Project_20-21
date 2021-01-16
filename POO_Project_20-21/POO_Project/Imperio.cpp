@@ -189,13 +189,18 @@ int Imperio::adquirirTecnologia(string nomeTecnologia) {
 	Tecnologia *newTecnologia;
 	ostringstream os;
 
-	if(nomeTecnologia == "drone_militar")
+	// TODO: ADD NOTES TO RETURN VALUES
+
+	if(nomeTecnologia == "drone_militar") {
+		if(hasTecnologiaByName("DroneMilitar"))
+			return -3;
+
 		if(DroneMilitar::custo <= armazemOuro) {
 			newTecnologia = new DroneMilitar();
 			setMaxMilitar(5);
 			armazemOuro -= DroneMilitar::custo;
 		} else return -2;
-	else if(nomeTecnologia == "bolsa_de_valores") {
+	} else if(nomeTecnologia == "bolsa_de_valores") {
 		if(hasTecnologiaByName("BolsaValores"))
 			return -3;
 		if(BolsaValores::custo <= armazemOuro) {
@@ -203,19 +208,23 @@ int Imperio::adquirirTecnologia(string nomeTecnologia) {
 			setCanExchangeProdutosOuro(true);
 			armazemOuro -= BolsaValores::custo;
 		} else return -2;
-	} else if(nomeTecnologia == "misseis_teleguiados")
+	} else if(nomeTecnologia == "misseis_teleguiados") {
+		if(hasTecnologiaByName("MisseisTeleguiados"))
+			return -3;
 		if(MisseisTeleguiados::custo <= armazemOuro) {
 			newTecnologia = new MisseisTeleguiados();
 			setCanConquistarIlhas(true);
 			armazemOuro -= MisseisTeleguiados::custo;
 		} else return -2;
-	else if(nomeTecnologia == "defesas_territoriais")
+	} else if(nomeTecnologia == "defesas_territoriais") {
+		if(hasTecnologiaByName("DefesasTerritoriais"))
+			return -3;
 		if(DefesasTerritoriais::custo <= armazemOuro) {
 			newTecnologia = new DefesasTerritoriais();
 			incrementNDefesasTerritoriais();
 			armazemOuro -= DefesasTerritoriais::custo;
 		} else return -2;
-	else if(nomeTecnologia == "banco_central") {
+	} else if(nomeTecnologia == "banco_central") {
 		if(hasTecnologiaByName("BancoCentral"))
 			return -3;
 
@@ -383,7 +392,8 @@ int Imperio::sufferInvasion(int ano, ostream& o_stream) {
 	o_stream << "Territorio " << territorioBeingInvaded->getNome() << " invadido" << endl;
 
 	if(isInvasionSuccessful) {
-		o_stream << "Invasao foi bem sucedida." << endl;
+		o_stream << "[ EVENTO ] Invasao foi bem sucedida." << endl;
+		territorioBeingInvaded->setIsConquistado(false);
 		reinado.pop_back();
 
 		if(reinado.size() == 0) {
@@ -391,7 +401,7 @@ int Imperio::sufferInvasion(int ano, ostream& o_stream) {
 		}
 		
 	} else
-		o_stream << "Invasao falhou." << endl;;
+		o_stream << "[ EVENTO ] Invasao falhou." << endl;;
 
 	return 0; // Invasion successful
 }

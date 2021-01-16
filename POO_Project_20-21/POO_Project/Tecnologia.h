@@ -9,13 +9,10 @@ using namespace std;
 
 class Tecnologia {
     string name;
-    int custo = 0;
 public:
     Tecnologia(){}
-    Tecnologia(string _name): name(_name){} 
-    virtual void print() {
-        cout << "Custo: " << custo << "   Type: Tecnologia" << endl;
-    }
+    Tecnologia(string _name): name(_name){}
+    
     virtual string getNome() { return name; }
 };
 
