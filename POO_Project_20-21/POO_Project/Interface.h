@@ -40,6 +40,7 @@ public:
 
     string getFaseName();
     static int getTurnos(); //Static para que nao seja necessario instanciar um objeto
+    static int getAno();
     void incrementTurno();
 
 

@@ -43,7 +43,7 @@ Montanha::Montanha()
 	string name = "montanha" + to_string(nMontanhas);
 	Montanha::setNome(name);
 	Montanha::setResistencia(6);
-	if (turnosConquistado < 3) {		//2 primeiros turnos nao produz nada
+	if (getTurnosConquistado() < 3) {		//2 primeiros turnos nao produz nada
 		Montanha::setCriacaoProduto(0);
 		Montanha::setCriacaoOuro(0);
 	}
@@ -51,6 +51,11 @@ Montanha::Montanha()
 		Montanha::setCriacaoProduto(1);
 		Montanha::setCriacaoOuro(0);
 	}
+}
+
+int Montanha::getTurnosConquistado()
+{
+	return 0;
 }
 
 Fortaleza::Fortaleza()

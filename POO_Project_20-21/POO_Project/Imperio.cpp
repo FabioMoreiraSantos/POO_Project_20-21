@@ -1,5 +1,6 @@
 #include "Imperio.h"
 #include "Tecnologia.h"
+#include "Interface.h"
 #include <iterator>
 #include <sstream>
 #include <time.h>
@@ -137,6 +138,10 @@ bool Imperio::conquistar(Territorio * territorio) {
 	if (soma >= territorio->getResistencia()) {
 		this->addTerritorio(territorio);
 		territorio->setIsConquistado(true);
+		if (territorio->getNome().find("montanha") > -1) {	//Verificar se tem Montanha no nome
+			territorio->setTurnoConquistado(Interface::getTurnos());
+			cout << "Turno Conquistado: " << territorio->getTurnoConquistado();
+		}
 		return true;
 	}
 	else {
@@ -384,12 +389,18 @@ void Imperio::incrementForcaMilitar(){
 }
 
 int Imperio::sufferInvasion(int ano, ostream& o_stream) {
-	int fatorSorte = randomNumEntre(1, 6);
+	int fatorSorte = randomNumEntre(6, 1);
 	int forcaInvasao = fatorSorte + ano + 1;
 	Territorio* territorioBeingInvaded = getLastConqueredTerritorio();
-	bool isInvasionSuccessful = territorioBeingInvaded->getResistencia() + nDefesasTerritoriais < fatorSorte;
+	bool isInvasionSuccessful = territorioBeingInvaded->getResistencia() + nDefesasTerritoriais < forcaInvasao;
 
 	o_stream << "Territorio " << territorioBeingInvaded->getNome() << " invadido" << endl;
+	o_stream << "Fator Sorte: " << fatorSorte << endl;
+	o_stream << "Forca da Invasao: " << forcaInvasao << endl;
+	o_stream << "Total: " << fatorSorte+forcaInvasao << endl;
+	o_stream << "Resistencia de " << territorioBeingInvaded->getNome()
+		<< " " << territorioBeingInvaded->getResistencia() << endl;
+
 
 	if(isInvasionSuccessful) {
 		o_stream << "[ EVENTO ] Invasao foi bem sucedida." << endl;

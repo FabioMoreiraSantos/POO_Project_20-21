@@ -26,7 +26,9 @@ void Interface::run() {
     string command;
 
     while(true) {
-        o_stream << "[" << getFaseName() << "] Commando: ";
+        o_stream <<"\n[Ano " << getAno() << "]"
+            "[Turno: " << getTurnos() << "]" << endl
+            << "[" << getFaseName() << "] Commando: ";
         getline(i_stream, command);
 
 
@@ -163,6 +165,11 @@ string Interface::getFaseName() {
 
 int Interface::getTurnos() {
     return turno;
+}
+
+int Interface::getAno()
+{
+        return ano;
 }
 
 void Interface::commandCria(vector<string> commandVector) {

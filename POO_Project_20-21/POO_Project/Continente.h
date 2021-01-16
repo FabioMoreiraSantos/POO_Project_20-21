@@ -22,9 +22,10 @@ public:
 class Montanha : public Continente
 {
 	static int nMontanhas;
-	int turnosConquistado = 0;
+	int turnoConquistado = 0;
 public:
 	Montanha();
+	virtual int getTurnosConquistado();
 };
 class Fortaleza : public Continente 
 {
