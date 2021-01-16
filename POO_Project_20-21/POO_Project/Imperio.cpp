@@ -384,7 +384,7 @@ void Imperio::incrementForcaMilitar(){
 }
 
 int Imperio::sufferInvasion(int ano, ostream& o_stream) {
-	int fatorSorte = randomNumEntre(1, 6);
+	int fatorSorte = randomNumEntre(6, 1);
 	int forcaInvasao = fatorSorte + ano + 1;
 	Territorio* territorioBeingInvaded = getLastConqueredTerritorio();
 	bool isInvasionSuccessful = territorioBeingInvaded->getResistencia() + nDefesasTerritoriais < fatorSorte;

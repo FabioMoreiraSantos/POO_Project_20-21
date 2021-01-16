@@ -83,6 +83,8 @@ void Interface::parseCommand(string command) {
         commandAtiva(commandVector);
     else if (commandType == "apaga" && commandVector.size() == 2)
         commandApaga(commandVector);
+    else if(commandType == "fevento")
+        commandFevento(commandVector);
     else if (commandType == "passa" && fase == F_CONQUISTA)
         nextFase();
     else
@@ -337,6 +339,21 @@ void Interface::commandApaga(vector<string> commandVector) {
 
 }
 
+void Interface::commandFevento(vector<string> commandVector) {
+    if(commandVector.size() == 1)
+        o_stream << "[ INFO ] Eventos disponiveis: 'invasao', 'recurso_abandonado', 'alianca_diplomatica'" << endl;
+    else {
+        if(commandVector[1] == "invasao")
+            eventInvasao();
+        else if(commandVector[1] == "recurso_abandonado")
+            eventRecursoAbandonado();
+        else if(commandVector[1] == "alianca_diplomatica")
+            eventAliancaDiplomatica();
+        else
+            o_stream << "[ ERRO ] Evento invalido" << endl;
+    }
+}
+
 void Interface::triggerEvent() {
     int eventBeingTriggered = randNum(0, 3);
 
@@ -393,5 +410,3 @@ void Interface::eventAliancaDiplomatica() {
     o_stream << "[ EVENTO ] Evento de aliança diplomática a comecar..." << endl;
     o_stream << "[ EVENTO ] Ganhou uma unidade de forca militar!   Forca militar: " << imperio->getForcaMilitar() << endl;
 }
-
-

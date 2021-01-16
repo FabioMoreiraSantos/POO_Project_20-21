@@ -59,6 +59,7 @@ public:
     void commandGrava(vector<string> commandVector);
     void commandAtiva(vector<string> commandVector);
     void commandApaga(vector<string> commandVector);
+    void commandFevento(vector<string> commandVector);
 
     // Eventos
     void triggerEvent();
