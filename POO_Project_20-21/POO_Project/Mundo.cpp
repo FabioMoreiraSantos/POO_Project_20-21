@@ -83,13 +83,15 @@ bool Mundo::criaTerritorios(string type, int quant) {
         return false;
     }
 
-    
-    
     return true;
 }
 
 string Mundo::getAsString() const {
     ostringstream os;
+
+    os << imperio->listaInfo() << endl;
+    os << imperio->listaConquistados() << endl;
+    os << imperio->getListaTecnologias() << endl;
 
     for(auto it = territorios.begin(); it < territorios.end(); it++)
         os << (*it)->getNome() << " ";
@@ -137,4 +139,18 @@ Territorio* Mundo::getTerritorioByName(string territorioName) {
 // TODO: Verificar este caso com o stor
 int Mundo::imperioAdquireTecnologia(string nomeTecnologia) {
     return imperio->adquirirTecnologia(nomeTecnologia);
+}
+
+int Mundo::tomaCommand(string type, string name) {
+    Territorio* territorioAConquistar;
+    if(type == "terr") {
+        territorioAConquistar = getTerritorioByName(name);
+        if (territorioAConquistar != NULL)
+            return imperio->takeTerritorio(territorioAConquistar);
+        else
+            return -2;
+    } else if(type == "tec") {
+        return imperio->takeTecnologia(name);
+    } else
+        return -4;
 }

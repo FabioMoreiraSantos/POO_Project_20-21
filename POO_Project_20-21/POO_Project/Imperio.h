@@ -12,8 +12,7 @@ class Tecnologia;
 
 using namespace std;
 
-class Imperio
-{
+class Imperio {
 	int armazemProdutos = 3;
 	int armazemOuro = 3;
 	int forcaMilitar = 2;
@@ -31,6 +30,7 @@ public:
 	Imperio(Territorio* territorioInicial);
 	Imperio(const Imperio& ref);
     Imperio& operator=(const Imperio& c);
+	~Imperio();
 
 	//Getters
 	int getMaxUnidades();
@@ -40,6 +40,7 @@ public:
 	int getArmazemProds() { return armazemProdutos; };
 	int getForcaMilitar() { return forcaMilitar; };
 	int getReinadoSize();
+	Territorio* getLastConqueredTerritorio();
 
 	//Setters
 	void setMaxUnidades(int maximo);
@@ -48,6 +49,11 @@ public:
 	void setCanExchangeProdutosOuro(bool val);
 	void setArmazemProdutos(int produtos);
 	void setArmazemOuro(int ouro);
+	void incrementOuro();
+	void incrementProd();
+	void incrementForcaMilitar();
+	void addOuro(int quant);
+	void addProds(int quant);
 	
 	//Methods
 	void addTerritorio(Territorio * territorio);
@@ -61,9 +67,14 @@ public:
 	void incrementNDefesasTerritoriais();
 	bool hasTecnologiaByName(string nameTecnologia) const;
 
+	int takeTerritorio(Territorio * territorio);
+	int takeTecnologia(string nameTecnologia);
+
 	int maisOuro();
 	int maisProd();
 	int maisMilitar();
+
+	int sufferInvasion(int ano, ostream& o_stream);
 
 	// Comandos Debug
 	int modifica(string type, int quant);

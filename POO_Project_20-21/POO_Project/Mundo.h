@@ -26,12 +26,15 @@ public:
 	string lista() const;
 	string lista(const string nomeTerritorio) const;
 	Imperio* getImperio() { return imperio; }
-
 	Territorio* getTerritorioByName(string territorioName);
-
 	string getAsString() const;
-
 	int imperioAdquireTecnologia(string nomeTecnologia);
+	int tomaCommand(string type, string name);
+
+	Mundo* clone() const {
+		return new Mundo(*this);
+	}
+
 };
 
 #endif
