@@ -333,6 +333,7 @@ void Interface::triggerEvent() {
             eventAliancaDiplomatica();
             break;
         case 3: // No event triggered
+            o_stream << "[ EVENTO ] Nao ocorreu nenhum evento." << endl;
         default:
             break;
     }
@@ -341,17 +342,38 @@ void Interface::triggerEvent() {
 void Interface::eventRecursoAbandonado() {
     Imperio* imperio = mundo->getImperio();
 
-    if(ano == 1)
+    o_stream << "[ EVENTO ] Evento de recurso abandonado a comecar..." << endl;
+    o_stream << "[ EVENTO ] Ganhou uma unidade de ";
+
+    if(ano == 1) {
         imperio->incrementProd();
-    else
+        o_stream << "produtos!   Produtos: " << imperio->getArmazemProds();
+    } else {
         imperio->incrementOuro();
+        o_stream << "ouro!   Ouro: " << imperio->getArmazemOuro();
+    }
+
+    o_stream << endl;
 }
 
 void Interface::eventInvasao() {
+    o_stream << "[ EVENTO ] Evento de invasao a comecar..." << endl;
+
+    Imperio* imperio = mundo->getImperio();
+    int invasionResult = imperio->sufferInvasion(ano, o_stream);
+
+    if(invasionResult == -1){  // Game lost
+        o_stream << "[ INFO ] Ficou sem territorios conquistados. Perdeu o jogo" << endl;
+        // CALL FUNCTION TO FINISH THE GAME
+    }
 }
 
 void Interface::eventAliancaDiplomatica() {
-    mundo->getImperio()->incrementForcaMilitar();
+    Imperio* imperio = mundo->getImperio();
+    imperio->incrementForcaMilitar();
+
+    o_stream << "[ EVENTO ] Evento de aliança diplomática a comecar..." << endl;
+    o_stream << "[ EVENTO ] Ganhou uma unidade de forca militar!   Forca militar: " << imperio->getForcaMilitar() << endl;
 }
 
 

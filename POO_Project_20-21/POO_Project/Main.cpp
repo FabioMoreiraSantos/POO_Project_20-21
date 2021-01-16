@@ -18,8 +18,6 @@ using namespace std;
 // 	srand(time(NULL));		//previne repeticoes entre runs
 // }
 
-
-
 int main() {
 	// initRandom();
 	

@@ -78,14 +78,14 @@ void Imperio::incrementNDefesasTerritoriais() {
 	nDefesasTerritoriais++;
 }
 
-void Imperio::setArmazemProdutos(int produtos)
-{
-	armazemProdutos += produtos;
+void Imperio::setArmazemProdutos(int produtos) {
+	armazemProdutos = produtos;
 }
-void Imperio::setArmazemOuro(int ouro)
-{
-	armazemOuro += ouro;
+
+void Imperio::setArmazemOuro(int ouro) {
+	armazemOuro = ouro;
 }
+
 void Imperio::addTerritorio(Territorio * territorio) { reinado.push_back(territorio); }
 
 void Imperio::removeTerritorio(Territorio * territorio) {
@@ -108,8 +108,8 @@ void Imperio::recolheMaterias()
 	//valores de ouro e produtos ao seu armazem
 	for (auto it = reinado.begin(); it < reinado.end(); it++) {
 		// Incrementa as materias primas
-		setArmazemOuro((*it)->getCriacaoOuro());
-		setArmazemProdutos((*it)->getCriacaoProduto());
+		addOuro((*it)->getCriacaoOuro());
+		addProds((*it)->getCriacaoProduto());
 	}
 }
 
@@ -357,24 +357,41 @@ void Imperio::incrementProd(){
 		armazemProdutos++;
 }
 
+void Imperio::addOuro(int quant) {
+	if(armazemOuro + quant <= maxUnidades)	
+		armazemOuro += quant;
+}
+
+void Imperio::addProds(int quant) {
+	if(armazemProdutos + quant <= maxUnidades)	
+		armazemProdutos += quant;
+}
+
 void Imperio::incrementForcaMilitar(){
 	if(forcaMilitar < maxMilitar)	
 		forcaMilitar++;
 }
 
-void Imperio::sufferInvasion(int ano) {
+int Imperio::sufferInvasion(int ano, ostream& o_stream) {
 	int fatorSorte = randomNumEntre(1, 6);
 	int forcaInvasao = fatorSorte + ano + 1;
 	Territorio* territorioBeingInvaded = getLastConqueredTerritorio();
 	bool isInvasionSuccessful = territorioBeingInvaded->getResistencia() + nDefesasTerritoriais < fatorSorte;
 
+	o_stream << "Territorio " << territorioBeingInvaded->getNome() << " invadido" << endl;
+
 	if(isInvasionSuccessful) {
+		o_stream << "Invasao foi bem sucedida." << endl;
 		reinado.pop_back();
 
 		if(reinado.size() == 0) {
-			return; // Lose game
+			return -1; // Lose game
 		}
-	}
+		
+	} else
+		o_stream << "Invasao falhou." << endl;;
+
+	return 0; // Invasion successful
 }
 
 Territorio* Imperio::getLastConqueredTerritorio() {

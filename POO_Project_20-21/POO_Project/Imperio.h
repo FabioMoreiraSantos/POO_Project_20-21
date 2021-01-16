@@ -51,6 +51,9 @@ public:
 	void incrementOuro();
 	void incrementProd();
 	void incrementForcaMilitar();
+	void addOuro(int quant);
+	void addProds(int quant);
+
 	
 	//Methods
 	void addTerritorio(Territorio * territorio);
@@ -71,7 +74,7 @@ public:
 	int maisProd();
 	int maisMilitar();
 
-	void sufferInvasion(int ano);
+	int sufferInvasion(int ano, ostream& o_stream);
 
 	// Comandos Debug
 	int modifica(string type, int quant);
