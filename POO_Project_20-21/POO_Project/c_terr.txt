@@ -1,110 +1,17 @@
 cria montanha 3
-cria planicie 1
-cria refugio_de_piratas 5
-lista territorios
+cria planicie 6
+cria refugio_de_piratas 2
 avanca
+toma terr planicie1
+toma terr planicie2
+toma terr planicie3
+toma terr planicie4
+toma terr planicie5
+conquista refugio_de_piratas1
+conquista refugio_de_piratas2
 avanca
 avanca
-modifica ouro 2
-adquire bolsa_de_valores
 avanca
 avanca
-avanca
-modifica prod 2
-maisouro
-lista
-modifica ouro 3
-maisprod
-lista
-maismilitar
-lista
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
+toma tec misseis_teleguiados
+conquista refugio_de_piratas2

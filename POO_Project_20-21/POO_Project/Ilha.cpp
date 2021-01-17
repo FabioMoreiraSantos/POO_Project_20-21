@@ -20,7 +20,7 @@ Ilha::Ilha()
 RefugioPiratas::RefugioPiratas()
 {
 	nRefugiosPiratas++;
-	string name = "regufio_de_Piratas" + to_string(nRefugiosPiratas);
+	string name = "refugio_de_piratas" + to_string(nRefugiosPiratas);
 	RefugioPiratas::setNome(name);
 	RefugioPiratas::setResistencia(9);
 	RefugioPiratas::setCriacaoOuro(1);

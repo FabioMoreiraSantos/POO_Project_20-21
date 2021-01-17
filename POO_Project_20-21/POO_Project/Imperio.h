@@ -63,7 +63,7 @@ public:
 	void addTerritorio(Territorio * territorio);
 	void removeTerritorio(Territorio * territorio);
 	void recolheMaterias();
-	bool conquistar(Territorio * territorio);
+	int conquistar(Territorio * territorio);
 	string listaInfo() const;
 	string listaConquistados() const;
 	string getListaTecnologias() const;

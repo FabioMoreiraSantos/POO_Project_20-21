@@ -136,12 +136,14 @@ void Interface::incrementTurno() {
 }
 
 void Interface::nextFase() {
+
     if(fase == 12 && ano == 2)
         finishGame();
     
     if(fase == F_EVENTOS) {
         fase = F_CONQUISTA;
         incrementTurno();
+        hasUserConquered = false;
     } else fase++;
 
     switch (fase) {
@@ -199,15 +201,35 @@ void Interface::commandLista(vector<string> commandVector) {
 }
 
 void Interface::commandConquista(vector<string> commandVector) {
-    Imperio* imperio = mundo->getImperio();
-    Territorio* territorioAConquistar = mundo->getTerritorioByName(commandVector[1]);
+    if(!hasUserConquered) {
+        Imperio* imperio = mundo->getImperio();
+        Territorio* territorioAConquistar = mundo->getTerritorioByName(commandVector[1]);
+        int commandResult;
+        hasUserConquered = true;
+        
+        if(territorioAConquistar == NULL)
+            o_stream << "Introduza uma territorio valido!!" << endl;
+        else {
+            commandResult = imperio->conquistar(territorioAConquistar);
+            switch (commandResult) {
+                case 0:
+                    o_stream << "Territorio [" << territorioAConquistar->getNome() << "] conquistado!!" << endl;
+                    break;
 
-    if(territorioAConquistar != NULL && imperio->conquistar(territorioAConquistar))
-        o_stream << "Territorio [" << territorioAConquistar->getNome() << "] conquistado!!" << endl;
-    else if(territorioAConquistar == NULL)
-        o_stream << "Introduza uma territorio valido!!" << endl;
-    else
-        o_stream << "Conquista Falhada!!" << endl;
+                case -1:
+                    o_stream << "Conquista Falhada!!" << endl;
+                    break;
+
+                case -2:
+                    o_stream << "Nao pode conquistar este territorio. Precisa de misseis teleguiados e de pelo menos 5 territorios conquistados" << endl;
+                
+                default:
+                    break;
+                }
+            }
+    } else {
+        o_stream << "[ ERRO ] Ação proibida. Já tentou conquistar um territorio este turno." << endl;
+    }
 }
 
 void Interface::commandAdquire(vector<string> commandVector) {

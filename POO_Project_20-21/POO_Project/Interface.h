@@ -22,6 +22,7 @@ class Interface {
     ostream& o_stream;
     int fase = F_CONFIG;
     vector<MundoSnapshot*> savedSnapshots;
+    bool hasUserConquered = false;
     
 
 public:

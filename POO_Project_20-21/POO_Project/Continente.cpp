@@ -46,8 +46,7 @@ Montanha::Montanha()
 	if (turnosConquistado < 3) {		//2 primeiros turnos nao produz nada
 		Montanha::setCriacaoProduto(0);
 		Montanha::setCriacaoOuro(0);
-	}
-	else {
+	} else {
 		Montanha::setCriacaoProduto(1);
 		Montanha::setCriacaoOuro(0);
 	}

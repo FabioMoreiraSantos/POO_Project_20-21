@@ -1,5 +1,6 @@
 #include "Imperio.h"
 #include "Tecnologia.h"
+#include "Ilha.h"
 #include <iterator>
 #include <sstream>
 #include <time.h>
@@ -122,7 +123,7 @@ int randomNumEntre(int max, int min) {
     return distr(gen);
 }
 
-bool Imperio::conquistar(Territorio * territorio) {
+int Imperio::conquistar(Territorio * territorio) {
 	if(territorio->getIsConquistado()) return false;
 
 	int fatorSorte = randomNumEntre(MAX,MIN);
@@ -133,15 +134,16 @@ bool Imperio::conquistar(Territorio * territorio) {
 	cout << "Resistencia de " << territorio->getNome() 
 		<< " " << territorio->getResistencia() << endl;
 
-	if (soma >= territorio->getResistencia()) {
+	if(!(territorio->isA<Ilha>() && canConquistarIlhas && getReinadoSize() >= 5))
+		return -2;
+	else if (soma >= territorio->getResistencia()) {
 		this->addTerritorio(territorio);
 		territorio->setIsConquistado(true);
-		return true;
-	}
-	else {
+		return 0;
+	} else {
 		if (forcaMilitar > 0)
 			forcaMilitar--;
-		return false;
+		return -1;
 	}
 }
 

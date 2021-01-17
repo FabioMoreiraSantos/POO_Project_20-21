@@ -7,10 +7,10 @@
 #include "Tecnologia.h"
 #include <random>
 
-// template<typename Base, typename T>
-// inline bool instanceof(const T*) {
-//    return is_base_of<Base, T>::value;
-// }
+template<typename Base, typename T>
+inline bool instanceof(const T*) {
+   return is_base_of<Base, T>::value;
+}
 
 using namespace std;
 
