@@ -180,16 +180,25 @@ int Interface::getAno() {
 }
 
 void Interface::commandCria(vector<string> commandVector) {
-    if(mundo->criaTerritorios(commandVector[1], stoi(commandVector[2])))
-        o_stream << commandVector[1] << " criado com sucesso!" << endl;
-
+    if(commandVector.size() == 3) {
+        if(mundo->criaTerritorios(commandVector[1], stoi(commandVector[2])))
+            o_stream << commandVector[1] << " criado com sucesso!" << endl << endl;
+        else
+            o_stream << "Nao existe nenhum territorio com o nome '" << commandVector[1] << "'" << endl << endl;
+    } else
+        o_stream << "[ ERRO ] Formato do comando invalido. Por favor use a seguinte estrutura:" << endl
+                 << "       cria <tipo_territorio> <n_territorios>" << endl << endl;
 }
 
 void Interface::commandCarrega(vector<string> commandVector) {
-    if(!readFromFile(commandVector[1]))
-        o_stream << "[ERRO] Ficheiro invalido!" << endl;
-    else
-        o_stream << "Ficheiro lido com sucesso!" << endl;
+    if(commandVector.size() == 2) {
+        if(!readFromFile(commandVector[1]))
+            o_stream << "[ERRO] Ficheiro invalido!" << endl;
+        else
+            o_stream << "Ficheiro lido com sucesso!" << endl;
+    } else
+        o_stream << "[ ERRO ] Formato do comando invalido. Por favor use a seguinte estrutura:" << endl
+                 << "       carrega <nome_ficheiro>" << endl << endl;
 }
 
 void Interface::commandLista(vector<string> commandVector) {
@@ -200,41 +209,45 @@ void Interface::commandLista(vector<string> commandVector) {
     // lista conquistados -> Lista os territorios conquistados pelo imperio
     // lista <nome_do_territorio> -> Lista info do dado territorio
     // lista <tipo_de_territorio> -> Lista os territorios do tipo dado
-    else
+    else if(commandVector.size() == 2)
         o_stream << mundo->lista(commandVector[1]) << endl;
-
+    else
+        o_stream << "[ ERRO ] Formato do comando invalido. Por favor use a seguinte estrutura:" << endl
+                 << "       lista" << endl
+                 << "       lista <tipo_listagem>" << endl << endl;
 }
 
 void Interface::commandConquista(vector<string> commandVector) {
-    if(!hasUserConquered) {
-        Imperio* imperio = mundo->getImperio();
-        Territorio* territorioAConquistar = mundo->getTerritorioByName(commandVector[1]);
-        int commandResult;
-        hasUserConquered = true;
-        
-        if(territorioAConquistar == NULL)
-            o_stream << "Introduza uma territorio valido!!" << endl;
-        else {
-            commandResult = imperio->conquistar(territorioAConquistar);
-            switch (commandResult) {
-                case 0:
-                    o_stream << "Territorio [" << territorioAConquistar->getNome() << "] conquistado!!" << endl;
-                    break;
-
-                case -1:
-                    o_stream << "Conquista Falhada!!" << endl;
-                    break;
-
-                case -2:
-                    o_stream << "Nao pode conquistar este territorio. Precisa de misseis teleguiados e de pelo menos 5 territorios conquistados" << endl;
-                
-                default:
-                    break;
+    if(commandVector.size() != 2)
+        o_stream << "[ ERRO ] Formato do comando invalido. Por favor use a seguinte estrutura:" << endl
+                 << "       conquista <nome_territorio>" << endl << endl;
+    else
+        if(!hasUserConquered) {
+            Imperio* imperio = mundo->getImperio();
+            Territorio* territorioAConquistar = mundo->getTerritorioByName(commandVector[1]);
+            int commandResult;
+            hasUserConquered = true;
+            
+            if(territorioAConquistar == NULL)
+                o_stream << "Introduza uma territorio valido!!" << endl;
+            else {
+                commandResult = imperio->conquistar(territorioAConquistar);
+                switch (commandResult) {
+                    case 0:
+                        o_stream << "Territorio [" << territorioAConquistar->getNome() << "] conquistado!!" << endl;
+                        break;
+                    case -1:
+                        o_stream << "Conquista Falhada!!" << endl;
+                    case -2:
+                        o_stream << "Nao pode conquistar este territorio. Precisa de misseis teleguiados e de pelo menos 5 territorios conquistados" << endl;
+                        break;
+                    default:
+                        break;
+                    }
                 }
-            }
-    } else {
-        o_stream << "[ ERRO ] Ação proibida. Já tentou conquistar um territorio este turno." << endl;
-    }
+        } else {
+            o_stream << "[ ERRO ] Ação proibida. Já tentou conquistar um territorio este turno." << endl;
+        }
 }
 
 void Interface::commandAdquire(vector<string> commandVector) {
@@ -251,25 +264,36 @@ void Interface::commandAdquire(vector<string> commandVector) {
             o_stream << "[ERRO] Nao tem dinheiro suficiente para comprar esta tecnologia" << endl;
         else if(commandResult == -3)
             o_stream << "[ERRO] Tecnologia ja foi adquirida" << endl;
-    } else
+    } else if(commandVector.size() == 1 )
         o_stream << "[ LOJA ]" << endl
             << "drone_militar: " << DroneMilitar::custo << " ouro" << endl
             << "misseis_teleguiados: " << MisseisTeleguiados::custo << " ouro" << endl
             << "defesas_territoriais: " << DefesasTerritoriais::custo << " ouro" << endl
             << "bolsa_de_valores: " << BolsaValores::custo << " ouro" << endl
             << "banco_central: " << BancoCentral::custo << " ouro" << endl;
+    else
+        o_stream << "[ ERRO ] Formato do comando invalido. Por favor use a seguinte estrutura:" << endl
+                 << "       adquire" << endl
+                 << "       adquire <nome_tecnologia>" << endl << endl;
 }
 
 void Interface::commandModifica(vector<string> commandVector) {
-    Imperio* imperio = mundo->getImperio();
-    int commandResult = imperio->modifica(commandVector[1], stoi(commandVector[2]));
+    Imperio* imperio;
+    int commandResult;
 
-    if(commandResult == 0)
-        o_stream << "[SUCCESS] Novo valor de " << commandVector[1] << " e " << commandVector[2] << " unidades." << endl;
-    else if(commandResult == -1)
-        o_stream << "[ERRO] Tipo de recurso invalido. Este deve ser 'ouro' ou 'prod'." << endl;
-    else if(commandResult == -2)
-        o_stream << "[ERRO] A quantidade que inseriu e superior a capacidade do imperio: " << imperio->getMaxUnidades() << " unidades." << endl;
+    if(commandVector.size() == 3) {
+        imperio = mundo->getImperio();
+        commandResult = imperio->modifica(commandVector[1], stoi(commandVector[2]));
+
+        if(commandResult == 0)
+            o_stream << "[SUCCESS] Novo valor de " << commandVector[1] << " e " << commandVector[2] << " unidades." << endl;
+        else if(commandResult == -1)
+            o_stream << "[ERRO] Tipo de recurso invalido. Este deve ser 'ouro' ou 'prod'." << endl;
+        else if(commandResult == -2)
+            o_stream << "[ERRO] A quantidade que inseriu e superior a capacidade do imperio: " << imperio->getMaxUnidades() << " unidades." << endl;
+    } else
+        o_stream << "[ ERRO ] Formato do comando invalido. Por favor use a seguinte estrutura:" << endl
+                 << "       modifica ouro|prod <quant>" << endl << endl;
 
 }
 
@@ -318,63 +342,81 @@ void Interface::commandMaisMilitar(vector<string> commandVector) {
 }
 
 void Interface::commandToma(vector<string> commandVector) {
-    int commandResult = mundo->tomaCommand(commandVector[1], commandVector[2]);
+    int commandResult;
+    
+    if(commandVector.size() == 3) {
+        commandResult = mundo->tomaCommand(commandVector[1], commandVector[2]);
 
-    if(commandVector[1] == "terr") {
-        if(commandResult == 0)
-            o_stream << "[SUCCESS] Territorio tomado com sucesso!" << endl;
-        else if(commandResult == -1)
-            o_stream << "[ERRO] O territorio que pretende tomar ja foi conquistado" << endl;
-        else if(commandResult == -2)
-            o_stream << "[ERRO] O territorio que pretende tomar nao existe" << endl;
+        if(commandVector[1] == "terr") {
+            if(commandResult == 0)
+                o_stream << "[SUCCESS] Territorio tomado com sucesso!" << endl;
+            else if(commandResult == -1)
+                o_stream << "[ERRO] O territorio que pretende tomar ja foi conquistado" << endl;
+            else if(commandResult == -2)
+                o_stream << "[ERRO] O territorio que pretende tomar nao existe" << endl;
 
-    }  else if(commandVector[1] == "tec") {
-        if(commandResult == 0)
-            o_stream << "[SUCCESS] Tecnologia tomada com sucesso!" << endl;
-        else if(commandResult == -1)
-            o_stream << "[ERRO] A tecnologia que pretende tomar nao existe" << endl;
-        else if(commandResult == -2)
-            o_stream << "[ERRO] Tecnologia ja foi adquirida" << endl;
-    } else if(commandResult == -4) {
-        o_stream << "[ERRO] Tipo a tomar invalido" << endl;
-    }
+        }  else if(commandVector[1] == "tec") {
+            if(commandResult == 0)
+                o_stream << "[SUCCESS] Tecnologia tomada com sucesso!" << endl;
+            else if(commandResult == -1)
+                o_stream << "[ERRO] A tecnologia que pretende tomar nao existe" << endl;
+            else if(commandResult == -2)
+                o_stream << "[ERRO] Tecnologia ja foi adquirida" << endl;
+        } else if(commandResult == -4) {
+            o_stream << "[ERRO] Tipo a tomar invalido" << endl;
+        }
+    } else
+        o_stream << "[ ERRO ] Formato do comando invalido. Por favor use a seguinte estrutura:" << endl
+                 << "       toma terr|tec <nome_territorio|nome_tecnologia>" << endl << endl;
 }
 
 void Interface::commandGrava(vector<string> commandVector) {
-    savedSnapshots.push_back(new MundoSnapshot(commandVector[1], mundo->clone()));
-    o_stream << "Nova snapshot com o nome '" << commandVector[1] << "' foi guardada com sucesso" << endl;
+    if(commandVector.size() == 2) {
+        savedSnapshots.push_back(new MundoSnapshot(commandVector[1], mundo->clone()));
+        o_stream << "Nova snapshot com o nome '" << commandVector[1] << "' foi guardada com sucesso" << endl;
+    } else
+        o_stream << "[ ERRO ] Formato do comando invalido. Por favor use a seguinte estrutura:" << endl
+                 << "       grava <nome_snapshot>" << endl << endl;
 }
 
 void Interface::commandAtiva(vector<string> commandVector) {
-    for(auto it = savedSnapshots.begin(); it < savedSnapshots.end(); it++) {
-        if((*it)->getName() == commandVector[1]) {
-            delete mundo;
-            mundo = (*it)->getSavedMundo()->clone();
-            o_stream << "Snapshot com o nome '" << commandVector[1] << "' foi recuperada com sucesso" << endl;
-            return;
+    if(commandVector.size() == 2) {
+        for(auto it = savedSnapshots.begin(); it < savedSnapshots.end(); it++) {
+            if((*it)->getName() == commandVector[1]) {
+                delete mundo;
+                mundo = (*it)->getSavedMundo()->clone();
+                o_stream << "Snapshot com o nome '" << commandVector[1] << "' foi recuperada com sucesso" << endl;
+                return;
+            }
         }
-    }
-    o_stream << "Nao existe nenhuma snapshot com o nome '" << commandVector[1] << "'." << endl;
+        o_stream << "Nao existe nenhuma snapshot com o nome '" << commandVector[1] << "'." << endl;
+    } else
+        o_stream << "[ ERRO ] Formato do comando invalido. Por favor use a seguinte estrutura:" << endl
+                 << "       ativa <nome_snapshot>" << endl << endl;
 }
 
 void Interface::commandApaga(vector<string> commandVector) {
-    for(auto it = savedSnapshots.begin(); it < savedSnapshots.end(); it++) {
-        if((*it)->getName() == commandVector[1]) {
-            delete (*it)->getSavedMundo();
-            
-            savedSnapshots.erase(it);
-            o_stream << "Snapshot com o nome '" << commandVector[1] << "' foi apagada com sucesso" << endl;
-            return;
+    if(commandVector.size() == 2) {
+        for(auto it = savedSnapshots.begin(); it < savedSnapshots.end(); it++) {
+            if((*it)->getName() == commandVector[1]) {
+                delete (*it)->getSavedMundo();
+                
+                savedSnapshots.erase(it);
+                o_stream << "Snapshot com o nome '" << commandVector[1] << "' foi apagada com sucesso" << endl;
+                return;
+            }
         }
-    }
-    o_stream << "Nao existe nenhuma snapshot com o nome '" << commandVector[1] << "'." << endl;
+        o_stream << "Nao existe nenhuma snapshot com o nome '" << commandVector[1] << "'." << endl;
+    } else
+        o_stream << "[ ERRO ] Formato do comando invalido. Por favor use a seguinte estrutura:" << endl
+                 << "       apaga <nome_snapshot>" << endl << endl;
 
 }
 
 void Interface::commandFevento(vector<string> commandVector) {
     if(commandVector.size() == 1)
-        o_stream << "[ INFO ] Eventos disponiveis: 'invasao', 'recurso_abandonado', 'alianca_diplomatica'" << endl;
-    else {
+        o_stream << "[ INFO ] Eventos disponiveis: 'invasao', 'recurso_abandonado', 'alianca_diplomatica'" << endl << endl;
+    else if(commandVector.size() == 2) {
         if(commandVector[1] == "invasao")
             eventInvasao();
         else if(commandVector[1] == "recurso_abandonado")
@@ -383,7 +425,9 @@ void Interface::commandFevento(vector<string> commandVector) {
             eventAliancaDiplomatica();
         else
             o_stream << "[ ERRO ] Evento invalido" << endl;
-    }
+    } else
+        o_stream << "[ ERRO ] Formato do comando invalido. Por favor use a seguinte estrutura:" << endl
+                 << "       fevento <nome_evento>" << endl << endl;
 }
 
 void Interface::commandHelp() {

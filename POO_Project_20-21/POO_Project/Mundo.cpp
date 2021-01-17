@@ -80,8 +80,7 @@ bool Mundo::criaTerritorios(string type, int quant) {
     else if (type == "pescaria") {
         for (int i = 0; i < quant; i++)
             territorios.push_back(new Pescaria());
-    }
-    else {
+    } else {
         return false;
     }
 
