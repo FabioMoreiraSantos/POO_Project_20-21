@@ -18,6 +18,7 @@ class Planicie: public Continente
 	static int nPlanicies;
 public:
 	Planicie();
+	void changeProductionStats();
 };
 class Montanha : public Continente
 {
@@ -25,6 +26,7 @@ class Montanha : public Continente
 	int turnosConquistado = 0;
 public:
 	Montanha();
+	void changeProductionStats();
 };
 class Fortaleza : public Continente 
 {
@@ -37,6 +39,7 @@ class Mina : public Continente
 	static int nMinas;
 public:
 	Mina();
+	void changeProductionStats();
 };
 class Duna : public Continente
 {
@@ -44,14 +47,12 @@ class Duna : public Continente
 public:
 	Duna();
 };
-class Castelo : public Continente
-{
+class Castelo : public Continente {
 	static int nCastelos;
 public:
 	Castelo();
+	void changeProductionStats();
 };
-
-
 
 #endif
 

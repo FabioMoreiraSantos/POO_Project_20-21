@@ -2,13 +2,13 @@ cria montanha 3
 cria planicie 6
 cria refugio_de_piratas 2
 avanca
-toma terr planicie1
-toma terr planicie2
-toma terr planicie3
-toma terr planicie4
-toma terr planicie5
-conquista refugio_de_piratas1
-conquista refugio_de_piratas2
+toma terr Planicie1
+toma terr Planicie2
+toma terr Planicie3
+toma terr Planicie4
+toma terr Planicie5
+conquista Refugio_de_piratas1
+conquista Refugio_de_piratas2
 avanca
 avanca
 avanca

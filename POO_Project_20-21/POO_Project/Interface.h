@@ -41,6 +41,7 @@ public:
 
     string getFaseName();
     static int getTurnos(); //Static para que nao seja necessario instanciar um objeto
+    static int getAno(); //Static para que nao seja necessario instanciar um objeto
     void incrementTurno();
 
     istream& getIstream() const { return i_stream; }

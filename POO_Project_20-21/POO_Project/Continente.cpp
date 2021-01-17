@@ -13,90 +13,92 @@ int Duna::nDunas = 0;
 int Castelo::nCastelos = 0;
 
 
-Continente::Continente()
-{
+Continente::Continente() {
 	nContinentes++;
 	Continente::setPVitoria(1);
 	Continente::setCriacaoOuro(0);
 	Continente::setCriacaoProduto(0);
 }
 
-Planicie::Planicie()
-{
+Planicie::Planicie() {
 	nPlanicies++;
-	string name = "planicie" + to_string(nPlanicies);
+	string name = "Planicie" + to_string(nPlanicies);
 	Planicie::setNome(name);
 	Planicie::setResistencia(5);
-	if (Interface::getTurnos() < 6) {
+	if (Interface::getAno() == 1) {
 		Planicie::setCriacaoProduto(1);
 		Planicie::setCriacaoOuro(1);
-	}
-	else {
+	} else {
 		Planicie::setCriacaoProduto(2);
 		Planicie::setCriacaoOuro(1);
 	}
 }
 
-Montanha::Montanha()
-{
-	nMontanhas++;
-	string name = "montanha" + to_string(nMontanhas);
-	Montanha::setNome(name);
-	Montanha::setResistencia(6);
-	if (turnosConquistado < 3) {		//2 primeiros turnos nao produz nada
-		Montanha::setCriacaoProduto(0);
-		Montanha::setCriacaoOuro(0);
-	} else {
-		Montanha::setCriacaoProduto(1);
-		Montanha::setCriacaoOuro(0);
+void Planicie::changeProductionStats() {
+	if(Interface::getAno() == 2) {
+		setCriacaoOuro(2);
+		setCriacaoProduto(1);
 	}
 }
+ 
+Montanha::Montanha() {
+	nMontanhas++;
+	string name = "Montanha" + to_string(nMontanhas);
+	Montanha::setNome(name);
+	Montanha::setResistencia(6);
+	Montanha::setCriacaoProduto(0);
+	Montanha::setCriacaoOuro(0);
+}
 
-Fortaleza::Fortaleza()
-{
+void Montanha::changeProductionStats() {
+	turnosConquistado++;
+	if(turnosConquistado >= 2)
+		Montanha::setCriacaoProduto(1);
+}
+
+Fortaleza::Fortaleza() {
 	nFortalezas++;
-	string name = "fortaleza" + to_string(nFortalezas);
+	string name = "Fortaleza" + to_string(nFortalezas);
 	Fortaleza::setNome(name);
 	Fortaleza::setResistencia(8);
 	Fortaleza::setCriacaoOuro(0);
 	Fortaleza::setCriacaoProduto(0);
 }
 
-Mina::Mina()
-{
+Mina::Mina() {
 	nMinas++;
-	string name = "mina" + to_string(nMinas);
+	string name = "Mina" + to_string(nMinas);
 	Mina::setNome(name);
 	Mina::setResistencia(5);
-	if (Interface::getTurnos() < 3 || (Interface::getTurnos() > 5 && Interface::getTurnos() < 9)) {
-		Mina::setCriacaoOuro(1);
-	}
-	else {
-		Mina::setCriacaoOuro(2);
-	}
 }
 
-Duna::Duna()
-{
+void Mina::changeProductionStats() {
+	if(Interface::getTurnos() < 3)
+		Mina::setCriacaoOuro(1);
+	else
+		Mina::setCriacaoOuro(2);
+}
+
+Duna::Duna() {
 	nDunas++;
-	string name = "duna" + to_string(nDunas);
+	string name = "Duna" + to_string(nDunas);
 	Duna::setNome(name);
 	Duna::setResistencia(4);
 	Duna::setCriacaoProduto(1);
-	
+	Duna::setCriacaoOuro(0);
 }
 
-Castelo::Castelo()
-{
+Castelo::Castelo() {
 	nCastelos++;
-	string name = "castelo" + to_string(nCastelos);
+	string name = "Castelo" + to_string(nCastelos);
 	Castelo::setNome(name);
 	Castelo::setResistencia(7);
 	Castelo::setCriacaoOuro(1);
-	if (Interface::getTurnos() < 2 || (Interface::getTurnos() > 5 && Interface::getTurnos() < 8)) {
+}
+
+void Castelo::changeProductionStats() {
+	if(Interface::getTurnos() < 2)
 		Castelo::setCriacaoProduto(3);
-	}
-	else {
+	else
 		Castelo::setCriacaoProduto(0);
-	}
 }

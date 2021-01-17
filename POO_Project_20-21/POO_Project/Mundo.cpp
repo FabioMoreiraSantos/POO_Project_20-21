@@ -2,6 +2,8 @@
 #include <sstream>
 #include <fstream>
 #include "Mundo.h"
+#include "Continente.h"
+#include "Ilha.h"
 
 Mundo::Mundo() {
     // Territorio inicial

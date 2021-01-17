@@ -7,10 +7,9 @@ int Ilha::nIlhas = 0;
 int RefugioPiratas::nRefugiosPiratas = 0;
 int Pescaria::nPescarias = 0;
 
-Ilha::Ilha()
-{
+Ilha::Ilha() {
 	nIlhas++;
-	string name = "ilha" + to_string(nIlhas);
+	string name = "Ilha" + to_string(nIlhas);
 	Ilha::setNome(name);
 	Ilha::setCriacaoOuro(0);
 	Ilha::setCriacaoProduto(0);
@@ -20,22 +19,22 @@ Ilha::Ilha()
 RefugioPiratas::RefugioPiratas()
 {
 	nRefugiosPiratas++;
-	string name = "refugio_de_piratas" + to_string(nRefugiosPiratas);
+	string name = "Refugio_de_piratas" + to_string(nRefugiosPiratas);
 	RefugioPiratas::setNome(name);
 	RefugioPiratas::setResistencia(9);
 	RefugioPiratas::setCriacaoOuro(1);
 }
 
-Pescaria::Pescaria()
-{
+Pescaria::Pescaria() {
 	nPescarias++;
-	string name = "pescaria" + to_string(nPescarias);
+	string name = "Pescaria" + to_string(nPescarias);
 	Pescaria::setNome(name);
 	Pescaria::setResistencia(9);
-	if (Interface::getTurnos() < 6) {
+}
+
+void Pescaria::changeProductionStats() {
+	if(Interface::getAno() == 1)
 		Pescaria::setCriacaoProduto(2);
-	}
-	else {
+	else
 		Pescaria::setCriacaoProduto(4);
-	}
 }

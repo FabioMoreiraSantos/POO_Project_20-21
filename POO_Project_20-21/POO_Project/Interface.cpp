@@ -130,25 +130,26 @@ void Interface::incrementTurno() {
     if(turno < 6)
         turno++;
     else {
-        // turno = 0; // TODO: Check this
+        turno = 0;
         ano ++;
     }
 }
 
 void Interface::nextFase() {
-
+    Imperio* imperio = mundo->getImperio();
     if(fase == 12 && ano == 2)
         finishGame();
     
-    if(fase == F_EVENTOS) {
+    if(fase == F_EVENTOS) { // Change turno
         fase = F_CONQUISTA;
         incrementTurno();
         hasUserConquered = false;
+        imperio->triggerTurnBasedTerrActions();
     } else fase++;
 
     switch (fase) {
         case F_RECOLHA:
-            mundo->getImperio()->recolheMaterias();
+            imperio->recolheMaterias(o_stream);
             break;
 
         case F_EVENTOS:
@@ -172,6 +173,10 @@ string Interface::getFaseName() {
 
 int Interface::getTurnos() {
     return turno;
+}
+
+int Interface::getAno() {
+    return ano;
 }
 
 void Interface::commandCria(vector<string> commandVector) {

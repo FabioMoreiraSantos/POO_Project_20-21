@@ -1,6 +1,7 @@
 #include "Imperio.h"
 #include "Tecnologia.h"
 #include "Ilha.h"
+#include "Continente.h"
 #include <iterator>
 #include <sstream>
 #include <time.h>
@@ -105,14 +106,19 @@ void Imperio::removeTerritorio(Territorio * territorio) {
 	}
 }
 
-void Imperio::recolheMaterias() {
+void Imperio::recolheMaterias(ostream& o_stream) {
+	int totalOuro = 0, totalProd = 0;
 	//Percorre o vetor de territorios conquistados e incrementa os 
 	//valores de ouro e produtos ao seu armazem
 	for (auto it = reinado.begin(); it < reinado.end(); it++) {
 		// Incrementa as materias primas
+		totalOuro += (*it)->getCriacaoOuro();
 		addOuro((*it)->getCriacaoOuro());
+		totalProd += (*it)->getCriacaoProduto();
 		addProds((*it)->getCriacaoProduto());
 	}
+
+	o_stream << "[ RECOLHA ] Recolha conluida. Recolheu " << totalOuro << " unidades de ouro e " << totalProd << " unidades de produtos." << endl;
 }
 
 int randomNumEntre(int max, int min) {
@@ -440,4 +446,13 @@ int Imperio::getPontosVitoria() const {
 		total += (*it)->getPVitoria();
 
 	return total;
+}
+
+void Imperio::triggerTurnBasedTerrActions() {
+	for(auto it = reinado.begin(); it < reinado.end(); it++) {
+		if((*it)->isA<Montanha>() || (*it)->isA<Planicie>() || (*it)->isA<Castelo>() 
+		|| (*it)->isA<Pescaria>() || (*it)->isA<Mina>()) {
+			(*it)->changeProductionStats();
+		}
+	}
 }

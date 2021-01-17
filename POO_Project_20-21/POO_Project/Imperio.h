@@ -62,7 +62,7 @@ public:
 	//Methods
 	void addTerritorio(Territorio * territorio);
 	void removeTerritorio(Territorio * territorio);
-	void recolheMaterias();
+	void recolheMaterias(ostream& o_stream);
 	int conquistar(Territorio * territorio);
 	string listaInfo() const;
 	string listaConquistados() const;
@@ -70,18 +70,16 @@ public:
 	int adquirirTecnologia(string tecnologia);
 	void incrementNDefesasTerritoriais();
 	bool hasTecnologiaByName(string nameTecnologia) const;
-
-	int takeTerritorio(Territorio * territorio);
-	int takeTecnologia(string nameTecnologia);
-
 	int maisOuro();
 	int maisProd();
 	int maisMilitar();
-
 	int sufferInvasion(int ano, ostream& o_stream);
+	void triggerTurnBasedTerrActions();
 
 	// Comandos Debug
 	int modifica(string type, int quant);
+	int takeTerritorio(Territorio * territorio);
+	int takeTecnologia(string nameTecnologia);
 	
 };
 
