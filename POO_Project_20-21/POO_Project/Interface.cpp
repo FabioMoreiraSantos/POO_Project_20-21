@@ -193,6 +193,7 @@ void Interface::commandLista(vector<string> commandVector) {
     // lista conquistados -> Lista os territorios conquistados pelo imperio
     // lista <nome_do_territorio> -> Lista info do dado territorio
     // lista <tipo_de_territorio> -> Lista os territorios do tipo dado
+    // lista tecnologias -> Lista todas as tecnologias disponíveis
     else
         o_stream << mundo->lista(commandVector[1]) << endl;
 
@@ -397,7 +398,7 @@ void Interface::eventAliancaDiplomatica() {
     Imperio* imperio = mundo->getImperio();
     imperio->incrementForcaMilitar();
 
-    o_stream << "[ EVENTO ] Evento de aliança diplomática a comecar..." << endl;
+    o_stream << "[ EVENTO ] Evento de aliança diplomatica a comecar..." << endl;
     o_stream << "[ EVENTO ] Ganhou uma unidade de forca militar!   Forca militar: " << imperio->getForcaMilitar() << endl;
 }
 
