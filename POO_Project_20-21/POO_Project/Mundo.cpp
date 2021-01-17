@@ -189,11 +189,6 @@ Territorio* Mundo::getTerritorioByName(string territorioName) {
     return NULL;
 }
 
-// TODO: Verificar este caso com o stor
-int Mundo::imperioAdquireTecnologia(string nomeTecnologia) {
-    return imperio->adquirirTecnologia(nomeTecnologia);
-}
-
 int Mundo::tomaCommand(string type, string name) {
     Territorio* territorioAConquistar;
     if(type == "terr") {

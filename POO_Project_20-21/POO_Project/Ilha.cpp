@@ -9,7 +9,7 @@ int Pescaria::nPescarias = 0;
 
 Ilha::Ilha() {
 	nIlhas++;
-	string name = "Ilha" + to_string(nIlhas);
+	string name = "ilha" + to_string(nIlhas);
 	Ilha::setNome(name);
 	Ilha::setCriacaoOuro(0);
 	Ilha::setCriacaoProduto(0);
@@ -19,7 +19,7 @@ Ilha::Ilha() {
 RefugioPiratas::RefugioPiratas()
 {
 	nRefugiosPiratas++;
-	string name = "Refugio_de_piratas" + to_string(nRefugiosPiratas);
+	string name = "refugio_de_piratas" + to_string(nRefugiosPiratas);
 	RefugioPiratas::setNome(name);
 	RefugioPiratas::setResistencia(9);
 	RefugioPiratas::setCriacaoOuro(1);
@@ -27,7 +27,7 @@ RefugioPiratas::RefugioPiratas()
 
 Pescaria::Pescaria() {
 	nPescarias++;
-	string name = "Pescaria" + to_string(nPescarias);
+	string name = "pescaria" + to_string(nPescarias);
 	Pescaria::setNome(name);
 	Pescaria::setResistencia(9);
 }

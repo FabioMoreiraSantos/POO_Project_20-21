@@ -128,20 +128,22 @@ int randomNumEntre(int max, int min) {
     return distr(gen);
 }
 
-int Imperio::conquistar(Territorio * territorio) { // TODO: add o_stream
+int Imperio::conquistar(Territorio * territorio, ostream& o_stream) {
 	if(territorio->getIsConquistado()) return false;
 
 	int fatorSorte = randomNumEntre(MAX,MIN);
 	int soma = fatorSorte + forcaMilitar;
-	cout << "Fator Sorte: " << fatorSorte << endl;
-	cout << "Forca militar: " << forcaMilitar << endl;
-	cout << "Total: " << soma << endl;
-	cout << "Resistencia de " << territorio->getNome() 
+	o_stream << "Fator Sorte: " << fatorSorte << endl
+	<< "Forca militar: " << forcaMilitar << endl
+	<< "Total: " << soma << endl
+	<< "Resistencia de " << territorio->getNome() 
 		<< ": " << territorio->getResistencia() << endl;
 
-	if(!(territorio->isA<Ilha>() && canConquistarIlhas && getReinadoSize() >= 5))
+	if((territorio->isA<Ilha>() && !canConquistarIlhas && getReinadoSize() < 5) == true)
 		return -2;
-	else if (soma >= territorio->getResistencia()) {
+
+	
+	if (soma >= territorio->getResistencia()) {
 		this->addTerritorio(territorio);
 		territorio->setIsConquistado(true);
 		return 0;
@@ -196,11 +198,15 @@ string Imperio::listaConquistados() const {
 	return os.str();
 }
 
+/*
+	0 - success
+	-1 - name invalid
+	-2 - armazem not full
+	-3 - já existe tecnologia no imperio
+*/
 int Imperio::adquirirTecnologia(string nomeTecnologia) {
 	Tecnologia *newTecnologia;
 	ostringstream os;
-
-	// TODO: ADD NOTES TO RETURN VALUES
 
 	if(nomeTecnologia == "drone_militar") {
 		if(hasTecnologiaByName("DroneMilitar"))

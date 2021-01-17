@@ -2,47 +2,4 @@ cria montanha 3
 cria planicie 6
 cria refugio_de_piratas 2
 avanca
-toma terr Planicie1
-toma terr Planicie2
-toma terr Planicie3
-toma terr Planicie4
-toma terr Planicie5
-conquista Planicie2
-conquista Refugio_de_piratas2
-avanca
-avanca
-avanca
-avanca
-toma tec misseis_teleguiados
-conquista refugio_de_piratas2
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
-avanca
+conquista planicie1

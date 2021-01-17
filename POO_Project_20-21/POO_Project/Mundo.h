@@ -27,7 +27,6 @@ public:
 	Imperio* getImperio() { return imperio; }
 	Territorio* getTerritorioByName(string territorioName);
 	string getAsString() const;
-	int imperioAdquireTecnologia(string nomeTecnologia);
 	int tomaCommand(string type, string name);
 	int getTerritoriosCount() const;
 

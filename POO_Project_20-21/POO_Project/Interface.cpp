@@ -233,7 +233,7 @@ void Interface::commandConquista(vector<string> commandVector) {
             if(territorioAConquistar == NULL)
                 o_stream << "Introduza uma territorio valido!!" << endl;
             else {
-                commandResult = imperio->conquistar(territorioAConquistar);
+                commandResult = imperio->conquistar(territorioAConquistar, o_stream);
                 switch (commandResult) {
                     case 0:
                         o_stream << "Territorio [" << territorioAConquistar->getNome() << "] conquistado!!" << endl;
@@ -256,7 +256,8 @@ void Interface::commandAdquire(vector<string> commandVector) {
     int commandResult;
 
     if(commandVector.size() == 2 ) {
-        commandResult = mundo->imperioAdquireTecnologia(commandVector[1]);
+        Imperio* imperio = mundo->getImperio();
+        commandResult = imperio->adquirirTecnologia(commandVector[1]);
 
         if(commandResult == 0)
             o_stream << "[SUCCESS] Tecnologia adquirida com sucesso!" << endl;
