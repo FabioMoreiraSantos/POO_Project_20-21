@@ -44,6 +44,7 @@ public:
 	int getOuroProduction() const;
 	int getProdProduction() const;
 	int getTecnologiasCount() const;
+	int getPontosVitoria() const;
 
 	//Setters
 	void setMaxUnidades(int maximo);

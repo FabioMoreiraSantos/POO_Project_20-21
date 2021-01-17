@@ -445,8 +445,7 @@ void Interface::eventAliancaDiplomatica() {
 
 void Interface::finishGame() {
     Imperio* imperio = mundo->getImperio();
-
-    int score = imperio->getReinadoSize() + imperio->getTecnologiasCount();
+    int score = imperio->getPontosVitoria() + imperio->getTecnologiasCount();
 
     if(imperio->getTecnologiasCount() == 5)
         score++;
@@ -455,7 +454,7 @@ void Interface::finishGame() {
         score += 3;
 
     o_stream << "[   FIM DE JOGO   ] Terminou o jogo!!" << endl << endl
-    << "SCORE FINAL: " << score << endl;
+    << "SCORE FINAL: " << score << endl << endl;
 
     exit(0);
 }

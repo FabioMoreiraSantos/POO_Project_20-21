@@ -104,8 +104,7 @@ void Imperio::removeTerritorio(Territorio * territorio) {
 	}
 }
 
-void Imperio::recolheMaterias()
-{
+void Imperio::recolheMaterias() {
 	//Percorre o vetor de territorios conquistados e incrementa os 
 	//valores de ouro e produtos ao seu armazem
 	for (auto it = reinado.begin(); it < reinado.end(); it++) {
@@ -430,4 +429,13 @@ int Imperio::getProdProduction() const {
 
 int Imperio::getTecnologiasCount() const {
 	return tecnologias.size();
+}
+
+int Imperio::getPontosVitoria() const {
+	int total = 0;
+
+	for(auto it = reinado.begin(); it < reinado.end(); it++)
+		total += (*it)->getPVitoria();
+
+	return total;
 }
