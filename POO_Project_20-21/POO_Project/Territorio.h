@@ -20,6 +20,7 @@ public:
 	Territorio();
 	Territorio(const Territorio& ref);
     Territorio& operator=(const Territorio& c);
+	virtual ~Territorio() {}
 
 	//Getters
 	int getResistencia();
@@ -42,6 +43,15 @@ public:
 	void setTurnoConquistado(int valor);
 
 	string listaInfo() const;
+
+	template<typename T>
+	bool isA() {
+		return (dynamic_cast<T*>(this) != NULL);
+	}
+
+
+	virtual void incrementTurnosConquistados() {};
+	virtual void changeProductionStats() {};
 };
 
 #endif

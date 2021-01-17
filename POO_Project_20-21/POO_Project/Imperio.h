@@ -41,6 +41,10 @@ public:
 	int getForcaMilitar() { return forcaMilitar; };
 	int getReinadoSize();
 	Territorio* getLastConqueredTerritorio();
+	int getOuroProduction() const;
+	int getProdProduction() const;
+	int getTecnologiasCount() const;
+	int getPontosVitoria() const;
 
 	//Setters
 	void setMaxUnidades(int maximo);
@@ -58,26 +62,24 @@ public:
 	//Methods
 	void addTerritorio(Territorio * territorio);
 	void removeTerritorio(Territorio * territorio);
-	void recolheMaterias();
-	bool conquistar(Territorio * territorio);
+	void recolheMaterias(ostream& o_stream);
+	int conquistar(Territorio * territorio, ostream& o_stream);
 	string listaInfo() const;
 	string listaConquistados() const;
 	string getListaTecnologias() const;
 	int adquirirTecnologia(string tecnologia);
 	void incrementNDefesasTerritoriais();
 	bool hasTecnologiaByName(string nameTecnologia) const;
-
-	int takeTerritorio(Territorio * territorio);
-	int takeTecnologia(string nameTecnologia);
-
 	int maisOuro();
 	int maisProd();
 	int maisMilitar();
-
 	int sufferInvasion(int ano, ostream& o_stream);
+	void triggerTurnBasedTerrActions();
 
 	// Comandos Debug
 	int modifica(string type, int quant);
+	int takeTerritorio(Territorio * territorio);
+	int takeTecnologia(string nameTecnologia);
 	
 };
 

@@ -105,15 +105,19 @@ void Imperio::removeTerritorio(Territorio * territorio) {
 	}
 }
 
-void Imperio::recolheMaterias()
-{
+void Imperio::recolheMaterias(ostream& o_stream) {
+	int totalOuro = 0, totalProd = 0;
 	//Percorre o vetor de territorios conquistados e incrementa os 
 	//valores de ouro e produtos ao seu armazem
 	for (auto it = reinado.begin(); it < reinado.end(); it++) {
 		// Incrementa as materias primas
+		totalOuro += (*it)->getCriacaoOuro();
 		addOuro((*it)->getCriacaoOuro());
+		totalProd += (*it)->getCriacaoProduto();
 		addProds((*it)->getCriacaoProduto());
 	}
+
+	o_stream << "[ RECOLHA ] Recolha conluida. Recolheu " << totalOuro << " unidades de ouro e " << totalProd << " unidades de produtos." << endl;
 }
 
 int randomNumEntre(int max, int min) {
@@ -124,30 +128,29 @@ int randomNumEntre(int max, int min) {
     return distr(gen);
 }
 
-bool Imperio::conquistar(Territorio * territorio) {
+int Imperio::conquistar(Territorio * territorio, ostream& o_stream) {
 	if(territorio->getIsConquistado()) return false;
 
 	int fatorSorte = randomNumEntre(MAX,MIN);
 	int soma = fatorSorte + forcaMilitar;
-	cout << "Fator Sorte: " << fatorSorte << endl;
-	cout << "Forca militar: " << forcaMilitar << endl;
-	cout << "Total: " << soma << endl;
-	cout << "Resistencia de " << territorio->getNome() 
+	o_stream << "Fator Sorte: " << fatorSorte << endl
+	<< "Forca militar: " << forcaMilitar << endl
+	<< "Total: " << soma << endl
+	<< "Resistencia de " << territorio->getNome() 
 		<< ": " << territorio->getResistencia() << endl;
 
+	if((territorio->isA<Ilha>() && !canConquistarIlhas && getReinadoSize() < 5) == true)
+		return -2;
+
+	
 	if (soma >= territorio->getResistencia()) {
 		this->addTerritorio(territorio);
 		territorio->setIsConquistado(true);
-		if (territorio->getNome().find("montanha") > -1) {	//Verificar se tem Montanha no nome
-			territorio->setTurnoConquistado(Interface::getTurnos());
-			cout << "Turno Conquistado: " << territorio->getTurnoConquistado();
-		}
-		return true;
-	}
-	else {
+		return 0;
+	} else {
 		if (forcaMilitar > 0)
 			forcaMilitar--;
-		return false;
+		return -1;
 	}
 }
 
@@ -156,6 +159,8 @@ string Imperio::listaInfo() const {
 	os << "Armazem Produtos: " << armazemProdutos << "/" << maxUnidades << endl
 		<< "Armazem Ouro: " << armazemOuro << "/" << maxUnidades << endl
 		<< "Forca Militar: " << forcaMilitar << "/" << maxMilitar << endl
+		<< "Producao de ouro: " << getOuroProduction() << endl
+		<< "Producao de produtos: " << getProdProduction() << endl
 		<< "Territorios conquistados: " << reinado.size() << endl
 		<< getListaTecnologias() << endl;
 
@@ -193,11 +198,15 @@ string Imperio::listaConquistados() const {
 	return os.str();
 }
 
+/*
+	0 - success
+	-1 - name invalid
+	-2 - armazem not full
+	-3 - já existe tecnologia no imperio
+*/
 int Imperio::adquirirTecnologia(string nomeTecnologia) {
 	Tecnologia *newTecnologia;
 	ostringstream os;
-
-	// TODO: ADD NOTES TO RETURN VALUES
 
 	if(nomeTecnologia == "drone_militar") {
 		if(hasTecnologiaByName("DroneMilitar"))
@@ -422,4 +431,42 @@ int Imperio::sufferInvasion(int ano, ostream& o_stream) {
 
 Territorio* Imperio::getLastConqueredTerritorio() {
 	return reinado[reinado.size() - 1];
+}
+
+int Imperio::getOuroProduction() const {
+	int total = 0;
+	for(auto it = reinado.begin(); it < reinado.end(); it++)
+		total += (*it)->getCriacaoOuro();
+
+	return total;
+}
+
+int Imperio::getProdProduction() const {
+	int total = 0;
+	for(auto it = reinado.begin(); it < reinado.end(); it++)
+		total += (*it)->getCriacaoProduto();
+
+	return total;
+}
+
+int Imperio::getTecnologiasCount() const {
+	return tecnologias.size();
+}
+
+int Imperio::getPontosVitoria() const {
+	int total = 0;
+
+	for(auto it = reinado.begin(); it < reinado.end(); it++)
+		total += (*it)->getPVitoria();
+
+	return total;
+}
+
+void Imperio::triggerTurnBasedTerrActions() {
+	for(auto it = reinado.begin(); it < reinado.end(); it++) {
+		if((*it)->isA<Montanha>() || (*it)->isA<Planicie>() || (*it)->isA<Castelo>() 
+		|| (*it)->isA<Pescaria>() || (*it)->isA<Mina>()) {
+			(*it)->changeProductionStats();
+		}
+	}
 }

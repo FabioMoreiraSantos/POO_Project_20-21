@@ -25,6 +25,7 @@ class Pescaria : public Ilha
 	static int nPescarias;
 public:
 	Pescaria();
+	virtual void changeProductionStats();
 };
 
 #endif

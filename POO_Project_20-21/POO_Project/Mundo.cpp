@@ -3,6 +3,8 @@
 #include <fstream>
 #include "Mundo.h"
 #include "Tecnologia.h"
+#include "Continente.h"
+#include "Ilha.h"
 
 Mundo::Mundo() {
     // Territorio inicial
@@ -79,8 +81,7 @@ bool Mundo::criaTerritorios(string type, int quant) {
     else if (type == "pescaria") {
         for (int i = 0; i < quant; i++)
             territorios.push_back(new Pescaria());
-    }
-    else {
+    } else {
         return false;
     }
 
@@ -158,8 +159,7 @@ string Mundo::lista(const string nome) const {
             os << "NAO";
 
         return os.str();
-    }
-    else if (nome == "por_conquistar") {
+    } else if (nome == "por_conquistar") {
         for (auto it = territorios.begin(); it < territorios.end(); it++) {
             if (!(*it)->getIsConquistado()) {
                 os << (*it)->getNome() << endl
@@ -167,8 +167,7 @@ string Mundo::lista(const string nome) const {
             }
         }
         return os.str();
-    }
-    else
+    } else
         for(auto it = territorios.begin(); it < territorios.end(); it++) {
             // Mostra lista de territorios
             if(nome == "territorios")
@@ -190,11 +189,6 @@ Territorio* Mundo::getTerritorioByName(string territorioName) {
     return NULL;
 }
 
-// TODO: Verificar este caso com o stor
-int Mundo::imperioAdquireTecnologia(string nomeTecnologia) {
-    return imperio->adquirirTecnologia(nomeTecnologia);
-}
-
 int Mundo::tomaCommand(string type, string name) {
     Territorio* territorioAConquistar;
     if(type == "terr") {
@@ -207,4 +201,8 @@ int Mundo::tomaCommand(string type, string name) {
         return imperio->takeTecnologia(name);
     } else
         return -4;
+}
+
+int Mundo::getTerritoriosCount() const {
+    return territorios.size();
 }

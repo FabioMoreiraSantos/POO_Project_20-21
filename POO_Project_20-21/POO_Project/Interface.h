@@ -22,6 +22,7 @@ class Interface {
     ostream& o_stream;
     int fase = F_CONFIG;
     vector<MundoSnapshot*> savedSnapshots;
+    bool hasUserConquered = false;
     
 
 public:
@@ -40,11 +41,11 @@ public:
 
     string getFaseName();
     static int getTurnos(); //Static para que nao seja necessario instanciar um objeto
-    static int getAno();
+    static int getAno(); //Static para que nao seja necessario instanciar um objeto
     void incrementTurno();
 
-
     istream& getIstream() const { return i_stream; }
+    void finishGame();
 
     // Command methods
     void commandCria(vector<string> commandVector);
@@ -60,6 +61,8 @@ public:
     void commandGrava(vector<string> commandVector);
     void commandAtiva(vector<string> commandVector);
     void commandApaga(vector<string> commandVector);
+    void commandFevento(vector<string> commandVector);
+    void commandHelp();
 
     // Eventos
     void triggerEvent();

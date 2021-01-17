@@ -1,7 +1,6 @@
 #ifndef Mundo_HEADER
 #define Mundo_HEADER
 
-
 #include <iostream>
 #include <vector>
 #include "Territorio.h"
@@ -28,8 +27,8 @@ public:
 	Imperio* getImperio() { return imperio; }
 	Territorio* getTerritorioByName(string territorioName);
 	string getAsString() const;
-	int imperioAdquireTecnologia(string nomeTecnologia);
 	int tomaCommand(string type, string name);
+	int getTerritoriosCount() const;
 
 	Mundo* clone() const {
 		return new Mundo(*this);
