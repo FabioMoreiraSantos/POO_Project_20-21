@@ -116,46 +116,57 @@ string Mundo::lista(const string nome) const {
     if (nome == "conquistados")
         os << imperio->listaConquistados();
     else if (nome == "tecnologias") {
-        cout << "drone_militar: " << endl
+        os << "drone_militar: " << endl
             << "\tCusto: " << DroneMilitar::custo << " ouro " << endl
             << "\tResumo: " << DroneMilitar::descricao << endl
             << "\tAdquirida: ";
         if (imperio->hasTecnologiaByName("DroneMilitar"))
-            cout << "SIM";
+            os << "SIM";
         else
-            cout << "NAO";
-        cout << "\nmisseis_teleguiados: " << endl
+            os << "NAO";
+        os << "\nmisseis_teleguiados: " << endl
             << "\tCusto: " << MisseisTeleguiados::custo << " ouro " << endl
             << "\tResumo: " << MisseisTeleguiados::descricao << endl
             << "\tAdquirida: ";        
         if (imperio->hasTecnologiaByName("MisseisTeleguiados"))
-            cout << "SIM";
+            os << "SIM";
         else
-            cout << "NAO";
-        cout << "\n\ndefesas_territoriais: " << endl
+            os << "NAO";
+        os << "\n\ndefesas_territoriais: " << endl
             << "\tCusto: " << DefesasTerritoriais::custo << " ouro " << endl
             << "\tResumo: " << DefesasTerritoriais::descricao << endl
             << "\tAdquirida: ";           
         if (imperio->hasTecnologiaByName("DefesasTerritoriais"))
-            cout << "SIM";
+            os << "SIM";
         else
-            cout << "NAO";
-        cout << "\nbolsa_de_valores: " << endl
+            os << "NAO";
+        os << "\nbolsa_de_valores: " << endl
             << "\tCusto: " << BolsaValores::custo << " ouro " << endl
             << "\tResumo: " << BolsaValores::descricao << endl
             << "\tAdquirida: ";   
         if (imperio->hasTecnologiaByName("BolsaValores"))
-            cout << "SIM";
+            os << "SIM";
         else
-            cout << "NAO";
-        cout << "\nbanco_central: " << endl
+            os << "NAO";
+        os << "\nbanco_central: " << endl
             << "\tCusto: " << BancoCentral::custo << " ouro " << endl
             << "\tResumo: " << BancoCentral::descricao << endl
             << "\tAdquirida: ";   
         if (imperio->hasTecnologiaByName("BancoCentral"))
-            cout << "SIM";
+            os << "SIM";
         else
-            cout << "NAO";
+            os << "NAO";
+
+        return os.str();
+    }
+    else if (nome == "por_conquistar") {
+        for (auto it = territorios.begin(); it < territorios.end(); it++) {
+            if (!(*it)->getIsConquistado()) {
+                os << (*it)->getNome() << endl
+                    << "\tResistencia: " << (*it)->getResistencia() << endl;
+            }
+        }
+        return os.str();
     }
     else
         for(auto it = territorios.begin(); it < territorios.end(); it++) {

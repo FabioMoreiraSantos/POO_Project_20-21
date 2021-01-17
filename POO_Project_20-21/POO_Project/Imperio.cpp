@@ -133,7 +133,7 @@ bool Imperio::conquistar(Territorio * territorio) {
 	cout << "Forca militar: " << forcaMilitar << endl;
 	cout << "Total: " << soma << endl;
 	cout << "Resistencia de " << territorio->getNome() 
-		<< " " << territorio->getResistencia() << endl;
+		<< ": " << territorio->getResistencia() << endl;
 
 	if (soma >= territorio->getResistencia()) {
 		this->addTerritorio(territorio);
@@ -182,7 +182,10 @@ string Imperio::listaConquistados() const {
 
 	if(reinado.size() > 0)
 		for(auto it = reinado.begin(); it < reinado.end(); it++) {
-			os << (*it)->getNome() << " ";
+			os << (*it)->getNome() << endl
+				<< "\tResistencia: " << (*it)->getResistencia() << endl
+				<< "\tCriacao de Ouro: " << (*it)->getCriacaoOuro() << endl
+				<< "\tCriacao de Produtos:" << (*it)->getCriacaoProduto() << endl;
 		}
 	else
 		os << "Ainda nao foi conquistado nenhum territorio" << endl;
