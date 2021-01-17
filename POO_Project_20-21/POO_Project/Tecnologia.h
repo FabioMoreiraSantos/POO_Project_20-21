@@ -20,30 +20,35 @@ class DroneMilitar: public Tecnologia {
 public:
     DroneMilitar(): Tecnologia("DroneMilitar") {};
     static int custo;
+    static string descricao;
 };
  
 class MisseisTeleguiados: public Tecnologia {
 public:
     MisseisTeleguiados(): Tecnologia("MisseisTeleguiados") {};
     static int custo;
+    static string descricao;
 };
 
 class DefesasTerritoriais: public Tecnologia {
 public:
     DefesasTerritoriais(): Tecnologia("DefesasTerritoriais") {};
     static int custo;
+    static string descricao;
 };
 
 class BolsaValores: public Tecnologia {
 public:
     BolsaValores(): Tecnologia("BolsaValores") {};
     static int custo;
+    static string descricao;
 };
 
 class BancoCentral: public Tecnologia {
 public:
-    BancoCentral(): Tecnologia("BancoCentral") {};
-    static int custo;
+    BancoCentral() : Tecnologia("BancoCentral") {};
+    static int custo;  
+    static string descricao;
 };
 
 #endif

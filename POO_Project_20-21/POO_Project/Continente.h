@@ -6,43 +6,41 @@
 
 using namespace std;
 
-class Continente: public Territorio
-{
+class Continente: public Territorio {
 	static int nContinentes;
 
 public:
 	Continente();
 };
-class Planicie: public Continente 
-{
+
+class Planicie: public Continente  {
 	static int nPlanicies;
 public:
 	Planicie();
 	void changeProductionStats();
 };
-class Montanha : public Continente
-{
+
+class Montanha : public Continente {
 	static int nMontanhas;
-	int turnosConquistado = 0;
+	int turnoConquistado = 0;
 public:
 	Montanha();
 	void changeProductionStats();
 };
-class Fortaleza : public Continente 
-{
+
+class Fortaleza : public Continente  {
 	static int nFortalezas;
 public:
 	Fortaleza();
 };
-class Mina : public Continente
-{
+
+class Mina : public Continente {
 	static int nMinas;
 public:
 	Mina();
 	void changeProductionStats();
 };
-class Duna : public Continente
-{
+class Duna : public Continente {
 	static int nDunas;
 public:
 	Duna();

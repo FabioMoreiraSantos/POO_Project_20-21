@@ -1,7 +1,6 @@
 #include "Imperio.h"
 #include "Tecnologia.h"
-#include "Ilha.h"
-#include "Continente.h"
+#include "Interface.h"
 #include <iterator>
 #include <sstream>
 #include <time.h>
@@ -129,7 +128,7 @@ int randomNumEntre(int max, int min) {
     return distr(gen);
 }
 
-int Imperio::conquistar(Territorio * territorio) {
+int Imperio::conquistar(Territorio * territorio) { // TODO: add o_stream
 	if(territorio->getIsConquistado()) return false;
 
 	int fatorSorte = randomNumEntre(MAX,MIN);
@@ -138,7 +137,7 @@ int Imperio::conquistar(Territorio * territorio) {
 	cout << "Forca militar: " << forcaMilitar << endl;
 	cout << "Total: " << soma << endl;
 	cout << "Resistencia de " << territorio->getNome() 
-		<< " " << territorio->getResistencia() << endl;
+		<< ": " << territorio->getResistencia() << endl;
 
 	if(!(territorio->isA<Ilha>() && canConquistarIlhas && getReinadoSize() >= 5))
 		return -2;
@@ -186,7 +185,10 @@ string Imperio::listaConquistados() const {
 
 	if(reinado.size() > 0)
 		for(auto it = reinado.begin(); it < reinado.end(); it++) {
-			os << (*it)->getNome() << " ";
+			os << (*it)->getNome() << endl
+				<< "\tResistencia: " << (*it)->getResistencia() << endl
+				<< "\tCriacao de Ouro: " << (*it)->getCriacaoOuro() << endl
+				<< "\tCriacao de Produtos:" << (*it)->getCriacaoProduto() << endl;
 		}
 	else
 		os << "Ainda nao foi conquistado nenhum territorio" << endl;
@@ -399,6 +401,12 @@ int Imperio::sufferInvasion(int ano, ostream& o_stream) {
 	bool isInvasionSuccessful = territorioBeingInvaded->getResistencia() + nDefesasTerritoriais < forcaInvasao;
 
 	o_stream << "Territorio " << territorioBeingInvaded->getNome() << " invadido" << endl;
+	o_stream << "Fator Sorte: " << fatorSorte << endl;
+	o_stream << "Forca da Invasao: " << forcaInvasao << endl;
+	o_stream << "Total: " << fatorSorte+forcaInvasao << endl;
+	o_stream << "Resistencia de " << territorioBeingInvaded->getNome()
+		<< " " << territorioBeingInvaded->getResistencia() << endl;
+
 
 	if(isInvasionSuccessful) {
 		o_stream << "[ EVENTO ] Invasao foi bem sucedida." << endl;

@@ -13,6 +13,7 @@ class Territorio {
 	int criacaoProdutos = 1;
 	int criacaoOuro = 1;
 	int pVitoria = 0;
+	int turnoConquistado = 0;
 	bool isConquistado = false;
 
 public:
@@ -26,6 +27,7 @@ public:
 	int getCriacaoProduto();
 	int getCriacaoOuro();
 	int getPVitoria();
+	virtual int getTurnoConquistado();
 	string getNome();
 	string getStatusConquitado() const;
 	bool getIsConquistado() const;
@@ -38,6 +40,7 @@ public:
 	void setCriacaoOuro(int valor);
 	void setPVitoria(int valor);
 	void setIsConquistado(bool val);
+	void setTurnoConquistado(int valor);
 
 	string listaInfo() const;
 

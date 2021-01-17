@@ -2,6 +2,7 @@
 #include <sstream>
 #include <fstream>
 #include "Mundo.h"
+#include "Tecnologia.h"
 #include "Continente.h"
 #include "Ilha.h"
 
@@ -110,19 +111,70 @@ string Mundo::lista() const {
 }
 
 // Lista info dos terrtorios
-string Mundo::lista(const string nomeTerritorio) const {
+string Mundo::lista(const string nome) const {
     ostringstream os;
 
-    if (nomeTerritorio == "conquistados")
+    if (nome == "conquistados")
         os << imperio->listaConquistados();
-    else
+    else if (nome == "tecnologias") {
+        os << "drone_militar: " << endl
+            << "\tCusto: " << DroneMilitar::custo << " ouro " << endl
+            << "\tResumo: " << DroneMilitar::descricao << endl
+            << "\tAdquirida: ";
+        if (imperio->hasTecnologiaByName("DroneMilitar"))
+            os << "SIM";
+        else
+            os << "NAO";
+        os << "\nmisseis_teleguiados: " << endl
+            << "\tCusto: " << MisseisTeleguiados::custo << " ouro " << endl
+            << "\tResumo: " << MisseisTeleguiados::descricao << endl
+            << "\tAdquirida: ";        
+        if (imperio->hasTecnologiaByName("MisseisTeleguiados"))
+            os << "SIM";
+        else
+            os << "NAO";
+        os << "\n\ndefesas_territoriais: " << endl
+            << "\tCusto: " << DefesasTerritoriais::custo << " ouro " << endl
+            << "\tResumo: " << DefesasTerritoriais::descricao << endl
+            << "\tAdquirida: ";           
+        if (imperio->hasTecnologiaByName("DefesasTerritoriais"))
+            os << "SIM";
+        else
+            os << "NAO";
+        os << "\nbolsa_de_valores: " << endl
+            << "\tCusto: " << BolsaValores::custo << " ouro " << endl
+            << "\tResumo: " << BolsaValores::descricao << endl
+            << "\tAdquirida: ";   
+        if (imperio->hasTecnologiaByName("BolsaValores"))
+            os << "SIM";
+        else
+            os << "NAO";
+        os << "\nbanco_central: " << endl
+            << "\tCusto: " << BancoCentral::custo << " ouro " << endl
+            << "\tResumo: " << BancoCentral::descricao << endl
+            << "\tAdquirida: ";   
+        if (imperio->hasTecnologiaByName("BancoCentral"))
+            os << "SIM";
+        else
+            os << "NAO";
+
+        return os.str();
+    } else if (nome == "por_conquistar") {
+        for (auto it = territorios.begin(); it < territorios.end(); it++) {
+            if (!(*it)->getIsConquistado()) {
+                os << (*it)->getNome() << endl
+                    << "\tResistencia: " << (*it)->getResistencia() << endl;
+            }
+        }
+        return os.str();
+    } else
         for(auto it = territorios.begin(); it < territorios.end(); it++) {
             // Mostra lista de territorios
-            if(nomeTerritorio == "territorios")
+            if(nome == "territorios")
                 os << (*it)->getNome() << " ";
             
             // Mostra info de um territorio
-            else if((*it)->getNome() == nomeTerritorio)
+            else if((*it)->getNome() == nome)
                 os << (*it)->listaInfo();
         }
 

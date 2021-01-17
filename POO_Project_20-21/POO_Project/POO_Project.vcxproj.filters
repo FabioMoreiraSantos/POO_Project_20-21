@@ -36,6 +36,12 @@
     <ClCompile Include="Ilha.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MundoSnapshot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Tecnologia.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Territorio.h">
@@ -54,6 +60,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Ilha.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MundoSnapshot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tecnologia.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

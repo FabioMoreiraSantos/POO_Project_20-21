@@ -1,4 +1,5 @@
 #include "Territorio.h"
+#include "Interface.h"
 #include "sstream"
 
 int Territorio::nTerritorios = 1;		//inicializar a variavel static
@@ -9,6 +10,10 @@ int Territorio::getResistencia() { return resistencia; }
 int Territorio::getCriacaoProduto() { return criacaoProdutos; }
 int Territorio::getCriacaoOuro() { return criacaoOuro; }
 int Territorio::getPVitoria() { return pVitoria; }
+int Territorio::getTurnoConquistado()
+{
+	return turnoConquistado;
+}
 string Territorio::getStatusConquitado() const { return isConquistado ? "Conquistado" : "Livre"; }
 bool Territorio::getIsConquistado() const { return isConquistado; }
 int Territorio::getnTerritorios(){ return nTerritorios; }
@@ -21,6 +26,11 @@ void Territorio::setCriacaoProduto(int valor) { criacaoProdutos = valor; }
 void Territorio::setCriacaoOuro(int valor) { criacaoOuro = valor; }
 void Territorio::setPVitoria(int valor) { pVitoria = valor; }
 void Territorio::setIsConquistado(bool val) { isConquistado = val; }
+
+void Territorio::setTurnoConquistado(int valor)
+{
+	turnoConquistado = valor;
+}
 
 
 Territorio::Territorio() {

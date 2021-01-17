@@ -26,7 +26,9 @@ void Interface::run() {
     string command;
 
     while(true) {
-        o_stream << "[" << getFaseName() << "] Commando: ";
+        o_stream <<"\n[Ano " << getAno() << "]"
+            "[Turno: " << getTurnos() << "]" << endl
+            << "[" << getFaseName() << "] Commando: ";
         getline(i_stream, command);
 
 
@@ -176,7 +178,7 @@ int Interface::getTurnos() {
 }
 
 int Interface::getAno() {
-    return ano;
+        return ano;
 }
 
 void Interface::commandCria(vector<string> commandVector) {
@@ -510,7 +512,7 @@ void Interface::eventAliancaDiplomatica() {
     Imperio* imperio = mundo->getImperio();
     imperio->incrementForcaMilitar();
 
-    o_stream << "[ EVENTO ] Evento de aliança diplomática a comecar..." << endl;
+    o_stream << "[ EVENTO ] Evento de aliança diplomatica a comecar..." << endl;
     o_stream << "[ EVENTO ] Ganhou uma unidade de forca militar!   Forca militar: " << imperio->getForcaMilitar() << endl;
 }
 

@@ -7,7 +7,7 @@ toma terr Planicie2
 toma terr Planicie3
 toma terr Planicie4
 toma terr Planicie5
-conquista Refugio_de_piratas1
+conquista Planicie2
 conquista Refugio_de_piratas2
 avanca
 avanca
@@ -15,3 +15,34 @@ avanca
 avanca
 toma tec misseis_teleguiados
 conquista refugio_de_piratas2
+avanca
+avanca
+avanca
+avanca
+avanca
+avanca
+avanca
+avanca
+avanca
+avanca
+avanca
+avanca
+avanca
+avanca
+avanca
+avanca
+avanca
+avanca
+avanca
+avanca
+avanca
+avanca
+avanca
+avanca
+avanca
+avanca
+avanca
+avanca
+avanca
+avanca
+avanca

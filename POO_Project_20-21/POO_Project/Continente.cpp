@@ -51,8 +51,11 @@ Montanha::Montanha() {
 }
 
 void Montanha::changeProductionStats() {
-	turnosConquistado++;
-	if(turnosConquistado >= 2)
+	turnoConquistado++;
+	if(getTurnoConquistado() < 3) {		//2 primeiros turnos nao produz nada
+		Montanha::setCriacaoProduto(0);
+		Montanha::setCriacaoOuro(0);
+	} else
 		Montanha::setCriacaoProduto(1);
 }
 
