@@ -154,3 +154,7 @@ int Mundo::tomaCommand(string type, string name) {
     } else
         return -4;
 }
+
+int Mundo::getTerritoriosCount() const {
+    return territorios.size();
+}

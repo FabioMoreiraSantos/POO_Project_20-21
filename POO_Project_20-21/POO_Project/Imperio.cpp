@@ -151,6 +151,8 @@ string Imperio::listaInfo() const {
 	os << "Armazem Produtos: " << armazemProdutos << "/" << maxUnidades << endl
 		<< "Armazem Ouro: " << armazemOuro << "/" << maxUnidades << endl
 		<< "Forca Militar: " << forcaMilitar << "/" << maxMilitar << endl
+		<< "Producao de ouro: " << getOuroProduction() << endl
+		<< "Producao de produtos: " << getProdProduction() << endl
 		<< "Territorios conquistados: " << reinado.size() << endl
 		<< getListaTecnologias() << endl;
 
@@ -387,7 +389,7 @@ int Imperio::sufferInvasion(int ano, ostream& o_stream) {
 	int fatorSorte = randomNumEntre(6, 1);
 	int forcaInvasao = fatorSorte + ano + 1;
 	Territorio* territorioBeingInvaded = getLastConqueredTerritorio();
-	bool isInvasionSuccessful = territorioBeingInvaded->getResistencia() + nDefesasTerritoriais < fatorSorte;
+	bool isInvasionSuccessful = territorioBeingInvaded->getResistencia() + nDefesasTerritoriais < forcaInvasao;
 
 	o_stream << "Territorio " << territorioBeingInvaded->getNome() << " invadido" << endl;
 
@@ -408,4 +410,24 @@ int Imperio::sufferInvasion(int ano, ostream& o_stream) {
 
 Territorio* Imperio::getLastConqueredTerritorio() {
 	return reinado[reinado.size() - 1];
+}
+
+int Imperio::getOuroProduction() const {
+	int total = 0;
+	for(auto it = reinado.begin(); it < reinado.end(); it++)
+		total += (*it)->getCriacaoOuro();
+
+	return total;
+}
+
+int Imperio::getProdProduction() const {
+	int total = 0;
+	for(auto it = reinado.begin(); it < reinado.end(); it++)
+		total += (*it)->getCriacaoProduto();
+
+	return total;
+}
+
+int Imperio::getTecnologiasCount() const {
+	return tecnologias.size();
 }

@@ -30,6 +30,7 @@ public:
 	string getAsString() const;
 	int imperioAdquireTecnologia(string nomeTecnologia);
 	int tomaCommand(string type, string name);
+	int getTerritoriosCount() const;
 
 	Mundo* clone() const {
 		return new Mundo(*this);

@@ -41,6 +41,9 @@ public:
 	int getForcaMilitar() { return forcaMilitar; };
 	int getReinadoSize();
 	Territorio* getLastConqueredTerritorio();
+	int getOuroProduction() const;
+	int getProdProduction() const;
+	int getTecnologiasCount() const;
 
 	//Setters
 	void setMaxUnidades(int maximo);

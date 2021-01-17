@@ -85,6 +85,8 @@ void Interface::parseCommand(string command) {
         commandApaga(commandVector);
     else if(commandType == "fevento")
         commandFevento(commandVector);
+    else if(commandType == "help")
+        commandHelp();
     else if (commandType == "passa" && fase == F_CONQUISTA)
         nextFase();
     else
@@ -134,6 +136,9 @@ void Interface::incrementTurno() {
 }
 
 void Interface::nextFase() {
+    if(fase == 12 && ano == 2)
+        finishGame();
+    
     if(fase == F_EVENTOS) {
         fase = F_CONQUISTA;
         incrementTurno();
@@ -354,6 +359,33 @@ void Interface::commandFevento(vector<string> commandVector) {
     }
 }
 
+void Interface::commandHelp() {
+    o_stream << "[ HELP ]" << endl
+        << "carrega <nome_ficheiro> - Carrega um ficheiro com um conjunto de comandos e executa-os" << endl << endl
+        << "cria <tipo_terr> <N> - Cria N territorios do tipo_terr e adiciona-os ao mundo." << endl
+        << "      tipo_terr: planicie, montanha, fortaleza, mina, duna, castelo, refugio_de_piratas, pescaria." << endl << endl
+        << "conquista <nome> - Dá ordem ao imperio para invadir e tentar conquistar um determinado territorio" << endl
+        << "          nome: planicie1, montanha3, ilha2, duna10, ..." << endl << endl
+        << "passa - Neste turno nao pretende conquistar mais nenhum territorio" << endl << endl
+        << "maisouro - obtem 1 unidade de ouro em troca de 2 unidade de produtos" << endl << endl
+        << "maisprod - obtem 1 unidade de produtos em troca de 2 unidade de ouro" << endl << endl
+        << "maismilitar - obtem 1 forca militar em troca de 1 unidade de ouro e 1 unidade de produtos" << endl << endl
+        << "adquire - Ver lista, custos e informacao sobre as tecnologias" << endl << endl
+        << "adquire <tipo> - Adquire uma tecnologia" << endl << endl
+        << "lista - Lista informacao sobre o imperio" << endl << endl
+        << "lista conquistados - Lista os territorios conquistados pelo imperio" << endl << endl
+        << "lista territorios - Lista todos os territorios no mundo" << endl << endl
+        << "avanca - Avanca para a fase seguinte" << endl << endl
+        << "grava <nomeSnapshot> - Grava em memoria uma snapshot com um determinado nome do estado atual do jogo" << endl << endl
+        << "ativa <nomeSnapshot> - Restaura o estado de uma snapshot guardada em memoria" << endl << endl
+        << "apaga <nomeSnapshot> - Apaga uma snapshot da memoria" << endl << endl
+        << "[DEBUG] toma <terr|tec> <nome> - Toma de assalto um determinado territorio ou tecnologia, sem pagar o seu custo" << endl << endl
+        << "[DEBUG] modifica <ouro|prod> <quant> - Modifica as quantidades de ouro ou produtos no imperio, sem passar do limite" << endl << endl
+        << "[DEBUG] fevento <nome_evento> - Forca a ocorrencia de um evento" << endl
+        << "        nome_evento: 'invasao', 'recurso_abandonado', 'alianca_diplomatica" << endl << endl
+        << endl;
+}
+
 void Interface::triggerEvent() {
     int eventBeingTriggered = randNum(0, 3);
 
@@ -399,7 +431,7 @@ void Interface::eventInvasao() {
 
     if(invasionResult == -1){  // Game lost
         o_stream << "[ INFO ] Ficou sem territorios conquistados. Perdeu o jogo" << endl;
-        // CALL FUNCTION TO FINISH THE GAME
+        finishGame();
     }
 }
 
@@ -409,4 +441,21 @@ void Interface::eventAliancaDiplomatica() {
 
     o_stream << "[ EVENTO ] Evento de aliança diplomática a comecar..." << endl;
     o_stream << "[ EVENTO ] Ganhou uma unidade de forca militar!   Forca militar: " << imperio->getForcaMilitar() << endl;
+}
+
+void Interface::finishGame() {
+    Imperio* imperio = mundo->getImperio();
+
+    int score = imperio->getReinadoSize() + imperio->getTecnologiasCount();
+
+    if(imperio->getTecnologiasCount() == 5)
+        score++;
+    
+    if(mundo->getTerritoriosCount() == imperio->getReinadoSize())
+        score += 3;
+
+    o_stream << "[   FIM DE JOGO   ] Terminou o jogo!!" << endl << endl
+    << "SCORE FINAL: " << score << endl;
+
+    exit(0);
 }

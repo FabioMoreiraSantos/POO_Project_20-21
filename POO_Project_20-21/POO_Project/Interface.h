@@ -42,8 +42,8 @@ public:
     static int getTurnos(); //Static para que nao seja necessario instanciar um objeto
     void incrementTurno();
 
-
     istream& getIstream() const { return i_stream; }
+    void finishGame();
 
     // Command methods
     void commandCria(vector<string> commandVector);
@@ -60,6 +60,7 @@ public:
     void commandAtiva(vector<string> commandVector);
     void commandApaga(vector<string> commandVector);
     void commandFevento(vector<string> commandVector);
+    void commandHelp();
 
     // Eventos
     void triggerEvent();
