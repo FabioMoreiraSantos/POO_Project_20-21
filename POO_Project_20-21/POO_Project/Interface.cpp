@@ -1,5 +1,8 @@
 #include "Interface.h"
 #include "Tecnologia.h"
+#include <iostream>
+
+using namespace std;
 
 int Interface::turno = 0;
 int Interface::ano = 1;
@@ -25,12 +28,15 @@ int randNum(int min, int max){
 void Interface::run() {
     string command;
 
+    o_stream << endl
+             << "##########################  Bem vindo jogador!  ##########################" << endl
+             << "    Digite o comando 'help' para ver a lista de comandos disponívels" << endl << endl << endl;
+
     while(true) {
         o_stream <<"\n[Ano " << getAno() << "]"
             "[Turno: " << getTurnos() << "]" << endl
             << "[" << getFaseName() << "] Commando: ";
         getline(i_stream, command);
-
 
         if(command.size() == 0)
             continue;
@@ -181,8 +187,10 @@ int Interface::getAno() {
         return ano;
 }
 
-bool is_number(string& s) {
-    return !s.empty() && all_of(s.begin(), s.end(), isdigit);
+bool is_number(const std::string& s) {
+    std::string::const_iterator it = s.begin();
+    while (it != s.end() && std::isdigit(*it)) ++it;
+    return !s.empty() && it == s.end();
 }
 
 void Interface::commandCria(vector<string> commandVector) {

@@ -16,7 +16,7 @@ MundoSnapshot& MundoSnapshot::operator=(const MundoSnapshot& c) {
     delete savedMundo;
 
     name = c.getName();
-    savedMundo = new Mundo(*savedMundo);
+    savedMundo = new Mundo(*c.getSavedMundo());
 
     return *this;
 }

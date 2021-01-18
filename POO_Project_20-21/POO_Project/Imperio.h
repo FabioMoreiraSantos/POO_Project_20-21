@@ -5,7 +5,6 @@
 #include <iostream>
 #include <vector>
 #include "Territorio.h"
-// #include "Tecnologia.h"
 #include <sstream>
 
 class Tecnologia;

@@ -49,8 +49,6 @@ public:
 		return (dynamic_cast<T*>(this) != NULL);
 	}
 
-
-	virtual void incrementTurnosConquistados() {};
 	virtual void changeProductionStats() {};
 };
 
