@@ -1,2 +1,5 @@
-﻿  Mundo.cpp
+﻿  Interface.cpp
+D:\Faculdade\3_AnoCurricular\1_Semestre\POO - Programaçao Orientada a Objetos\Trabalho Pratico\POO_Project_20-21\POO_Project_20-21\POO_Project\Interface.cpp(45,23): warning C4018: '<': signed/unsigned mismatch
+D:\Faculdade\3_AnoCurricular\1_Semestre\POO - Programaçao Orientada a Objetos\Trabalho Pratico\POO_Project_20-21\POO_Project_20-21\POO_Project\Interface.cpp(54,9): warning C4101: 'commandResult': unreferenced local variable
+D:\Faculdade\3_AnoCurricular\1_Semestre\POO - Programaçao Orientada a Objetos\Trabalho Pratico\POO_Project_20-21\POO_Project_20-21\POO_Project\Interface.cpp(53,17): warning C4101: 'territorioAConquistar': unreferenced local variable
   POO_Project.vcxproj -> D:\Faculdade\3_AnoCurricular\1_Semestre\POO - Programaçao Orientada a Objetos\Trabalho Pratico\POO_Project_20-21\POO_Project_20-21\Debug\POO_Project_20-21.exe

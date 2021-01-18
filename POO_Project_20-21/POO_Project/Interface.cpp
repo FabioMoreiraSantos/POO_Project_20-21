@@ -181,16 +181,28 @@ int Interface::getAno() {
         return ano;
 }
 
+bool is_number(string& s) {
+    return !s.empty() && all_of(s.begin(), s.end(), isdigit);
+}
+
 void Interface::commandCria(vector<string> commandVector) {
     if(commandVector.size() == 3) {
-        if(mundo->criaTerritorios(commandVector[1], stoi(commandVector[2])))
-            o_stream << commandVector[1] << " criado com sucesso!" << endl << endl;
-        else
-            o_stream << "Nao existe nenhum territorio com o nome '" << commandVector[1] << "'" << endl << endl;
+        if (is_number(commandVector[2])) {
+            if (mundo->criaTerritorios(commandVector[1], stoi(commandVector[2])))
+                o_stream << commandVector[1] << " criado com sucesso!" << endl << endl;
+            else
+                o_stream << "Nao existe nenhum territorio com o nome '" << commandVector[1] << "'" << endl << endl;
+        }
+        else {
+            o_stream << "[ ERRO ] Digite um numero. Por favor use a seguinte estrutura:" << endl
+                << "       cria <tipo_territorio> <n_territorios>" << endl << endl;
+        }
     } else
         o_stream << "[ ERRO ] Formato do comando invalido. Por favor use a seguinte estrutura:" << endl
                  << "       cria <tipo_territorio> <n_territorios>" << endl << endl;
 }
+
+
 
 void Interface::commandCarrega(vector<string> commandVector) {
     if(commandVector.size() == 2) {
@@ -209,8 +221,10 @@ void Interface::commandLista(vector<string> commandVector) {
         o_stream << mundo->lista() << endl;
 
     // lista conquistados -> Lista os territorios conquistados pelo imperio
+    // lista por_conquistar -> Lista todos os territorio que ainda nao foram conquistados
     // lista <nome_do_territorio> -> Lista info do dado territorio
     // lista <tipo_de_territorio> -> Lista os territorios do tipo dado
+    // lista tecnologias -> Lista todas as tecnologias e suas informacoes
     else if(commandVector.size() == 2)
         o_stream << mundo->lista(commandVector[1]) << endl;
     else
@@ -285,19 +299,25 @@ void Interface::commandModifica(vector<string> commandVector) {
     int commandResult;
 
     if(commandVector.size() == 3) {
-        imperio = mundo->getImperio();
-        commandResult = imperio->modifica(commandVector[1], stoi(commandVector[2]));
+        if (is_number(commandVector[2])) {
+            imperio = mundo->getImperio();
+            commandResult = imperio->modifica(commandVector[1], stoi(commandVector[2]));
 
-        if(commandResult == 0)
-            o_stream << "[SUCCESS] Novo valor de " << commandVector[1] << " e " << commandVector[2] << " unidades." << endl;
-        else if(commandResult == -1)
-            o_stream << "[ERRO] Tipo de recurso invalido. Este deve ser 'ouro' ou 'prod'." << endl;
-        else if(commandResult == -2)
-            o_stream << "[ERRO] A quantidade que inseriu e superior a capacidade do imperio: " << imperio->getMaxUnidades() << " unidades." << endl;
+            if (commandResult == 0)
+                o_stream << "[SUCCESS] Novo valor de " << commandVector[1] << " e " << commandVector[2] << " unidades." << endl;
+            else if (commandResult == -1)
+                o_stream << "[ERRO] Tipo de recurso invalido. Este deve ser 'ouro' ou 'prod'." << endl;
+            else if (commandResult == -2)
+                o_stream << "[ERRO] A quantidade que inseriu e superior a capacidade do imperio: " << imperio->getMaxUnidades() << " unidades." << endl;
+        }
+        else {
+            o_stream << "[ ERRO ] Digite um numero. Por favor use a seguinte estrutura:" << endl
+                << "       modifica ouro|prod <quant>" << endl << endl;
+        }
+
     } else
         o_stream << "[ ERRO ] Formato do comando invalido. Por favor use a seguinte estrutura:" << endl
                  << "       modifica ouro|prod <quant>" << endl << endl;
-
 }
 
 void Interface::commandMaisOuro(vector<string> commandVector) {
@@ -448,7 +468,10 @@ void Interface::commandHelp() {
         << "adquire <tipo> - Adquire uma tecnologia" << endl << endl
         << "lista - Lista informacao sobre o imperio" << endl << endl
         << "lista conquistados - Lista os territorios conquistados pelo imperio" << endl << endl
+        << "lista por_conquistar - Lista todos os territorios no mundo que ainda nao foram conquistados" << endl << endl
         << "lista territorios - Lista todos os territorios no mundo" << endl << endl
+        << "lista <nome_territorio> - Lista todas as informacoes do territorio em questao" << endl << endl
+        << "lista tecnologias - Lista todas as tecnologias existentes e seus detalhes" << endl << endl
         << "avanca - Avanca para a fase seguinte" << endl << endl
         << "grava <nomeSnapshot> - Grava em memoria uma snapshot com um determinado nome do estado atual do jogo" << endl << endl
         << "ativa <nomeSnapshot> - Restaura o estado de uma snapshot guardada em memoria" << endl << endl
