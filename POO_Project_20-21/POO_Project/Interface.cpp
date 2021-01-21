@@ -145,7 +145,7 @@ void Interface::incrementTurno() {
 
 void Interface::nextFase() {
     Imperio* imperio = mundo->getImperio();
-    if(fase == 12 && ano == 2)
+    if(turno == 12 && ano == 2)
         finishGame();
     
     if(fase == F_EVENTOS) { // Change turno
