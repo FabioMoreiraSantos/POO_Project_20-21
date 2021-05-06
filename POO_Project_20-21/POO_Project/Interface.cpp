@@ -30,7 +30,7 @@ void Interface::run() {
 
     o_stream << endl
              << "##########################  Bem vindo jogador!  ##########################" << endl
-             << "    Digite o comando 'help' para ver a lista de comandos disponívels" << endl << endl << endl;
+             << "    Digite o comando 'help' para ver a lista de comandos disponivels" << endl << endl << endl;
 
     while(true) {
         o_stream <<"\n[Ano " << getAno() << "]"
